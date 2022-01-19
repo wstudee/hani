@@ -33,8 +33,9 @@ public class CodeEntity {
 	@Column(name = "update_date", nullable = false, updatable = true)
 	private LocalDateTime updateDate = LocalDateTime.now() ;
 	
-	@Column(name = "reg_user", nullable = false, updatable = true, length  = 150)
-	private String regUser     ;
+	@ManyToOne
+	@JoinColumn(name ="reg_user", nullable = false)
+	private UserEntity regUser;
 
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
