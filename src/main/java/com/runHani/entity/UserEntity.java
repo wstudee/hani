@@ -1,4 +1,4 @@
-package com.runHani.demo;
+package com.runHani.entity;
 
 import java.time.LocalDateTime;
 import javax.persistence.*;
