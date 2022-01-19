@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 
 import javax.persistence.*;
+
+import com.sun.istack.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,23 +30,22 @@ public class NoticeEntity {
 	@Lob
 	private String contents;
 	
-	
-	@Column(name = "update_user", nullable = false, updatable = true, length  = 150)
-	private String updateUser  ;
-
 	@Column(name = "update_date", nullable = false, updatable = true)
 	private LocalDateTime updateDate = LocalDateTime.now() ;
 	
-	@Column(name = "reg_user", nullable = false, updatable = true, length  = 150)
-	private String regUser     ;
+	@ManyToOne
+	@JoinColumn(name ="update_user", nullable = false)
+	private UserEntity updateUser;
 
+	@ManyToOne
+	@JoinColumn(name ="reg_user", nullable = false)
+	private UserEntity regUser;
+	
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
 	
-	
-
 	@OneToMany
-	@JoinColumn(name="board_no")
+	@JoinColumn(name="board_no", nullable = false)
 	private Collection<NoticeFileEntity> fileList;
 	
 }

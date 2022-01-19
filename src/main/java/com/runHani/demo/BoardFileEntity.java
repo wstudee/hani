@@ -21,8 +21,9 @@ public class BoardFileEntity {
 	@Column(name = "file_save_name", nullable = false, updatable = true, length = 1000) 
 	private String fileSaveName      ;
 	
-	@Column(name = "reg_user", nullable = false, updatable = true, length = 150)
-	private String regUser     ;
+	@ManyToOne
+	@JoinColumn(name ="reg_user", nullable = false)
+	private UserEntity regUser;
 
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
