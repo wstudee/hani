@@ -18,7 +18,7 @@ public class NoticeEntity {
 
 	@Id
 	@Column(name = "board_no", nullable = false, updatable = true, length = 20) 
-	private String boardNo            ;
+	private Integer boardNo            ;
 	
 	@Column(name = "title", nullable = false, updatable = true, length = 50) 
 	private String title;
@@ -27,7 +27,6 @@ public class NoticeEntity {
 	private String boardStatus;
 	
 	@Column(name = "contents", updatable = true) 
-	@Lob
 	private String contents;
 	
 	@Column(name = "update_date", nullable = false, updatable = true)
