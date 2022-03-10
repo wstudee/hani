@@ -24,8 +24,10 @@ public class NoticeController {
 	  @RequestMapping("/list")
 	    public ModelAndView Index(ModelAndView mav) {
 	        mav.setViewName(baseJSPpath+"/list");
-	        	        ArrayList<NoticeEntity> noticeList =  noticeService.selectNoticeList();
+	        	      
+	        ArrayList<NoticeEntity> noticeList =  (ArrayList<NoticeEntity>) noticeService.selectNoticeList();
 	         mav.addObject("list", noticeList);
+	         
 	        return mav;
 	    }
 	  

@@ -1,4 +1,4 @@
-package com.runHani.demo;
+package com.runHani;
 
 import javax.persistence.Entity;
 
@@ -10,10 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.runHani"})
-@EntityScan("com.runHani")
+@EnableAutoConfiguration
 public class RunHaniApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(RunHaniApplication.class, args);
 	}
