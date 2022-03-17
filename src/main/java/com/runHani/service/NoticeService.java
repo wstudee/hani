@@ -23,10 +23,6 @@ public class NoticeService  {
     }
 	
 	public List<NoticeEntity> selectNoticeList() {
-		System.err.println("--");
-		System.err.println("err----------------------------"+(noticeRepo == null));
-		System.err.println("err----------------------------"+ noticeRepo.toString());
-		
 		
 		return (List<NoticeEntity>) noticeRepo.findAll();
 	}
@@ -50,6 +46,13 @@ public class NoticeService  {
 	public NoticeEntity selectNotice(int notice_no) {
 
 		return noticeRepo.findById(notice_no).get();
+		
+	}
+
+	public void deleteNotice(int noticeNo) throws Exception  {
+		
+
+		noticeRepo.deleteById(noticeNo);
 		
 	}
 

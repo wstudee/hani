@@ -3,28 +3,44 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
+
+function deletePost(){
+	$.ajax({ 
+		url: "/notice/${notice.noticeNo}", 
+		type: "delete", 
+		success: function(data){ 
+				alert('삭제하였습니다.')
+				},
+		error: function (request, status, error){  
+			alert('오류가 발생하였습니다. 잠시후에 다시 시도해주시기 바랍니다.')
+			} 
+	});
+}
+
 </script>
 <body>
 	<div class="container">
-		<h3>LIST</h3>
+		<h3>VIEW</h3>
 		<div class="row">
 			<table class="table">
-				<colgroup>
-					<col width="50%">
-					<col width="50%">
-				</colgroup>
 				<tr>
 					<th>제목</th>
-					<th>내용</th>
 				</tr>
-					<tr>
-						<td>${notice.title}</td>
-						<td>${notice.contents}</td>
-					</tr>
+				<tr>
+					<td>${notice.title}</td>
+				</tr>
+				<tr>	
+					<th>내용</th>
+				</tr>	
+				<tr>
+					<td>${notice.contents}</td>
+				</tr>
 			</table>
 		</div>
 		 <div class="row">
-		 	<!-- <button type="button" class="btn btn-primary" onclick="location.href='/register'">글등록</button>	</div> -->
+			<button type="submit" class="btn btn-primary" onclick="deletePost()" >글삭제</button>
+			<button type="button" class="btn btn-primary"  onclick="deletePost()" >수정</button>
+		 </div> 
 	</div>
 </body>
 </html>

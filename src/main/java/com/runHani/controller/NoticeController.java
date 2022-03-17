@@ -1,7 +1,9 @@
 package com.runHani.controller;
 
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,8 +30,6 @@ public class NoticeController {
 	    public ModelAndView list (ModelAndView mav) {
 	        mav.setViewName(baseJSPpath+"/list");
 	        	      
-	        
-	        
 	        ArrayList<NoticeEntity> noticeList =  (ArrayList<NoticeEntity>) noticeService.selectNoticeList();
 	         mav.addObject("list", noticeList);
 	         
@@ -50,17 +50,37 @@ public class NoticeController {
 		  
 		  noticeService.postNoitce(notice);
 		  
-		  return "redirect:/list";
+		  return "redirect:/notice";
 	  }
 	  
-	  @RequestMapping(value = "/{notice_no}" , method = RequestMethod.GET)
-	  public ModelAndView postNotice(@PathVariable int  notice_no) {
+	  @RequestMapping(value = "/{noticeNo}" , method = RequestMethod.GET)
+	  public ModelAndView postNotice(@PathVariable int  noticeNo) {
 
 		  ModelAndView mav = new ModelAndView( baseJSPpath+"/detail");
 		  
-		  mav.addObject("notice", (NoticeEntity)noticeService.selectNotice(notice_no));
+		  mav.addObject("notice", (NoticeEntity)noticeService.selectNotice(noticeNo));
 		  
 		  return mav;
+	  }
+
+	  @RequestMapping(value = "/{noticeNo}" , method = RequestMethod.DELETE)
+	  public HashMap<String, String> deleteNotice(HttpRequest requset , @PathVariable int  noticeNo){
+		  
+
+		  
+		  HashMap<String, String> result = new  HashMap<>();
+		  
+		  
+		  try {
+			  noticeService.deleteNotice(noticeNo);
+			  result.put("code", "200");
+		  }catch(Exception e){
+			  result.put("code", "400");
+		  }
+		  
+		  
+		  
+		  return result;
 	  }
 	  
 	  
