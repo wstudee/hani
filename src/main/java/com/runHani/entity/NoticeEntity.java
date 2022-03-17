@@ -5,26 +5,31 @@ import java.util.Collection;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.sun.istack.NotNull;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "tb_notice_bas")
+@Data
 public class NoticeEntity {
 
 	@Id
-	@Column(name = "board_no", nullable = false, updatable = true, length = 20) 
-	private Integer boardNo            ;
+	@Column(name = "notice_no", nullable = false, updatable = true, length = 20) 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer noticeNo            ;
 	
 	@Column(name = "title", nullable = false, updatable = true, length = 50) 
 	private String title;
 	
-	@Column(name = "board_status", nullable = false, updatable = true, length = 10) 
-	private String boardStatus;
+	@Column(name = "notice_status", nullable = false, updatable = true, length = 10) 
+	@ColumnDefault("'I'")
+	private String noticeStatus = "I";
 	
 	@Column(name = "contents", updatable = true) 
 	private String contents;
@@ -44,7 +49,13 @@ public class NoticeEntity {
 	private LocalDateTime regDate     = LocalDateTime.now() ;
 	
 	@OneToMany
-	@JoinColumn(name="board_no", nullable = false)
+	@JoinColumn(name="notice_no", nullable = false)
 	private Collection<NoticeFileEntity> fileList;
+
+
+	
+	
+	
+	
 	
 }
