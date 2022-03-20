@@ -1,9 +1,13 @@
 package com.runHani.controller;
 
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,8 +32,6 @@ public class NoticeController {
 	    public ModelAndView list (ModelAndView mav) {
 	        mav.setViewName(baseJSPpath+"/list");
 	        	      
-	        
-	        
 	        ArrayList<NoticeEntity> noticeList =  (ArrayList<NoticeEntity>) noticeService.selectNoticeList();
 	         mav.addObject("list", noticeList);
 	         
@@ -50,17 +52,34 @@ public class NoticeController {
 		  
 		  noticeService.postNoitce(notice);
 		  
-		  return "redirect:/list";
+		  return "redirect:/notice";
 	  }
 	  
-	  @RequestMapping(value = "/{notice_no}" , method = RequestMethod.GET)
-	  public ModelAndView postNotice(@PathVariable int  notice_no) {
+	  @RequestMapping(value = "/{noticeNo}" , method = RequestMethod.GET)
+	  public ModelAndView postNotice(@PathVariable int  noticeNo) {
 
 		  ModelAndView mav = new ModelAndView( baseJSPpath+"/detail");
 		  
-		  mav.addObject("notice", (NoticeEntity)noticeService.selectNotice(notice_no));
+		  mav.addObject("notice", (NoticeEntity)noticeService.selectNotice(noticeNo));
 		  
 		  return mav;
+	  }
+
+	  @RequestMapping(value = "/{noticeNo}" , method = RequestMethod.DELETE)
+	  public ResponseEntity  deleteNotice(@PathVariable int  noticeNo){
+
+		  try {
+			noticeService.deleteNotice(noticeNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		  
+		  
+		  return ResponseEntity
+			       .ok().contentType(MediaType.APPLICATION_JSON)
+			       .header("Allow", "DELETE")
+			       .build();
+		  
 	  }
 	  
 	  

@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 function register(){
-	document.inputForm.action="/register"; 
+	document.inputForm.action="/notice/register"; 
 	document.inputForm.method="post";
 	document.inputForm.submit();
 }
