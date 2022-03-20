@@ -8,6 +8,7 @@ function deletePost(){
 	$.ajax({ 
 		url: "/notice/${notice.noticeNo}", 
 		type: "delete", 
+		dataType : 'text',
 		success: function(data){ 
 				alert('삭제하였습니다.')
 				},

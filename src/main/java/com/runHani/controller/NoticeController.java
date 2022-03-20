@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,23 +66,20 @@ public class NoticeController {
 	  }
 
 	  @RequestMapping(value = "/{noticeNo}" , method = RequestMethod.DELETE)
-	  public HashMap<String, String> deleteNotice(HttpRequest requset , @PathVariable int  noticeNo){
-		  
+	  public ResponseEntity  deleteNotice(@PathVariable int  noticeNo){
 
-		  
-		  HashMap<String, String> result = new  HashMap<>();
-		  
-		  
 		  try {
-			  noticeService.deleteNotice(noticeNo);
-			  result.put("code", "200");
-		  }catch(Exception e){
-			  result.put("code", "400");
-		  }
+			noticeService.deleteNotice(noticeNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		  
 		  
+		  return ResponseEntity
+			       .ok().contentType(MediaType.APPLICATION_JSON)
+			       .header("Allow", "DELETE")
+			       .build();
 		  
-		  return result;
 	  }
 	  
 	  
