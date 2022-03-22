@@ -17,10 +17,10 @@ function modify(){
 				<form name="inputForm"  method="post">
 				  <div class="form-group">
 				    <label for="exampleFormControlInput1">Á¦¸ñ</label>
-				    <input type="email" class="form-control" id="exampleFormControlInput1" name= "title" value ='${notice.title}' >
+				    <input type="text" class="form-control" id="title" name= "title" value ='${notice.title}' >
 				  </div>
 				  <div class="form-group">
-				    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name = "contents">${notice.contents}</textarea>
+				    <textarea class="form-control" id="contents" rows="3" name = "contents">${notice.contents}</textarea>
 				  </div>
 				  <input type="hidden" name = '_method' value = "">
 				</form>

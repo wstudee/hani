@@ -50,9 +50,7 @@ public class NoticeController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(NoticeEntity notice) {
 
-		System.err.println(notice);
-
-		noticeService.postNoitce(notice);
+		noticeService.postNotice(notice);
 
 		return "redirect:/notice";
 	}
@@ -80,10 +78,8 @@ public class NoticeController {
 	@RequestMapping(value = "/{noticeNo}", method = RequestMethod.PUT)
 	public String updateNotice(NoticeEntity notice) {
 
-			System.err.println(notice);
-
-			noticeService.postNoitce(notice);
-
+			noticeService.postNotice(notice);
+			
 			return "redirect:/notice";
 	}
 
@@ -93,7 +89,6 @@ public class NoticeController {
 		
 		ModelAndView result = new ModelAndView("/notice");
 		
-		System.err.println("del _ "+noticeNo);
 		try {
 			noticeService.deleteNotice(noticeNo);
 			result.addObject("resultCode","SUCCEESS");

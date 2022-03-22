@@ -17,11 +17,17 @@ function register(){
 				<form name="inputForm" >
 				  <div class="form-group">
 				    <label for="exampleFormControlInput1">力格</label>
-				    <input type="email" class="form-control" id="exampleFormControlInput1" name= "title">
+				    <input type="text" class="form-control" id="title" name= "title">
 				  </div>
 				  <div class="form-group">
-				    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name = "contents"></textarea>
+				    <textarea class="form-control" id="file" rows="3" name = "contents"></textarea>
 				  </div>
+				   <div class="form-group">
+				    <label for="exampleFormControlInput1">梅何颇老</label>
+				    <input type="file" class="form-control" id="file" name= "fileList" multiple>
+				  </div>		  
+				  
+				  
 				</form>
 			</div>
 		</div>

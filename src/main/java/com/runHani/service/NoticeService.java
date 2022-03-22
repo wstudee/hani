@@ -27,7 +27,7 @@ public class NoticeService  {
 		return (List<NoticeEntity>) noticeRepo.findAll();
 	}
 
-	public int postNoitce(NoticeEntity notice) {
+	public int postNotice(NoticeEntity notice) {
 		
 		UserEntity user = new UserEntity();
 		
@@ -55,5 +55,6 @@ public class NoticeService  {
 		noticeRepo.deleteById(noticeNo);
 		
 	}
+
 
 }
