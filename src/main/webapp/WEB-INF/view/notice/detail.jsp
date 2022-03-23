@@ -4,19 +4,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 
-function deletePost(){
-	$.ajax({ 
-		url: "/notice/${notice.noticeNo}", 
-		type: "delete", 
-		dataType : 'text',
-		success: function(data){ 
-				alert('삭제하였습니다.')
-				},
-		error: function (request, status, error){  
-			alert('오류가 발생하였습니다. 잠시후에 다시 시도해주시기 바랍니다.')
-			} 
-	});
+function takeNotice(method){
+	document.notice._method.value = method;
+	document.notice.submit();
+
 }
+
 
 </script>
 <body>
@@ -39,9 +32,12 @@ function deletePost(){
 			</table>
 		</div>
 		 <div class="row">
-			<button type="submit" class="btn btn-primary" onclick="deletePost()" >글삭제</button>
-			<button type="button" class="btn btn-primary"  onclick="deletePost()" >수정</button>
+			<button type="submit" class="btn btn-primary" onclick="takeNotice('DELETE')" >글삭제</button>
+			<button type="button" class="btn btn-primary"  onclick="takeNotice('POST')" >수정</button>
 		 </div> 
+		<form name="notice" method="post" action="/notice/${notice.noticeNo}">
+		    <input type="hidden" name="_method" value=""/>
+		</form>
 	</div>
 </body>
 </html>
