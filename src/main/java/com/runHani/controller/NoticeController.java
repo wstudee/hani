@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.runHani.entity.NoticeEntity;
+import com.runHani.entity.NoticeFileEntity;
+import com.runHani.service.NoticeFileService;
 import com.runHani.service.NoticeService;
 
 @Controller
@@ -29,6 +32,8 @@ public class NoticeController {
 
 	@Autowired
 	private NoticeService noticeService;
+	@Autowired
+	private NoticeFileService noticeFileService;
 
 	@RequestMapping("")
 	public ModelAndView list(ModelAndView mav) {
@@ -48,9 +53,11 @@ public class NoticeController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(NoticeEntity notice) {
+	public String register(NoticeEntity notice, MultipartHttpServletRequest req) {
 
-		noticeService.postNotice(notice);
+		
+		noticeService.postNotice(notice,req);
+		
 
 		return "redirect:/notice";
 	}
@@ -60,7 +67,13 @@ public class NoticeController {
 
 		ModelAndView mav = new ModelAndView(baseJSPpath + "/detail");
 
-		mav.addObject("notice", (NoticeEntity) noticeService.selectNotice(noticeNo));
+		NoticeEntity notice =  noticeService.selectNotice(noticeNo);
+		
+		
+		mav.addObject("notice", notice);
+		
+		
+		
 
 		return mav;
 	}

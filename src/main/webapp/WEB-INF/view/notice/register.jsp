@@ -14,7 +14,8 @@ function register(){
 		<h3>LIST</h3>
 		<div class="row">
 			<div  class="col">
-				<form name="inputForm" >
+				<form name="inputForm" enctype="multipart/form-data">
+
 				  <div class="form-group">
 				    <label for="exampleFormControlInput1">力格</label>
 				    <input type="text" class="form-control" id="title" name= "title">
@@ -24,10 +25,8 @@ function register(){
 				  </div>
 				   <div class="form-group">
 				    <label for="exampleFormControlInput1">梅何颇老</label>
-				    <input type="file" class="form-control" id="file" name= "fileList" multiple>
-				  </div>		  
-				  
-				  
+				    <input type="file" class="form-control" id="file" name= "files" multiple>
+				  </div>		   
 				</form>
 			</div>
 		</div>

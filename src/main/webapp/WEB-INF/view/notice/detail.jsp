@@ -29,6 +29,17 @@ function takeNotice(method){
 				<tr>
 					<td>${notice.contents}</td>
 				</tr>
+				<tr>	
+					<th>Ã·ºÎÆÄÀÏ</th>
+				</tr>
+				<tr>
+					<td>
+				<c:forEach var="file" items="${notice.fileList}" varStatus="status">
+					${file.fileName}<br>
+				</c:forEach>
+					<td>
+				</tr>
+
 			</table>
 		</div>
 		 <div class="row">
