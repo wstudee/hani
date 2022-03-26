@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 function register(){
-	document.inputForm.action="/notice/register"; 
+	document.inputForm.action="/notice"; 
 	document.inputForm.method="post";
 	document.inputForm.submit();
 }
@@ -31,7 +31,7 @@ function register(){
 			</div>
 		</div>
 		<div class="row">
-			<button type="button" class="btn btn-primary" onclick="location.href='/notice'">목록으로</button>
+			<button type="button" class="btn btn-primary" onclick="location.href='/notice/list'">목록으로</button>
 			<button type="button" class="btn btn-primary" onclick="register()">등록</button>
 		</div>
 	</div>

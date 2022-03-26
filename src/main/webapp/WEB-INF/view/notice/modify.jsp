@@ -27,7 +27,7 @@ function modify(){
 			</div>
 		</div>
 		<div class="row">
-			<button type="button" class="btn btn-primary" onclick="location.href='/notice'">목록으로</button>
+			<button type="button" class="btn btn-primary" onclick="location.href='/notice/list'">목록으로</button>
 			<button type="button" class="btn btn-primary" onclick="modify()">수정</button>
 		</div>
 	</div>

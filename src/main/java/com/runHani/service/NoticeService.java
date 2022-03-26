@@ -25,7 +25,7 @@ public class NoticeService  {
     private NoticeRepository noticeRepo;
 
     @Autowired
-    public void setPersonRepository(NoticeRepository noticeRepo) {
+    public void setNoticeRepository(NoticeRepository noticeRepo) {
         this.noticeRepo = noticeRepo;
     }
 	

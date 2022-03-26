@@ -35,7 +35,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeFileService noticeFileService;
 
-	@RequestMapping("")
+	@RequestMapping("list")
 	public ModelAndView list(ModelAndView mav) {
 		mav.setViewName(baseJSPpath + "/list");
 
@@ -45,21 +45,21 @@ public class NoticeController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView registerPage(ModelAndView mav) {
 		mav.setViewName(baseJSPpath + "/register");
 
 		return mav;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String register(NoticeEntity notice, MultipartHttpServletRequest req) {
 
 		
 		noticeService.postNotice(notice,req);
 		
 
-		return "redirect:/notice";
+		return "redirect:/notice/list";
 	}
 
 	@RequestMapping(value = "/{noticeNo}", method = RequestMethod.GET)
@@ -93,7 +93,7 @@ public class NoticeController {
 
 			noticeService.postNotice(notice);
 			
-			return "redirect:/notice";
+			return "redirect:/notice/list";
 	}
 
 
@@ -109,7 +109,7 @@ public class NoticeController {
 			result.addObject("resultCode","FAIL");
 		}
 
-		return "redirect:/notice";
+		return "redirect:/notice/list";
 	}
 
 }
