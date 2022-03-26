@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.runHani.entity.NoticeEntity;
+import com.runHani.entity.NoticeFileEntity;
+import com.runHani.service.NoticeFileService;
 import com.runHani.service.NoticeService;
 
 @Controller
@@ -29,8 +32,10 @@ public class NoticeController {
 
 	@Autowired
 	private NoticeService noticeService;
+	@Autowired
+	private NoticeFileService noticeFileService;
 
-	@RequestMapping("")
+	@RequestMapping("list")
 	public ModelAndView list(ModelAndView mav) {
 		mav.setViewName(baseJSPpath + "/list");
 
@@ -40,19 +45,21 @@ public class NoticeController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView registerPage(ModelAndView mav) {
 		mav.setViewName(baseJSPpath + "/register");
 
 		return mav;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(NoticeEntity notice) {
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public String register(NoticeEntity notice, MultipartHttpServletRequest req) {
 
-		noticeService.postNotice(notice);
+		
+		noticeService.postNotice(notice,req);
+		
 
-		return "redirect:/notice";
+		return "redirect:/notice/list";
 	}
 
 	@RequestMapping(value = "/{noticeNo}", method = RequestMethod.GET)
@@ -60,7 +67,13 @@ public class NoticeController {
 
 		ModelAndView mav = new ModelAndView(baseJSPpath + "/detail");
 
-		mav.addObject("notice", (NoticeEntity) noticeService.selectNotice(noticeNo));
+		NoticeEntity notice =  noticeService.selectNotice(noticeNo);
+		
+		
+		mav.addObject("notice", notice);
+		
+		
+		
 
 		return mav;
 	}
@@ -80,7 +93,7 @@ public class NoticeController {
 
 			noticeService.postNotice(notice);
 			
-			return "redirect:/notice";
+			return "redirect:/notice/list";
 	}
 
 
@@ -96,7 +109,7 @@ public class NoticeController {
 			result.addObject("resultCode","FAIL");
 		}
 
-		return "redirect:/notice";
+		return "redirect:/notice/list";
 	}
 
 }

@@ -16,7 +16,8 @@ public class NoticeFileEntity {
 
 	@Id
 	@Column(name = "attached_file_no", nullable = false, updatable = true, length = 20)
-	private String attachedFileNo    ;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer attachedFileNo    ;
 	
 	@Column(name = "file_name", nullable = false, updatable = true, length = 150) 
 	private String fileName           ;
@@ -24,12 +25,23 @@ public class NoticeFileEntity {
 	@Column(name = "file_save_name", nullable = false, updatable = true, length = 1000) 
 	private String fileSaveName      ;
 	
-	@NotNull
-	@ManyToOne
-	@JoinColumn(name ="reg_user", nullable = false)
-	private UserEntity user;
-
+	@Column(name = "file_path", nullable = false, updatable = true, length = 1000) 
+	private String filePath      ;
+	
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
+
+	public NoticeFileEntity() {
+		
+	}
+	
+	public NoticeFileEntity(String fileName, String fileSaveName, LocalDateTime regDate) {
+		super();
+		this.fileName = fileName;
+		this.fileSaveName = fileSaveName;
+		this.regDate = regDate;
+	}
+	
+	
 	
 }

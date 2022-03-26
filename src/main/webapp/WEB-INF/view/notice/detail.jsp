@@ -29,11 +29,25 @@ function takeNotice(method){
 				<tr>
 					<td>${notice.contents}</td>
 				</tr>
-			</table>
+				<c:if test="${not empty notice.fileList }" >
+				<tr>	
+					<th>첨부파일</th>
+				</tr>
+				<tr>
+					<td>
+				<c:forEach var="file" items="${notice.fileList}" varStatus="status">
+					<a href="/noticeFile/${file.attachedFileNo}">${file.fileName}<br></a>
+				</c:forEach>
+					
+					<td>
+				</tr>
+				</c:if>
+-			</table>
 		</div>
 		 <div class="row">
 			<button type="submit" class="btn btn-primary" onclick="takeNotice('DELETE')" >글삭제</button>
 			<button type="button" class="btn btn-primary"  onclick="takeNotice('POST')" >수정</button>
+			<button type="button" class="btn btn-primary" onclick="location.href='/notice/list'">목록으로</button>
 		 </div> 
 		<form name="notice" method="post" action="/notice/${notice.noticeNo}">
 		    <input type="hidden" name="_method" value=""/>

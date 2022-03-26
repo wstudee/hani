@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 function register(){
-	document.inputForm.action="/notice/register"; 
+	document.inputForm.action="/notice"; 
 	document.inputForm.method="post";
 	document.inputForm.submit();
 }
@@ -14,7 +14,8 @@ function register(){
 		<h3>LIST</h3>
 		<div class="row">
 			<div  class="col">
-				<form name="inputForm" >
+				<form name="inputForm" enctype="multipart/form-data">
+
 				  <div class="form-group">
 				    <label for="exampleFormControlInput1">제목</label>
 				    <input type="text" class="form-control" id="title" name= "title">
@@ -24,15 +25,13 @@ function register(){
 				  </div>
 				   <div class="form-group">
 				    <label for="exampleFormControlInput1">첨부파일</label>
-				    <input type="file" class="form-control" id="file" name= "fileList" multiple>
-				  </div>		  
-				  
-				  
+				    <input type="file" class="form-control" id="file" name= "files" multiple>
+				  </div>		   
 				</form>
 			</div>
 		</div>
 		<div class="row">
-			<button type="button" class="btn btn-primary" onclick="location.href='/notice'">목록으로</button>
+			<button type="button" class="btn btn-primary" onclick="location.href='/notice/list'">목록으로</button>
 			<button type="button" class="btn btn-primary" onclick="register()">등록</button>
 		</div>
 	</div>

@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 	function goDetail(sn){
-		location.href= 'notice/'+sn;
+		location.href= '/notice/'+sn;
 	}
 </script>
 <body>
@@ -29,7 +29,10 @@
 			</table>
 		</div>
 		 <div class="row">
-		 	<button type="button" class="btn btn-primary" onclick="location.href='/notice/register'">글등록</button>	</div>
+		 	<button type="button" class="btn btn-primary" onclick="location.href='/notice'">글등록</button>
+		 	<button type="button" class="btn btn-primary" onclick="location.href='/notice/list'">목록으로</button>	
+	 	</div>
+		 	
 	</div>
 </body>
 </html>
