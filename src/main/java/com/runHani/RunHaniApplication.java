@@ -12,25 +12,31 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.web.config.PageableHandlerMethodArgumentResolverCustomizer;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-@SpringBootApplication(exclude= {MultipartAutoConfiguration.class })
+@SpringBootApplication(exclude = { MultipartAutoConfiguration.class })
 @EnableAutoConfiguration
-@ServletComponentScan 
+@ServletComponentScan
 public class RunHaniApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RunHaniApplication.class, args);
 	}
-	
+
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {
 		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-		
+
 		commonsMultipartResolver.setDefaultEncoding("UTF-8");
-		commonsMultipartResolver.setMaxInMemorySize(5*1024*1024);
-		
+		commonsMultipartResolver.setMaxInMemorySize(5 * 1024 * 1024);
+
 		return commonsMultipartResolver;
+	}
+
+	@Bean
+	public PageableHandlerMethodArgumentResolverCustomizer customize() {
+		return p -> p.setOneIndexedParameters(true);
 	}
 
 }
