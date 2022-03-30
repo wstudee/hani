@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -29,9 +30,10 @@ public class NoticeService  {
         this.noticeRepo = noticeRepo;
     }
 	
-	public List<NoticeEntity> selectNoticeList() {
+	public Page<NoticeEntity> selectNoticeList(Pageable pageable) {
 		
-		return (List<NoticeEntity>) noticeRepo.findAll();
+		
+		return (Page<NoticeEntity>)noticeRepo.findAll(pageable);
 	}
 
 	public int postNotice(NoticeEntity notice) {

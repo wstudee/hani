@@ -1,28 +1,22 @@
 package com.runHani.controller;
 
-import java.net.http.HttpRequest;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.runHani.entity.NoticeEntity;
-import com.runHani.entity.NoticeFileEntity;
-import com.runHani.service.NoticeFileService;
 import com.runHani.service.NoticeService;
+import com.runHani.util.HaniUtil;
 
 @Controller
 @RequestMapping("notice")
@@ -32,15 +26,20 @@ public class NoticeController {
 
 	@Autowired
 	private NoticeService noticeService;
-	@Autowired
-	private NoticeFileService noticeFileService;
 
+	
 	@RequestMapping("list")
-	public ModelAndView list(ModelAndView mav) {
+	public ModelAndView list(ModelAndView mav,@PageableDefault( size = 10)   Pageable pageable) {
 		mav.setViewName(baseJSPpath + "/list");
 
-		ArrayList<NoticeEntity> noticeList = (ArrayList<NoticeEntity>) noticeService.selectNoticeList();
+		Page<NoticeEntity> resultList =  noticeService.selectNoticeList(pageable);
+		List<NoticeEntity> noticeList = resultList.getContent();
+		HashMap<String, Integer> paging = HaniUtil.calculatePaging(resultList);
+		
+		
 		mav.addObject("list", noticeList);
+		mav.addObject("page", paging);
+		mav.addObject("totalCnt", resultList.getTotalElements());
 
 		return mav;
 	}
