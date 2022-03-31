@@ -35,6 +35,12 @@ public class NoticeService  {
 		
 		return (Page<NoticeEntity>)noticeRepo.findAll(pageable);
 	}
+	@SuppressWarnings("unchecked")
+	public List<NoticeEntity> selectNoticdeList(Pageable pageable) {
+		
+		
+		return (List<NoticeEntity>)noticeRepo.findAll(pageable);
+	}
 
 	public int postNotice(NoticeEntity notice) {
 		
@@ -75,6 +81,11 @@ public class NoticeService  {
 			notice.setFileList(fileList);
 		}
 		postNotice(notice);
+	}
+
+	public Page<NoticeEntity> selectNoticeListByTitle(String searchWord, Pageable pageable) {
+		
+		return noticeRepo.findByTitleContaining(searchWord,pageable);
 	}
 
 
