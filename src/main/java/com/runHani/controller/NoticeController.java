@@ -29,10 +29,11 @@ public class NoticeController {
 
 	
 	@RequestMapping("list")
-	public ModelAndView list(ModelAndView mav,@PageableDefault( size = 10)   Pageable pageable) {
-		mav.setViewName(baseJSPpath + "/list");
+	public ModelAndView list(String searchWord, @PageableDefault( size = 10)   Pageable pageable) {
+		ModelAndView mav = new ModelAndView(baseJSPpath + "/list");
 
-		Page<NoticeEntity> resultList =  noticeService.selectNoticeList(pageable);
+		if(searchWord==null) { searchWord = ""; }
+		Page<NoticeEntity> resultList =  noticeService.selectNoticeListByTitle(searchWord,pageable);
 		List<NoticeEntity> noticeList = resultList.getContent();
 		HashMap<String, Integer> paging = HaniUtil.calculatePaging(resultList);
 		

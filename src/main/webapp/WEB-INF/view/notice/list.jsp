@@ -8,11 +8,21 @@
 	function goDetail(sn){
 		location.href= '/notice/'+sn;
 	}
+
+	function search(){
+		
+		var searchWord = $('#searchWord').val()
+		location.href= '/notice/list?searchWord='+searchWord
+		
+	}
 </script>
 <body>
 	<div class="container">
 		<h3>LIST</h3>
 		<div class="row">
+		<div class="row">
+			검색어 : <input type= "text" name = "searchWord" id = "searchWord" /> <button onclick="search()">검색</button>
+		</div>
 			<table class="table">
 				<colgroup>
 					<col width="50%">
@@ -36,7 +46,7 @@
 		       <a class="page-link" href="${path}?page=${page.prePage}" aria-label="Previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
-		    </li>${page} / - ${ totalCnt}
+		    </li>
 		    <c:forEach var="i" begin="${page.listStart}" end="${page.lastEnd}">
 		    <li class="page-item"><a class="page-link" href="${path}?page=${i}" aria-label="${i}">${i}</a></li>
 			</c:forEach>
