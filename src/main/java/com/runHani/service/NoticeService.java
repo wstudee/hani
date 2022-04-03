@@ -72,8 +72,6 @@ public class NoticeService  {
 	}
 
 	public void postNotice(NoticeEntity notice, MultipartHttpServletRequest req) {
-
-		
 		
 		List<NoticeFileEntity> fileList = FileUtils.parseFileinfo(req);			
 			
@@ -84,8 +82,15 @@ public class NoticeService  {
 	}
 
 	public Page<NoticeEntity> selectNoticeListByTitle(String searchWord, Pageable pageable) {
-		
 		return noticeRepo.findByTitleContaining(searchWord,pageable);
+	}
+
+	public Page<NoticeEntity> selectNoticeListByTotal(String searchWord, Pageable pageable) {
+		return noticeRepo.findByTitleContainingOrContentsContaining(searchWord,searchWord ,pageable);
+	}
+
+	public Page<NoticeEntity> selectNoticeListByContents(String searchWord, Pageable pageable) {
+		return noticeRepo.findByContentsContaining(searchWord,pageable);
 	}
 
 

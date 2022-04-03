@@ -10,9 +10,9 @@
 	}
 
 	function search(){
-		
-		var searchWord = $('#searchWord').val()
-		location.href= '/notice/list?searchWord='+searchWord
+		var searchWord = $('#searchWord').val();
+		var searchCriteria = $('#searchCriteria').val();
+		location.href= '/notice/list?searchWord='+searchWord+"&searchCriteria="+searchCriteria;
 		
 	}
 </script>
@@ -21,7 +21,12 @@
 		<h3>LIST</h3>
 		<div class="row">
 		<div class="row">
-			검색어 : <input type= "text" name = "searchWord" id = "searchWord" /> <button onclick="search()">검색</button>
+			<select id="searchCriteria"> 
+				<option value="total">전체</option>
+				<option value="title">제목</option>
+				<option value="contents">내용</option>
+			</select> 
+			<input type= "text" name = "searchWord" id = "searchWord"  value='${searchWord}'/> <button onclick="search()">검색</button>
 		</div>
 			<table class="table">
 				<colgroup>

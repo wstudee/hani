@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,11 +28,22 @@ public class NoticeController {
 
 	
 	@RequestMapping("list")
-	public ModelAndView list(String searchWord, @PageableDefault( size = 10)   Pageable pageable) {
+	public ModelAndView list(String searchWord,String searchCriteria, @PageableDefault( size = 10, sort = "noticeNo",direction = Sort.Direction.DESC)  Pageable pageable) {
 		ModelAndView mav = new ModelAndView(baseJSPpath + "/list");
 
-		if(searchWord==null) { searchWord = ""; }
-		Page<NoticeEntity> resultList =  noticeService.selectNoticeListByTitle(searchWord,pageable);
+		if(searchWord==null) { searchWord = ""; searchCriteria ="";}
+		
+		Page<NoticeEntity> resultList = null; 
+		
+		switch(searchCriteria) {
+			case "title" : resultList =  noticeService.selectNoticeListByTitle(searchWord,pageable); break;
+			case "contents" :resultList =  noticeService.selectNoticeListByContents(searchWord,pageable);  break;
+			default : resultList =  noticeService.selectNoticeListByTotal(searchWord,pageable);
+		}
+		mav.addObject("searchWord",searchWord);
+		mav.addObject("searchCriteria",searchCriteria);
+		
+		
 		List<NoticeEntity> noticeList = resultList.getContent();
 		HashMap<String, Integer> paging = HaniUtil.calculatePaging(resultList);
 		
@@ -41,7 +51,8 @@ public class NoticeController {
 		mav.addObject("list", noticeList);
 		mav.addObject("page", paging);
 		mav.addObject("totalCnt", resultList.getTotalElements());
-
+		
+		
 		return mav;
 	}
 
