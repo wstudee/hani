@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.runHani.entity.NoticeEntity;
+import com.runHani.entity.SearchEntity;
 import com.runHani.service.NoticeService;
 import com.runHani.util.HaniUtil;
 
@@ -28,26 +29,14 @@ public class NoticeController {
 
 	
 	@RequestMapping("list")
-	public ModelAndView list(String searchWord,String searchCriteria, @PageableDefault( size = 10, sort = "noticeNo",direction = Sort.Direction.DESC)  Pageable pageable) {
+	public ModelAndView list(SearchEntity searchEntity, @PageableDefault( size = 10, sort = "noticeNo",direction = Sort.Direction.DESC)  Pageable pageable) {
 		ModelAndView mav = new ModelAndView(baseJSPpath + "/list");
 
-		if(searchWord==null) { searchWord = ""; searchCriteria ="";}
-		
-		Page<NoticeEntity> resultList = null; 
-		
-		switch(searchCriteria) {
-			case "title" : resultList =  noticeService.selectNoticeListByTitle(searchWord,pageable); break;
-			case "contents" :resultList =  noticeService.selectNoticeListByContents(searchWord,pageable);  break;
-			default : resultList =  noticeService.selectNoticeListByTotal(searchWord,pageable);
-		}
-		mav.addObject("searchWord",searchWord);
-		mav.addObject("searchCriteria",searchCriteria);
-		
-		
+		Page<NoticeEntity> resultList = noticeService.getNoticeList(searchEntity, pageable);  
 		List<NoticeEntity> noticeList = resultList.getContent();
 		HashMap<String, Integer> paging = HaniUtil.calculatePaging(resultList);
 		
-		
+		mav.addObject("searchEntity",searchEntity);
 		mav.addObject("list", noticeList);
 		mav.addObject("page", paging);
 		mav.addObject("totalCnt", resultList.getTotalElements());

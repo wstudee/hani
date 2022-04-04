@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.runHani.entity.NoticeEntity;
 import com.runHani.entity.NoticeFileEntity;
+import com.runHani.entity.SearchEntity;
 import com.runHani.entity.UserEntity;
 import com.runHani.repository.NoticeRepository;
 import com.runHani.util.FileUtils;
@@ -91,6 +92,22 @@ public class NoticeService  {
 
 	public Page<NoticeEntity> selectNoticeListByContents(String searchWord, Pageable pageable) {
 		return noticeRepo.findByContentsContaining(searchWord,pageable);
+	}
+
+	public Page<NoticeEntity> getNoticeList(SearchEntity searchEntity, Pageable pageable) {
+
+		Page<NoticeEntity> resultList =  null; 
+		String searchCriteria = searchEntity.getSearchCriteria()==null ? "" : searchEntity.getSearchCriteria();
+		String searchWord = searchEntity.getSearchWord()==null ? "" : searchEntity.getSearchWord();
+		
+		
+		switch(searchCriteria) {
+			case "title" : resultList =  selectNoticeListByTitle(searchWord,pageable); break;
+			case "contents" :resultList =  selectNoticeListByContents(searchWord,pageable);  break;
+			default : resultList =  selectNoticeListByTotal(searchWord,pageable);
+			
+		}
+		return resultList;
 	}
 
 
