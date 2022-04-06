@@ -14,7 +14,7 @@ function modify(){
 		<h3>LIST</h3>
 		<div class="row">
 			<div  class="col">
-				<form name="inputForm"  method="post">
+				<form name="inputForm"  method="post"  enctype="multipart/form-data">
 				  <div class="form-group">
 				    <label for="exampleFormControlInput1">力格</label>
 				    <input type="text" class="form-control" id="title" name= "title" value ='${notice.title}' >
@@ -23,6 +23,15 @@ function modify(){
 				    <textarea class="form-control" id="contents" rows="3" name = "contents">${notice.contents}</textarea>
 				  </div>
 				  <input type="hidden" name = '_method' value = "">
+				  <div class="form-group">
+				    <label for="exampleFormControlInput1">梅何颇老</label>
+				    <input type="file" class="form-control" id="file" name= "files" multiple>
+				  </div>		   
+				<c:if test="${not empty notice.fileList }" >
+					<c:forEach var="file" items="${notice.fileList}" varStatus="status">
+						<a href="/noticeFile/${file.attachedFileNo}">${file.fileName}<br></a>
+					</c:forEach>
+				</c:if>
 				</form>
 			</div>
 		</div>

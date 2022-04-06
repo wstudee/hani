@@ -5,9 +5,14 @@
 <script type="text/javascript">
 
 function takeNotice(method){
+	if(method == 'DELETE'){
+		document.notice.action = "/notice/${notice.noticeNo}";
+	}else if(method == 'POST'){
+		document.notice.action = "/notice/editor/${notice.noticeNo}";
+	}
+	
 	document.notice._method.value = method;
 	document.notice.submit();
-
 }
 
 

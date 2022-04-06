@@ -1,5 +1,7 @@
 package com.runHani.service;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,6 +19,7 @@ import com.runHani.entity.NoticeEntity;
 import com.runHani.entity.NoticeFileEntity;
 import com.runHani.entity.SearchEntity;
 import com.runHani.entity.UserEntity;
+import com.runHani.repository.NoticeFileRepository;
 import com.runHani.repository.NoticeRepository;
 import com.runHani.util.FileUtils;
 
@@ -30,6 +33,14 @@ public class NoticeService  {
     public void setNoticeRepository(NoticeRepository noticeRepo) {
         this.noticeRepo = noticeRepo;
     }
+    
+    private  NoticeFileRepository noticeFileRepository;
+    
+    @Autowired
+    public void setNoticeFileRepository( NoticeFileRepository noticeFileRepository) {
+        this.noticeFileRepository = noticeFileRepository;
+    }
+    
 	
 	public Page<NoticeEntity> selectNoticeList(Pageable pageable) {
 		
@@ -110,5 +121,19 @@ public class NoticeService  {
 		return resultList;
 	}
 
+	public void updateNotice(NoticeEntity notice, MultipartHttpServletRequest req) {
+		
+		
+		postNotice(notice);
+		List<NoticeFileEntity> fileList = FileUtils.parseFileinfo(req);
+		
+	}
+
+
+	public void deleteFile(Integer attachedFileNo) {
+		
+		noticeFileRepository.deleteById(attachedFileNo);
+		
+	}
 
 }

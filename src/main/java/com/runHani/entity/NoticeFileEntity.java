@@ -3,6 +3,8 @@ package com.runHani.entity;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.sun.istack.NotNull;
 
 import lombok.Getter;
@@ -12,6 +14,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "tb_noticefile_bas")
+@DynamicUpdate
 public class NoticeFileEntity {
 
 	@Id

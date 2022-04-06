@@ -35,12 +35,10 @@
 				</colgroup>
 				<tr>
 					<th>제목</th>
-					<th>내용</th>
 				</tr>
 				<c:forEach items="${list}" var="notice">
 					<tr onclick="goDetail(${notice.noticeNo})" >
 						<td>${notice.title}</td>
-						<td>${notice.contents}</td>
 					</tr>
 				</c:forEach>
 			</table>

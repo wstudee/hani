@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.runHani.entity.NoticeEntity;
+import com.runHani.entity.NoticeFileEntity;
 import com.runHani.entity.SearchEntity;
 import com.runHani.service.NoticeService;
 import com.runHani.util.HaniUtil;
@@ -66,34 +67,25 @@ public class NoticeController {
 	public ModelAndView getNotice(@PathVariable int noticeNo) {
 
 		ModelAndView mav = new ModelAndView(baseJSPpath + "/detail");
-
 		NoticeEntity notice =  noticeService.selectNotice(noticeNo);
-		
-		
 		mav.addObject("notice", notice);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/editor/{noticeNo}", method = RequestMethod.POST)
+	public ModelAndView postNotice(@PathVariable int noticeNo) {
 		
-		
-		
-
+		ModelAndView mav = new ModelAndView(baseJSPpath + "/modify");
+		mav.addObject("notice", (NoticeEntity) noticeService.selectNotice(noticeNo));
 		return mav;
 	}
 	
 	@RequestMapping(value = "/{noticeNo}", method = RequestMethod.POST)
-	public ModelAndView postNotice(@PathVariable int noticeNo) {
+	public String updateNotice(NoticeEntity notice, MultipartHttpServletRequest req) {
 		
-		ModelAndView mav = new ModelAndView(baseJSPpath + "/modify");
 		
-		mav.addObject("notice", (NoticeEntity) noticeService.selectNotice(noticeNo));
-		
-		return mav;
-	}
-	
-	@RequestMapping(value = "/{noticeNo}", method = RequestMethod.PUT)
-	public String updateNotice(NoticeEntity notice) {
-
-			noticeService.postNotice(notice);
-			
-			return "redirect:/notice/list";
+		noticeService.updateNotice(notice,req);
+		return "redirect:/notice/list";
 	}
 
 
