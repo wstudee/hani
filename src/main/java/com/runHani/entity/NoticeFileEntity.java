@@ -34,6 +34,10 @@ public class NoticeFileEntity {
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
 
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "notice_no")
+	private NoticeEntity noticeEntity            ;
+	
 	public NoticeFileEntity() {
 		
 	}

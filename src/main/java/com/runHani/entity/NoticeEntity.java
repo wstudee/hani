@@ -48,8 +48,10 @@ public class NoticeEntity {
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
 	
-	@OneToMany(cascade = CascadeType.PERSIST)
-	@JoinColumn(name="notice_no", nullable = false)
+	
+	@OneToMany(mappedBy = "noticeEntity", cascade = CascadeType.ALL)
+//	@OneToMany(cascade = CascadeType.PERSIST)
+//	@JoinColumn(name="notice_no", nullable = false)
 	private Collection<NoticeFileEntity> fileList;
 
 
