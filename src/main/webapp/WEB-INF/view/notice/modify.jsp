@@ -8,6 +8,23 @@ function modify(){
 	document.inputForm._method.value="PUT";
 	document.inputForm.submit();
 }
+
+function fileDelete(attNo){
+	
+	$.ajax({
+	    url: "/notice/deleteFile",
+	    type: "POST",
+	    dataType: "text",
+	    data: {attachedFileNo : attNo},
+	    success: function(data){
+	  	alert("삭제완료")
+	    },
+	    error: function (request, status, error){        
+
+	    }
+	});
+
+}
 </script>
 <body>
 	<div class="container">
@@ -29,7 +46,7 @@ function modify(){
 				  </div>		   
 				<c:if test="${not empty notice.fileList }" >
 					<c:forEach var="file" items="${notice.fileList}" varStatus="status">
-						<a href="/noticeFile/${file.attachedFileNo}">${file.fileName}<br></a>
+						<a href="/noticeFile/${file.attachedFileNo}">${file.fileName}<br></a><button type="button" onclick="fileDelete(${file.attachedFileNo})">X</button>
 					</c:forEach>
 				</c:if>
 				</form>

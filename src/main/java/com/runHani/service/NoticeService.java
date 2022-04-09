@@ -86,7 +86,9 @@ public class NoticeService  {
 	public void postNotice(NoticeEntity notice, MultipartHttpServletRequest req) {
 		
 		List<NoticeFileEntity> fileList = FileUtils.parseFileinfo(req);			
-			
+		
+		fileList.forEach(file->file.setNoticeEntity(notice));
+		
 		if(!CollectionUtils.isEmpty(fileList)) {
 			notice.setFileList(fileList);
 		}
@@ -123,17 +125,13 @@ public class NoticeService  {
 
 	public void updateNotice(NoticeEntity notice, MultipartHttpServletRequest req) {
 		
-		
-		postNotice(notice);
-		List<NoticeFileEntity> fileList = FileUtils.parseFileinfo(req);
-		
+		postNotice(notice,req);
 	}
 
 
-	public void deleteFile(Integer attachedFileNo) {
+	public void deleteFile(Integer notice) {
 		
-		noticeFileRepository.deleteById(attachedFileNo);
-		
+		noticeFileRepository.deleteByNoticeEntity(noticeRepo.findById(notice).get());
 	}
 
 }
