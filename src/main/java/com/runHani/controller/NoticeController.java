@@ -2,6 +2,7 @@ package com.runHani.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -85,7 +86,6 @@ public class NoticeController {
 	@RequestMapping(value = "/{noticeNo}", method = RequestMethod.POST)
 	public String updateNotice(NoticeEntity notice, MultipartHttpServletRequest req) {
 		
-		noticeService.deleteFile(notice.getNoticeNo());
 		noticeService.updateNotice(notice,req);
 		return "redirect:/notice/list";
 	}
@@ -109,10 +109,17 @@ public class NoticeController {
 	
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
 	@ResponseBody
-	public String deleteFile( @RequestBody Integer attachedFileNo) {
+	public String deleteFile( @RequestBody HashMap param) {
 		
-		System.err.println(attachedFileNo);
-		return "redirect:/notice/list";
+		try {
+			noticeService.deleteFileByAttachedFileNo((Integer)param.get("attachedFileNo"));
+		}catch (Exception e) {
+			
+			return "FAIL";
+		}
+		
+			return "SUCCEESS";
+
 	}
 
 

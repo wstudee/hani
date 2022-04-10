@@ -134,4 +134,10 @@ public class NoticeService  {
 		noticeFileRepository.deleteByNoticeEntity(noticeRepo.findById(notice).get());
 	}
 
+
+	public void deleteFileByAttachedFileNo(Integer attNo) {
+		noticeFileRepository.deleteByAttachedFileNo(attNo);
+		
+	}
+
 }

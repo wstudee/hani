@@ -15,12 +15,18 @@ function fileDelete(attNo){
 	    url: "/notice/deleteFile",
 	    type: "POST",
 	    dataType: "text",
-	    data: {attachedFileNo : attNo},
+	    data:JSON.stringify ({attachedFileNo : attNo}),
+	    contentType:'application/json',
 	    success: function(data){
-	  	alert("삭제완료")
+	 		if(data==='SUCCEESS'){
+	 			alert("삭제 완료");
+	 			$('#file'+attNo).hide();
+	 		}else{
+	 			alert("삭제 실패");
+	 		}
 	    },
 	    error: function (request, status, error){        
-
+	    	alert("삭제 실패");
 	    }
 	});
 
@@ -46,7 +52,9 @@ function fileDelete(attNo){
 				  </div>		   
 				<c:if test="${not empty notice.fileList }" >
 					<c:forEach var="file" items="${notice.fileList}" varStatus="status">
-						<a href="/noticeFile/${file.attachedFileNo}">${file.fileName}<br></a><button type="button" onclick="fileDelete(${file.attachedFileNo})">X</button>
+						<div id="file${file.attachedFileNo}">
+							<a href="/noticeFile/${file.attachedFileNo}">${file.fileName}<br></a><button type="button" onclick="fileDelete(${file.attachedFileNo})">X</button>
+						</div>					
 					</c:forEach>
 				</c:if>
 				</form>
