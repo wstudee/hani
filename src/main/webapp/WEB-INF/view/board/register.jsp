@@ -5,7 +5,7 @@
 <script type="text/javascript">
 function register(){
 
-	document.inputForm.action="/notice"; 
+	document.inputForm.action="/board"; 
 	document.inputForm.method="post";
 	document.inputForm.submit();
 }
@@ -47,7 +47,7 @@ function isFileImage(){
 			</div>
 		</div>
 		<div class="row">
-			<button type="button" class="btn btn-primary" onclick="location.href='/notice/list'">목록으로</button>
+			<button type="button" class="btn btn-primary" onclick="location.href='/board/list'">목록으로</button>
 			<button type="button" class="btn btn-primary" onclick="register()">등록</button>
 		</div>
 	</div>

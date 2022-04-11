@@ -10,18 +10,18 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.runHani.entity.NoticeFileEntity;
+import com.runHani.entity.FileEntity;
 
 public class FileUtils {
 
-	public static List<NoticeFileEntity> parseFileinfo(MultipartHttpServletRequest req) {
+	public static List<FileEntity> parseFileinfo(MultipartHttpServletRequest req) {
 		
 		
 		if(ObjectUtils.isEmpty(req)) {
 			return null;
 		}
 		
-		List<NoticeFileEntity> fileList = new ArrayList<NoticeFileEntity>();
+		List<FileEntity> fileList = new ArrayList<FileEntity>();
 		
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd");
 		
@@ -66,12 +66,12 @@ public class FileUtils {
 	                }
 	                newFilename = Long.toString(System.nanoTime()) + originalFileExtension;
 	                // 생성 후 리스트에 추가
-	                NoticeFileEntity noticeFileEntity = new NoticeFileEntity();
-	                noticeFileEntity.setFileName(multipartFile.getResource().getFilename());
-	                noticeFileEntity.setFileSaveName(newFilename);
-	                noticeFileEntity.setFilePath(path+"\\"+newFilename);
+	                FileEntity FileEntity = new FileEntity();
+	                FileEntity.setFileName(multipartFile.getResource().getFilename());
+	                FileEntity.setFileSaveName(newFilename);
+	                FileEntity.setFilePath(path+"\\"+newFilename);
 	                
-	                fileList.add(noticeFileEntity);
+	                fileList.add(FileEntity);
 	                file = new File(path+"\\"+newFilename);
 	                try {
 						multipartFile.transferTo(file);

@@ -7,9 +7,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "tb_boardfile_bas")
-public class BoardFileEntity {
+
+public class FileEntity {
 
 	@Id
 	@Column(name = "attached_file_no", nullable = false, updatable = true, length = 20)
@@ -28,28 +27,6 @@ public class BoardFileEntity {
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "board_no")
-	private BoardEntity boardEntity ;            ;
-	
-	public BoardFileEntity() {
-		
-	}
-	
-	public BoardFileEntity(String fileName, String fileSaveName, LocalDateTime regDate) {
-		super();
-		this.fileName = fileName;
-		this.fileSaveName = fileSaveName;
-		this.regDate = regDate;
-	}
 
-	public BoardFileEntity(FileEntity file) {
-		super();
-		this.fileName = file.getFileName();
-		this.filePath = file.getFilePath();
-		this.fileSaveName = file.getFileSaveName();
-		this.regDate = file.getRegDate();
-	}
-	
 	
 }

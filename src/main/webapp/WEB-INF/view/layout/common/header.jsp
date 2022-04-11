@@ -12,7 +12,7 @@
 				<div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="">
 					<ul class="navbar-nav">
 						<li class="nav-item active">
-							 <a class="nav-link" href="#">Link <span class="sr-only">(current)</span></a>
+							 <a class="nav-link" href="/notice/list">NOTICE <span class="sr-only">(current)</span></a>
 						</li>
 						<li class="nav-item">
 							 <a class="nav-link" href="#">Link</a>

@@ -4,27 +4,31 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.ColumnDefault;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "tb_board_bas")
+@Data
 public class BoardEntity {
 
 	@Id
 	@Column(name = "board_no", nullable = false, updatable = true, length = 20) 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String boardNo            ;
 	
 	@Column(name = "title", nullable = false, updatable = true, length = 50) 
 	private String title;
 	
 	@Column(name = "board_status", nullable = false, updatable = true, length = 10) 
-	private String boardStatus;
+	@ColumnDefault("'I'")
+	private String boardStatus = "I";
 	
 	@Column(name = "contents", updatable = true) 
-	@Lob
 	private String contents;
 	
 	
@@ -42,8 +46,7 @@ public class BoardEntity {
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
 	
-	@OneToMany
-	@JoinColumn(name="board_no")
+	@OneToMany(mappedBy = "boardEntity", cascade = CascadeType.ALL)
 	private Collection<BoardFileEntity> fileList;
 	
 }

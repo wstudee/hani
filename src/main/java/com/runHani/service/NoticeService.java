@@ -15,6 +15,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.runHani.entity.BoardFileEntity;
+import com.runHani.entity.FileEntity;
 import com.runHani.entity.NoticeEntity;
 import com.runHani.entity.NoticeFileEntity;
 import com.runHani.entity.SearchEntity;
@@ -85,12 +87,18 @@ public class NoticeService  {
 
 	public void postNotice(NoticeEntity notice, MultipartHttpServletRequest req) {
 		
-		List<NoticeFileEntity> fileList = FileUtils.parseFileinfo(req);			
+		List<FileEntity> fileList = FileUtils.parseFileinfo(req);			
+		List<NoticeFileEntity> noticeFileList = new ArrayList<NoticeFileEntity>();			
 		
-		fileList.forEach(file->file.setNoticeEntity(notice));
+		for(FileEntity file : fileList) {
+			NoticeFileEntity newFile = new NoticeFileEntity(file);
+			newFile.setNoticeEntity(notice);
+			noticeFileList.add(newFile);
+		}
+
 		
-		if(!CollectionUtils.isEmpty(fileList)) {
-			notice.setFileList(fileList);
+		if(!CollectionUtils.isEmpty(noticeFileList)) {
+			notice.setFileList(noticeFileList);
 		}
 		postNotice(notice);
 	}

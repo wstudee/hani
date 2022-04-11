@@ -15,7 +15,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "tb_noticefile_bas")
 @DynamicUpdate
-public class NoticeFileEntity {
+public class NoticeFileEntity{
 
 	@Id
 	@Column(name = "attached_file_no", nullable = false, updatable = true, length = 20)
@@ -47,6 +47,14 @@ public class NoticeFileEntity {
 		this.fileName = fileName;
 		this.fileSaveName = fileSaveName;
 		this.regDate = regDate;
+	}
+
+	public NoticeFileEntity(FileEntity file) {
+		super();
+		this.fileName = file.getFileName();
+		this.filePath = file.getFilePath();
+		this.fileSaveName = file.getFileSaveName();
+		this.regDate = file.getRegDate();
 	}
 	
 	

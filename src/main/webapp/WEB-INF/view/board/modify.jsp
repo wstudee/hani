@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 function modify(){
-	document.inputForm.action="/notice/${notice.noticeNo}"; 
+	document.inputForm.action="/board/${board.boardNo}"; 
 	document.inputForm._method.value="PUT";
 	document.inputForm.submit();
 }
@@ -12,7 +12,7 @@ function modify(){
 function fileDelete(attNo){
 	
 	$.ajax({
-	    url: "/notice/deleteFile",
+	    url: "/board/deleteFile",
 	    type: "POST",
 	    dataType: "text",
 	    data:JSON.stringify ({attachedFileNo : attNo}),
@@ -56,20 +56,20 @@ function isFileImage(){
 				<form name="inputForm"  method="post"  enctype="multipart/form-data">
 				  <div class="form-group">
 				    <label for="exampleFormControlInput1">제목</label>
-				    <input type="text" class="form-control" id="title" name= "title" value ='${notice.title}' >
+				    <input type="text" class="form-control" id="title" name= "title" value ='${board.title}' >
 				  </div>
 				  <div class="form-group">
-				    <textarea class="form-control" id="contents" rows="3" name = "contents">${notice.contents}</textarea>
+				    <textarea class="form-control" id="contents" rows="3" name = "contents">${board.contents}</textarea>
 				  </div>
 				  <input type="hidden" name = '_method' value = "">
 				  <div class="form-group">
 				    <label for="exampleFormControlInput1">첨부파일</label>
 				    <input type="file" class="form-control" name= "files"  id="fileInput"  onchange="isFileImage()" multiple accept="image/gif, image/jpeg, image/png">
 				  </div>		   
-				<c:if test="${not empty notice.fileList }" >
-					<c:forEach var="file" items="${notice.fileList}" varStatus="status">
+				<c:if test="${not empty board.fileList }" >
+					<c:forEach var="file" items="${board.fileList}" varStatus="status">
 						<div id="file${file.attachedFileNo}">
-							<a href="/noticeFile/${file.attachedFileNo}">${file.fileName}<br></a><button type="button" onclick="fileDelete(${file.attachedFileNo})">X</button>
+							<a href="/boardFile/${file.attachedFileNo}">${file.fileName}<br></a><button type="button" onclick="fileDelete(${file.attachedFileNo})">X</button>
 						</div>					
 					</c:forEach>
 				</c:if>
@@ -77,7 +77,7 @@ function isFileImage(){
 			</div>
 		</div>
 		<div class="row">
-			<button type="button" class="btn btn-primary" onclick="location.href='/notice/list'">목록으로</button>
+			<button type="button" class="btn btn-primary" onclick="location.href='/board/list'">목록으로</button>
 			<button type="button" class="btn btn-primary" onclick="modify()">수정</button>
 		</div>
 	</div>

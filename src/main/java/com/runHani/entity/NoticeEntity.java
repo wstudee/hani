@@ -50,8 +50,6 @@ public class NoticeEntity {
 	
 	
 	@OneToMany(mappedBy = "noticeEntity", cascade = CascadeType.ALL)
-//	@OneToMany(cascade = CascadeType.PERSIST)
-//	@JoinColumn(name="notice_no", nullable = false)
 	private Collection<NoticeFileEntity> fileList;
 
 
