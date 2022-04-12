@@ -2,6 +2,26 @@
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<style>
+
+.textBox{
+	height: 500px;
+    width: 500px;
+    position: relative;
+    text-align: center;
+    <c:forEach var="file" items="${board.fileList}" varStatus="status">
+	background-image: url(/boardFile/${file.attachedFileNo});
+	</c:forEach>
+    
+}
+.textBox p{
+    vertical-align: middle;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+}
+
+</style>
 <script type="text/javascript">
 
 function takeBoard(method){
@@ -20,21 +40,12 @@ function takeBoard(method){
 <body>
 	<div class="container">
 		<h3>VIEW</h3>
-		<div class="row">
-			<table class="table">
-				<tr>
-					<th>제목</th>
-				</tr>
-				<tr>
-					<td>${board.title}</td>
-				</tr>
-				<tr>	
-					<th>내용</th>
-				</tr>	
-				<tr>
-					<td>${board.contents}</td>
-				</tr>
-				<c:if test="${not empty board.fileList }" >
+		<div class="row " >
+		<div >${board.title}</div>
+		</div>
+		<div class="row " >
+		<div class='textBox'><p>${board.contents}</p></div>
+				<%-- <c:if test="${not empty board.fileList }" >
 				<tr>	
 					<th>첨부파일</th>
 				</tr>
@@ -46,8 +57,7 @@ function takeBoard(method){
 					
 					<td>
 				</tr>
-				</c:if>
--			</table>
+				</c:if> --%>
 		</div>
 		 <div class="row">
 			<button type="submit" class="btn btn-primary" onclick="takeBoard('DELETE')" >글삭제</button>

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.runHani.entity.BoardFileEntity;
 import com.runHani.entity.NoticeFileEntity;
+import com.runHani.service.BoardService;
 import com.runHani.service.NoticeFileService;
 
 @Controller
@@ -23,14 +25,42 @@ public class FileController {
 
 	@Autowired
 	private NoticeFileService noticeFileService;
+	@Autowired
+	private BoardService boardService;
 
 	
 
 	@RequestMapping(value = "/noticeFile/{fileNo}", method = RequestMethod.GET)
 	public void downLoadFile(@PathVariable int fileNo, HttpServletResponse response) throws IOException {
 
-
+		
 		NoticeFileEntity file = noticeFileService.findById(fileNo);
+		
+		try {
+			byte[] files = FileUtils.readFileToByteArray(new File(file.getFilePath()));
+			
+			response.setContentType("application/octet-stream");
+			response.setContentLength(files.length);
+			response.setHeader("Content-Disposition","attachment; filename=\""+URLEncoder.encode(file.getFileName(),"UTF-8")+"\"");
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			
+			response.getOutputStream().write(files);
+			response.getOutputStream().flush();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			response.getOutputStream().close();
+		}
+		
+		
+	}
+	
+	@RequestMapping(value = "/boardFile/{fileNo}", method = RequestMethod.GET)
+	public void downLoadBoardFile(@PathVariable int fileNo, HttpServletResponse response) throws IOException {
+		
+		
+		BoardFileEntity file = boardService.findByFileId(fileNo);
 		
 		try {
 			byte[] files = FileUtils.readFileToByteArray(new File(file.getFilePath()));

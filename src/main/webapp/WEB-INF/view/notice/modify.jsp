@@ -39,6 +39,7 @@ function isFileImage(){
 	switch (ext) {
 	  case 'jpg':
 	  case 'bmp':
+	  case 'jpeg':
 	  case 'png':
 	  case 'tif':
 	    break;

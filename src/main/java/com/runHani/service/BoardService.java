@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.runHani.entity.BoardEntity;
 import com.runHani.entity.BoardFileEntity;
 import com.runHani.entity.FileEntity;
+import com.runHani.entity.NoticeFileEntity;
 import com.runHani.entity.BoardFileEntity;
 import com.runHani.entity.SearchEntity;
 import com.runHani.entity.UserEntity;
@@ -75,9 +76,8 @@ public class BoardService  {
 	}
 
 	public BoardEntity selectBoard(int notice_no) {
-
-		return boardRepository.findById(notice_no).get();
 		
+		return boardRepository.findById(notice_no).get();
 	}
 
 	public void deleteBoard(int noticeNo) throws Exception  {
@@ -148,6 +148,12 @@ public class BoardService  {
 	public void deleteFileByAttachedFileNo(Integer attNo) {
 		boardFileRepository.deleteByAttachedFileNo(attNo);
 		
+	}
+
+
+	public BoardFileEntity findByFileId(int fileNo) {
+		// TODO Auto-generated method stub
+		return boardFileRepository.findById(fileNo).get();
 	}
 
 }

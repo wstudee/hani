@@ -38,6 +38,7 @@ function isFileImage(){
 	var ext = file.value.match(/\.([^\.]+)$/)[1];
 	switch (ext) {
 	  case 'jpg':
+	  case 'jpeg':
 	  case 'bmp':
 	  case 'png':
 	  case 'tif':

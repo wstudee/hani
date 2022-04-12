@@ -15,7 +15,7 @@
 							 <a class="nav-link" href="/notice/list">NOTICE <span class="sr-only">(current)</span></a>
 						</li>
 						<li class="nav-item">
-							 <a class="nav-link" href="#">Link</a>
+							  <a class="nav-link" href="/board/list">BOARD <span class="sr-only">(current)</span></a>
 						</li>
 						<li class="nav-item dropdown">
 							 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Dropdown link</a>

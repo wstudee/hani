@@ -19,7 +19,7 @@ public class BoardEntity {
 	@Id
 	@Column(name = "board_no", nullable = false, updatable = true, length = 20) 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String boardNo            ;
+	private Integer boardNo            ;
 	
 	@Column(name = "title", nullable = false, updatable = true, length = 50) 
 	private String title;
