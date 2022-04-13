@@ -90,19 +90,13 @@ public class BoardService  {
 	public void postBoard(BoardEntity notice, MultipartHttpServletRequest req) {
 		
 		List<FileEntity> fileList = FileUtils.parseFileinfo(req);			
-		List<BoardFileEntity> boardFileList = new ArrayList<BoardFileEntity>();			
 		
-		for(FileEntity file : fileList) {
-			BoardFileEntity newFile = new BoardFileEntity(file);
-			newFile.setBoardEntity(notice);
-			boardFileList.add(newFile);
-		}
-
 		
-		if(!CollectionUtils.isEmpty(boardFileList)) {
-			notice.setFileList(boardFileList);
-		}
+		BoardFileEntity newFile = new BoardFileEntity(fileList.get(0));
 		postBoard(notice);
+		newFile.setBoardEntity(notice);
+		boardFileRepository.save(newFile);
+		
 	}
 
 	public Page<BoardEntity> selectBoardListByTitle(String searchWord, Pageable pageable) {
@@ -154,6 +148,13 @@ public class BoardService  {
 	public BoardFileEntity findByFileId(int fileNo) {
 		// TODO Auto-generated method stub
 		return boardFileRepository.findById(fileNo).get();
+	}
+
+
+	public BoardFileEntity selectBoardFile(int boardNo) {
+		
+		return  boardFileRepository.findByBoardEntity(boardRepository.findById(boardNo).get());
+		
 	}
 
 }

@@ -7,6 +7,8 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.ColumnDefault;
 
+import com.runHani.repository.BoardFileRepository;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,7 +48,5 @@ public class BoardEntity {
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
 	
-	@OneToMany(mappedBy = "boardEntity", cascade = CascadeType.ALL)
-	private Collection<BoardFileEntity> fileList;
 	
 }

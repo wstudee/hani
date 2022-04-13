@@ -9,9 +9,7 @@
     width: 500px;
     position: relative;
     text-align: center;
-    <c:forEach var="file" items="${board.fileList}" varStatus="status">
 	background-image: url(/boardFile/${file.attachedFileNo});
-	</c:forEach>
     
 }
 .textBox p{

@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.runHani.entity.BoardEntity;
+import com.runHani.entity.BoardFileEntity;
 import com.runHani.entity.BoardEntity;
 import com.runHani.entity.SearchEntity;
 import com.runHani.service.BoardService;
@@ -72,7 +73,9 @@ public class BoardController {
 
 		ModelAndView mav = new ModelAndView(baseJSPpath + "/detail");
 		BoardEntity board =  boardService.selectBoard(boardNo);
+		BoardFileEntity boardFile =  boardService.selectBoardFile(boardNo);
 		mav.addObject("board", board);
+		mav.addObject("file", boardFile);
 		return mav;
 	}
 	

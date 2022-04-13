@@ -1,6 +1,7 @@
 package com.runHani.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.util.Streamable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.runHani.entity.NoticeEntity;
@@ -14,6 +15,10 @@ public interface BoardFileRepository extends JpaRepository<BoardFileEntity, Inte
 	void deleteByAttachedFileNo(Integer attachedFileNo);
 	@Transactional
 	void deleteByBoardEntity(BoardEntity boardEntity);
+	
+	BoardFileEntity findByBoardEntity(BoardEntity boardEntity);
+	
+	
 
 	
 }
