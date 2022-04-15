@@ -84,6 +84,8 @@ public class BoardController {
 		
 		ModelAndView mav = new ModelAndView(baseJSPpath + "/modify");
 		mav.addObject("board", (BoardEntity) boardService.selectBoard(boardNo));
+		BoardFileEntity boardFile =  boardService.selectBoardFile(boardNo);
+		mav.addObject("file", boardFile);
 		return mav;
 	}
 	

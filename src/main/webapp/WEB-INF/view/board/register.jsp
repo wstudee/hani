@@ -5,31 +5,27 @@
 
 <style>
 
-.textBox{
+#preview{
 	height: 500px;
     width: 500px;
     position: relative;
     text-align: center;
-	background-image: url(/boardFile/${file.attachedFileNo});
+    background-color: #eeeeee;
+    margin-bottom: 3%;
+    position: relative;
+    text-align: center;
     
 }
-.textBox p{
+#preview div{
     vertical-align: middle;
     top: 50%;
     left: 50%;
     position: absolute;
 }
-.input-div{
-    vertical-align: middle;
- }
+
 </style>
 <script type="text/javascript">
 $( document ).ready(function() {
-	$("#contents").on("propertychange change keyup paste input",function(){
-	    $(this)[0].style.height='auto';
-	    $(this).height( $(this).prop('scrollHeight'));     
-	 });
-	 
 	 
 });
 
@@ -66,37 +62,49 @@ function setThumbnail(event){
 	var reader = new FileReader();
 	
 	reader.onload = function(event){
-		$('#contents').css("background-image","url("+event.target.result+")");
+		$('#preview').css("background-image","url("+event.target.result+")");
 		
 	};
 	
 	reader.readAsDataURL(event.files[0]);
 }
 
+function chageInput(){
+	
+	$('#titleShow').text($('#title').val());
+	$('#titleCont').text($('#contents').val());
+	
+}
 
 
 </script>
 <body>
 	<div class="container">
 		<h3>LIST</h3>
+		<div  class="row justify-content-md-center">
+			<div  id="preview" class="justify-content-md-center">
+				<div>
+					<p>2022/03/02</p>
+					<p id="titleShow"></p>
+					<p id="titleCont"></p>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div  class="col">
 				<form name="inputForm" enctype="multipart/form-data">
-
-				  <div class="form-group">
-				    <label for="exampleFormControlInput1">제목</label>
-				    <input type="text" class="form-control" id="title" name= "title">
-				  </div>
-				  <div class="form-group input-div">
-				  	 <div>
-				    <textarea class="form-control textBox" id="contents"  name = "contents" maxlength="40" rows="15"  spellcheck="false"></textarea>
-				    </div>
-				  </div>
-				   <div class="form-group">
-				    <label for="exampleFormControlInput1">첨부파일</label>
-				    <input type="file" class="form-control" name= "files"  id="fileInput"  onchange="isFileImage(this)"  accept="image/gif, image/jpeg, image/png">
-				  </div>	
-				  <div id='image_container'></div>	   
+			    <div class="input-group mb-3">
+				  <span class="input-group-text" id="basic-addon1">오늘의 제목</span>
+				  <input type="text" class="form-control" placeholder="제목" aria-label="Username" aria-describedby="basic-addon1" id="title" name= "title" maxlength="5" onchange="chageInput()">
+				</div>
+			    <div class="input-group mb-3">
+				  <span class="input-group-text" id="basic-addon1">오늘의 한줄</span>
+				  <input type="text" class="form-control" placeholder="한줄요약" aria-label="Username" aria-describedby="basic-addon1"  id="contents" maxlength="15" name = "contents" onchange="chageInput()"> 
+				</div>
+			    <div class="input-group mb-3">
+				  <span class="input-group-text" id="basic-addon1">오늘의 사진</span>
+				  <input type="file" class="form-control" placeholder="한줄요약" aria-label="Username" aria-describedby="basic-addon1"   name= "files"  id="fileInput"  onchange="isFileImage(this)"  accept="image/gif, image/jpeg, image/png"> 
+				</div>
 				</form>
 			</div>
 		</div>

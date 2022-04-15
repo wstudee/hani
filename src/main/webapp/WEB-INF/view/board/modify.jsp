@@ -67,13 +67,9 @@ function isFileImage(){
 				    <label for="exampleFormControlInput1">Ã·ºÎÆÄÀÏ</label>
 				    <input type="file" class="form-control" name= "files"  id="fileInput"  onchange="isFileImage()" multiple accept="image/gif, image/jpeg, image/png">
 				  </div>		   
-				<c:if test="${not empty board.fileList }" >
-					<c:forEach var="file" items="${board.fileList}" varStatus="status">
 						<div id="file${file.attachedFileNo}">
 							<a href="/boardFile/${file.attachedFileNo}">${file.fileName}<br></a><button type="button" onclick="fileDelete(${file.attachedFileNo})">X</button>
 						</div>					
-					</c:forEach>
-				</c:if>
 				</form>
 			</div>
 		</div>
