@@ -17,16 +17,21 @@
     
 }
 #preview div{
-    vertical-align: middle;
+	vertical-align: middle;
     top: 50%;
     left: 50%;
+    transform: translate(-50%,-50%);
+    display: inline-block;
     position: absolute;
 }
 
 </style>
 <script type="text/javascript">
 $( document ).ready(function() {
-	 
+	var dt = new Date();
+	var str = dt.getFullYear()+'-'+(dt.getMonth()+1)+'-'+dt.getDate();
+	$('#date').text(str);
+	
 });
 
 
@@ -84,7 +89,7 @@ function chageInput(){
 		<div  class="row justify-content-md-center">
 			<div  id="preview" class="justify-content-md-center">
 				<div>
-					<p>2022/03/02</p>
+					<p id='date'></p>
 					<p id="titleShow"></p>
 					<p id="titleCont"></p>
 				</div>

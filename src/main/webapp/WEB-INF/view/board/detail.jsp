@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <style>
 
-.textBox{
+/* .textBox{
 	height: 500px;
     width: 500px;
     position: relative;
@@ -16,6 +17,28 @@
     vertical-align: middle;
     top: 50%;
     left: 50%;
+    position: absolute;
+}
+ */
+
+.textBox{
+	height: 500px;
+    width: 500px;
+    position: relative;
+    text-align: center;
+    background-color: #eeeeee;
+    margin-bottom: 3%;
+    position: relative;
+    text-align: center;
+    background-image: url(/boardFile/${file.attachedFileNo});
+    
+}
+.textBox div{
+	vertical-align: middle;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: inline-block;
     position: absolute;
 }
 
@@ -39,10 +62,13 @@ function takeBoard(method){
 	<div class="container">
 		<h3>VIEW</h3>
 		<div class="row " >
-		<div >${board.title}</div>
+		<div class='textBox'>
+			<div>
+			<p>${regDate}</p>
+			<p>${board.title}</p>
+			<p>${board.contents}</p>
+			</div>
 		</div>
-		<div class="row " >
-		<div class='textBox'><p>${board.contents}</p></div>
 				<%-- <c:if test="${not empty board.fileList }" >
 				<tr>	
 					<th>Ã·ºÎÆÄÀÏ</th>
