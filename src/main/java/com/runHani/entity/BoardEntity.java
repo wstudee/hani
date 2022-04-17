@@ -34,6 +34,10 @@ public class BoardEntity {
 	private String contents;
 	
 	
+	@Column(name = "color", updatable = true) 
+	private String color;
+	
+	
 	@Column(name = "update_date", nullable = false, updatable = true)
 	private LocalDateTime updateDate = LocalDateTime.now() ;
 	

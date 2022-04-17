@@ -1,45 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <style>
-
-/* .textBox{
+.textBox {
 	height: 500px;
-    width: 500px;
-    position: relative;
-    text-align: center;
+	width: 500px;
+	position: relative;
+	text-align: center;
+	background-color: #eeeeee;
+	margin-bottom: 3%;
+	position: relative;
+	text-align: center;
 	background-image: url(/boardFile/${file.attachedFileNo});
-    
+	background-repeat: no-repeat;
+	background-size: cover;
 }
-.textBox p{
-    vertical-align: middle;
-    top: 50%;
-    left: 50%;
-    position: absolute;
-}
- */
 
-.textBox{
-	height: 500px;
-    width: 500px;
-    position: relative;
-    text-align: center;
-    background-color: #eeeeee;
-    margin-bottom: 3%;
-    position: relative;
-    text-align: center;
-    background-image: url(/boardFile/${file.attachedFileNo});
-    
-}
-.textBox div{
+.textBox div {
 	vertical-align: middle;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    display: inline-block;
-    position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: inline-block;
+	position: absolute;
+	font-weight: bold;
+	font-size: 25px;
+	color: ${board.color}
+}
+#contents{
+	font-size: 20px;
 }
 
 </style>
@@ -61,35 +52,22 @@ function takeBoard(method){
 <body>
 	<div class="container">
 		<h3>VIEW</h3>
-		<div class="row " >
-		<div class='textBox'>
-			<div>
-			<p>${regDate}</p>
-			<p>${board.title}</p>
-			<p>${board.contents}</p>
+		<div class="row ">
+			<div class='textBox'>
+				<div>
+					<p id="regDate">${regDate}</p>
+					<p id="title">${board.title}</p>
+					<p id="contents">${board.contents}</p>
+				</div>
 			</div>
 		</div>
-				<%-- <c:if test="${not empty board.fileList }" >
-				<tr>	
-					<th>첨부파일</th>
-				</tr>
-				<tr>
-					<td>
-				<c:forEach var="file" items="${board.fileList}" varStatus="status">
-					<a href="/boardFile/${file.attachedFileNo}">${file.fileName}<br></a>
-				</c:forEach>
-					
-					<td>
-				</tr>
-				</c:if> --%>
-		</div>
-		 <div class="row">
+		<div class="row">
 			<button type="submit" class="btn btn-primary" onclick="takeBoard('DELETE')" >글삭제</button>
 			<button type="button" class="btn btn-primary"  onclick="takeBoard('POST')" >수정</button>
 			<button type="button" class="btn btn-primary" onclick="location.href='/board/list'">목록으로</button>
-		 </div> 
+		</div>
 		<form name="board" method="post" action="/board/${board.boardNo}">
-		    <input type="hidden" name="_method" value=""/>
+			<input type="hidden" name="_method" value="" />
 		</form>
 	</div>
 </body>
