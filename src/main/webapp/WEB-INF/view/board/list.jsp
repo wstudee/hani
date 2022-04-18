@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}"/>
 <script type="text/javascript">
 	function goDetail(sn){
@@ -20,7 +22,6 @@
 	<div class="container">
 		<h3>LIST</h3>
 		<div class="row">
-		<div class="row">
 			<select id="searchCriteria"> 
 				<option value="total">전체</option>
 				<option value="title">제목</option>
@@ -28,18 +29,26 @@
 			</select> 
 			<input type= "text" name = "searchWord" id = "searchWord"  value='${searchWord}'/> <button onclick="search()">검색</button>
 		</div>
+		<div class="row">
 			<table class="table">
 				<colgroup>
 					<col width="50%">
-					<col width="50%">
+					<col width="30%">
+					<col width="20%">
 				</colgroup>
 				<tr>
 					<th>제목</th>
+					<th>작성자</th>
+					<th>등록일</th>
 				</tr>
 				<c:forEach items="${list}" var="board">
 					<tr onclick="goDetail(${board.boardNo})" >
 						<td>${board.title}</td>
-					</tr>
+						<td>${board.regUser.email}</td>
+						<td>
+							<fmt:parseDate value="${ board.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+							<fmt:formatDate pattern="yyyy-MM-dd" value="${ parsedDateTime }" />
+						</td>
 				</c:forEach>
 			</table>
 		</div>

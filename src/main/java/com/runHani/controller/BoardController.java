@@ -77,10 +77,8 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView(baseJSPpath + "/detail");
 		BoardEntity board =  boardService.selectBoard(boardNo);
 		BoardFileEntity boardFile =  boardService.selectBoardFile(boardNo);
-		LocalDateTime date = board.getRegDate();
 		
 
-		mav.addObject("regDate", date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		mav.addObject("board", board);
 		mav.addObject("file", boardFile);
 		return mav;

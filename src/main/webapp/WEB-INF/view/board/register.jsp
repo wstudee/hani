@@ -2,39 +2,6 @@
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
-<style>
-
-#preview{
-	height: 500px;
-    width: 500px;
-    position: relative;
-    text-align: center;
-    background-color: #eeeeee;
-    margin-bottom: 3%;
-    position: relative;
-    text-align: center;
-    background-repeat : no-repeat;
-    background-size : cover;
-    
-}
-#preview div{
-	vertical-align: middle;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    display: inline-block;
-    position: absolute;
-    font-weight: bold;
-    font-size: 25px;
-}
-#titleCont{
-	font-size: 20px;
-}
-#submitErr{
-	color : rgb(164, 19, 19);
-}
-</style>
 <script type="text/javascript">
 $( document ).ready(function() {
 	
@@ -58,68 +25,8 @@ function register(){
 	document.inputForm.submit();
 }
 
-function checkVal(){
-	
-	var result =true; 
-	$('.invalid-feedback').hide();
-	if(document.inputForm.title.value == ''){
-		$('.titleErr').show();
-		result= false;
-	} 
-	
-	if(document.inputForm.contents.value == ''){
-		$('.contentsErr').show();
-		result= false;
-	} 
-	
-	if(document.inputForm.files.value == ''){
-		$('.filesErr').show();
-		result= false;
-	} 
-	
-	return result;
-}
-
-function isFileImage(e){
-	var file = document.getElementById('fileInput');
-	var ext = file.value.match(/\.([^\.]+)$/)[1];
-	switch (ext) {
-	  case 'jpg':
-	  case 'jpeg':
-	  case 'bmp':
-	  case 'png':
-	  case 'tif':
-		  setThumbnail(e);
-		  break;
-	  default:
-	    alert('이미지 파일만 업로드가 가능합니다.');
-	  file.value = '';
-	}
-}
 
 
-function setThumbnail(event){
-	var reader = new FileReader();
-	
-	reader.onload = function(event){
-		$('#preview').css("background-image","url("+event.target.result+")");
-		
-	};
-	
-	reader.readAsDataURL(event.files[0]);
-}
-
-function chageInput(){
-	
-	$('#titleShow').text($('#title').val());
-	$('#titleCont').text($('#contents').val());
-	
-}
-
-function chageColor(e){
-	$('#preview div').css('color',e.value)
-	
-}
 
 </script>
 <body>
