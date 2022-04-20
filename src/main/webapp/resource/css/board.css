@@ -11,6 +11,7 @@
 	text-align: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+	margin: 20px;
 }
 
 .textBox div {
@@ -55,4 +56,8 @@
 }
 #submitErr{
 	color : rgb(164, 19, 19);
+}
+
+#boardInfo{
+	    text-align: center;
 }

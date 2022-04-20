@@ -28,8 +28,7 @@ public class BoardFileEntity {
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
 	
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "board_no")
+	@OneToOne(mappedBy = "boardFileEntity")
 	private BoardEntity boardEntity ;            ;
 	
 	public BoardFileEntity() {
@@ -49,6 +48,11 @@ public class BoardFileEntity {
 		this.filePath = file.getFilePath();
 		this.fileSaveName = file.getFileSaveName();
 		this.regDate = file.getRegDate();
+	}
+
+	@Override
+	public String toString() {
+		return "BoardFileEntity"+ fileSaveName ;
 	}
 	
 	

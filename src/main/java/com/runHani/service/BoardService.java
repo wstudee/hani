@@ -93,9 +93,10 @@ public class BoardService  {
 		
 		
 		BoardFileEntity newFile = new BoardFileEntity(fileList.get(0));
-		postBoard(notice);
-		newFile.setBoardEntity(notice);
 		boardFileRepository.save(newFile);
+		notice.setBoardFileEntity(newFile);
+		newFile.setBoardEntity(notice);
+		postBoard(notice);
 		
 	}
 
@@ -124,8 +125,26 @@ public class BoardService  {
 			default : resultList =  selectBoardListByTotal(searchWord,pageable);
 			
 		}
+		
+		boardEntitySetFile(resultList.getContent());
+		
+		
 		return resultList;
 	}
+
+	private void boardEntitySetFile(List<BoardEntity> content) {
+		
+		for(BoardEntity board : content) {
+			
+			BoardFileEntity boardFileEntity = boardFileRepository.findByBoardEntity(board);
+			
+			System.err.println(boardFileEntity.getFileName());
+			board.setBoardFileEntity(boardFileEntity);
+		}
+		
+		System.err.println("??           >"+content);
+	}
+
 
 	public void updateBoard(BoardEntity notice, MultipartHttpServletRequest req) {
 		

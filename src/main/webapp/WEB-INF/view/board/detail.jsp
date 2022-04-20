@@ -5,7 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 $(function(){ 
-	boardSetting()
+	boardSetting('${file.attachedFileNo}')
 });
 
 

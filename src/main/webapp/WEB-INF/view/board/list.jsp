@@ -30,27 +30,27 @@
 			<input type= "text" name = "searchWord" id = "searchWord"  value='${searchWord}'/> <button onclick="search()">검색</button>
 		</div>
 		<div class="row">
-			<table class="table">
-				<colgroup>
-					<col width="50%">
-					<col width="30%">
-					<col width="20%">
-				</colgroup>
-				<tr>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>등록일</th>
-				</tr>
 				<c:forEach items="${list}" var="board">
-					<tr onclick="goDetail(${board.boardNo})" >
-						<td>${board.title}</td>
-						<td>${board.regUser.email}</td>
-						<td>
+					<a onclick="goDetail(${board.boardNo})" >
+						<div class='textBox' style="background-image : url(/boardFile/${board.boardFileEntity.attachedFileNo});">
+							<div style="color : ${board.color}">
+								<p id="regDate">
+									<fmt:parseDate value="${ board.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+									<fmt:formatDate pattern="yyyy-MM-dd" value="${ parsedDateTime }" />
+								</p>
+								<p id="title">${board.title}</p>
+								<p id="contents">${board.contents}</p>
+							</div>
+						</div>
+						<div id="boardInfo">
+							<p>${board.regUser.email}</p>
 							<fmt:parseDate value="${ board.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+							<p>
 							<fmt:formatDate pattern="yyyy-MM-dd" value="${ parsedDateTime }" />
-						</td>
+							</p>
+						</div>
+					</a>
 				</c:forEach>
-			</table>
 		</div>
 		<nav aria-label="Page navigation example">
 		  <ul class="pagination">

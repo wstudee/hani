@@ -27,9 +27,9 @@ function checkVal(){
 	return result;
 }
 
-function boardSetting(){
+function boardSetting(attNo){
 	
-	$('#preview').css('background-image','url(/boardFile/${file.attachedFileNo})' )
+	$('#preview').css('background-image','url(/boardFile/'+attNo+')' )
 	$('#preview div').css('color','${board.color}' )
 	
 }
