@@ -3,6 +3,7 @@ package com.runHani.service;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -91,11 +92,14 @@ public class BoardService  {
 		
 		List<FileEntity> fileList = FileUtils.parseFileinfo(req);			
 		
-		
-		BoardFileEntity newFile = new BoardFileEntity(fileList.get(0));
-		boardFileRepository.save(newFile);
-		notice.setBoardFileEntity(newFile);
-		newFile.setBoardEntity(notice);
+		if(fileList.size() > 0) {
+			BoardFileEntity newFile = new BoardFileEntity(fileList.get(0));
+			boardFileRepository.save(newFile);
+		//	notice.setBoardFileEntity(newFile);
+			newFile.setBoardEntity(notice);
+		}else {
+		//	notice.setBoardFileEntity(boardFileRepository.findByBoardEntity(boardRepository.findById(notice.getBoardNo()).get()));
+		}
 		postBoard(notice);
 		
 	}
@@ -126,23 +130,27 @@ public class BoardService  {
 			
 		}
 		
-		boardEntitySetFile(resultList.getContent());
+		
+		
 		
 		
 		return resultList;
 	}
 
-	private void boardEntitySetFile(List<BoardEntity> content) {
+	public ArrayList<HashMap<String,Object>> boardEntitySetFile(List<BoardEntity> content) {
+		ArrayList<HashMap<String,Object>> result = new ArrayList<HashMap<String,Object>>();
+		
 		
 		for(BoardEntity board : content) {
-			
-			BoardFileEntity boardFileEntity = boardFileRepository.findByBoardEntity(board);
-			
-			System.err.println(boardFileEntity.getFileName());
-			board.setBoardFileEntity(boardFileEntity);
-		}
 		
-		System.err.println("??           >"+content);
+		HashMap map = new HashMap();	
+		
+		map.put("board",board);
+		map.put("file",boardFileRepository.findByBoardEntity(board));
+		
+		result.add(map);
+		}
+		 return result;
 	}
 
 

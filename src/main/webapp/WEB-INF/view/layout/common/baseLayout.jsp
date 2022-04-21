@@ -26,7 +26,7 @@
       <tiles:insertAttribute name="header"/> <!--  /WEB-INF/views/common/layout/header.jsp -->
       <tiles:insertAttribute name="body"/> <!-- body -->
     </section>
-    <tiles:insertAttribute name="footer"/> 
+   <%--  <tiles:insertAttribute name="footer"/> --%> 
   </body>
       
 </html>

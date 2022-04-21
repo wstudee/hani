@@ -30,21 +30,21 @@
 			<input type= "text" name = "searchWord" id = "searchWord"  value='${searchWord}'/> <button onclick="search()">°Ë»ö</button>
 		</div>
 		<div class="row">
-				<c:forEach items="${list}" var="board">
-					<a onclick="goDetail(${board.boardNo})" >
-						<div class='textBox' style="background-image : url(/boardFile/${board.boardFileEntity.attachedFileNo});">
-							<div style="color : ${board.color}">
+				<c:forEach items="${list}" var="item">
+					<a onclick="goDetail(${item.board.boardNo})" >
+						<div class='textBox' style="background-image : url(/boardFile/${item.file.attachedFileNo});"> 
+							<div style="color : ${item.board.color}">
 								<p id="regDate">
-									<fmt:parseDate value="${ board.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
-									<fmt:formatDate pattern="yyyy-MM-dd" value="${ parsedDateTime }" />
+									<fmt:parseDate value="${item.board.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+									<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime }" />
 								</p>
-								<p id="title">${board.title}</p>
-								<p id="contents">${board.contents}</p>
+								<p id="title">${item.board.title}</p>
+								<p id="contents">${item.board.contents}</p>
 							</div>
 						</div>
 						<div id="boardInfo">
-							<p>${board.regUser.email}</p>
-							<fmt:parseDate value="${ board.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+							<p>${item.board.regUser.email}</p>
+							<fmt:parseDate value="${item. board.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
 							<p>
 							<fmt:formatDate pattern="yyyy-MM-dd" value="${ parsedDateTime }" />
 							</p>

@@ -13,6 +13,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_board_bas")
 @Data
@@ -52,8 +54,11 @@ public class BoardEntity {
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
 	
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "attached_file_no")
-	private BoardFileEntity boardFileEntity ;            ;
+	/*
+	 * @OneToOne(fetch = FetchType.LAZY, optional = false)
+	 * 
+	 * @JoinColumn(name = "attached_file_no") private BoardFileEntity
+	 * boardFileEntity ; ;
+	 */
 	
 }

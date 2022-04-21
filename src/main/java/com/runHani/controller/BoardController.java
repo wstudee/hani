@@ -3,6 +3,7 @@ package com.runHani.controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,11 +45,14 @@ public class BoardController {
 		Page<BoardEntity> resultList = boardService.getBoardList(searchEntity, pageable);  
 		List<BoardEntity> boardList = resultList.getContent();
 		HashMap<String, Integer> paging = HaniUtil.calculatePaging(resultList);
-		
+		ArrayList<HashMap<String,Object>> list = boardService.boardEntitySetFile(boardList);
 		mav.addObject("searchEntity",searchEntity);
-		mav.addObject("list", boardList);
+		mav.addObject("list", list);
 		mav.addObject("page", paging);
 		mav.addObject("totalCnt", resultList.getTotalElements());
+		
+		HashMap map = list.get(0);
+		System.err.println(map.get("board"));
 		
 		
 		return mav;
