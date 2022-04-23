@@ -50,5 +50,26 @@ public class UserService  {
 		
 		return true;
 	}
+	public boolean emailDuplicateCheck(UserEntity user) {
+
+		UserEntity checkUser = userRepository.findByEmail(user.getEmail());
+		
+		if(checkUser == null){
+			return false;
+		}
+		
+		
+		return true;
+	}
+	public boolean saveUser(UserEntity user) {
+
+		UserEntity saveUser = userRepository.save(user);
+
+		if(saveUser == null){
+			return false;
+		}
+		
+		return true;
+	}
 
 }

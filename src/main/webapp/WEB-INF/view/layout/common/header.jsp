@@ -34,7 +34,7 @@
 					</form>
 					<ul class="navbar-nav ml-md-auto">
 						<li class="nav-item active">
-							 <a class="nav-link" href="#">Link <span class="sr-only">(current)</span></a>
+							 <a class="nav-link" href="/user/login">Login <span class="sr-only">(current)</span></a>
 						</li>
 						<li class="nav-item dropdown">
 							 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Dropdown link</a>

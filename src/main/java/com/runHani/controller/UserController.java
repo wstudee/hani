@@ -53,9 +53,47 @@ public class UserController {
 		
 		HashMap map  = new HashMap();
 		if(userService.isUser(user)) {
-			map.put("result ", "success");
+			map.put("result", "success");
+			
 		}else {
-			map.put("result ", "fail");
+			map.put("result", "fail");
+		}
+		
+		return  map;
+	}
+
+	
+	@RequestMapping(value = "memberJoin", method = RequestMethod.GET)
+	public ModelAndView memberJoinView() {
+		ModelAndView mav = new ModelAndView(baseJSPpath + "/memberJoin");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "memberJoin", method = RequestMethod.POST)
+	public ModelAndView memberJoin(UserEntity user) {
+		ModelAndView mav = new ModelAndView();
+		
+		if(userService.saveUser(user)) {
+			mav.setViewName("/board/list");
+		}else {
+			mav.setViewName("/user/memberJoin");
+		}
+		
+		return mav;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "emailDuplicateCheck", method = RequestMethod.POST)
+	public HashMap emailDuplicateCheck(UserEntity user) {
+		
+		HashMap map  = new HashMap();
+		if(userService.emailDuplicateCheck(user)) {
+			map.put("result", "success");
+			
+		}else {
+			map.put("result", "fail");
 		}
 		
 		return  map;

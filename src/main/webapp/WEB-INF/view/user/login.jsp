@@ -15,9 +15,10 @@ function login(){
         url : "${pageContext.request.contextPath}/user/login", 
         type : 'POST', 
         data : formData, 
+        dataType : 'json',
         success : function(data) {
         	if(data.result == "success"){
-        		alert("로그인 성공")	
+        		window.location.href = '${pageContext.request.contextPath}/board/list';
         	}else{
         		alert("로그인 실패")
         	}
@@ -48,7 +49,7 @@ function login(){
 	    <label class="form-check-label" for="exampleCheck1">Check me out</label>
 	  </div>
 	  <button type="button" onclick="login();" class="btn btn-primary">로그인</button>
-	  <button type="button" class="btn btn-primary">회원가입</button>
+	  <button type="button" onclick="location.href='${pageContext.request.contextPath}/user/memberJoin'" class="btn btn-primary">회원가입</button>
 	</form>
 </div>
 </body>
