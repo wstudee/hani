@@ -47,21 +47,19 @@ public class UserController {
 		return mav;
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public HashMap login(UserEntity user) {
-		
-		HashMap map  = new HashMap();
-		if(userService.isUser(user)) {
-			map.put("result", "success");
-			
-		}else {
-			map.put("result", "fail");
-		}
-		
-		return  map;
-	}
-
+	/*
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping(value = "login", method = RequestMethod.POST) public HashMap
+	 * login(UserEntity user) {
+	 * 
+	 * HashMap map = new HashMap(); if(userService.isUser(user)) { map.put("result",
+	 * "success");
+	 * 
+	 * }else { map.put("result", "fail"); }
+	 * 
+	 * return map; }
+	 */
 	
 	@RequestMapping(value = "memberJoin", method = RequestMethod.GET)
 	public ModelAndView memberJoinView() {

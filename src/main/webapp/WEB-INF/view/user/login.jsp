@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<link rel="stylesheet" type="text/css" href="/resource/css/user.css">
 <script type="text/javascript">
 	
 
@@ -33,24 +35,32 @@ function login(){
 
 </script>
 <body>
-<div class="row justify-content-md-center">
-	<form id="loginForm">
-	  <div class="mb-3">
-	    <label for="exampleInputEmail1" class="form-label">Email address</label>
-	    <input type="email"  name = "email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-	    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-	  </div>
-	  <div class="mb-3">
-	    <label for="exampleInputPassword1" class="form-label">Password</label>
-	    <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-	  </div>
-	  <div class="mb-3 form-check">
-	    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-	    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-	  </div>
-	  <button type="button" onclick="login();" class="btn btn-primary">로그인</button>
-	  <button type="button" onclick="location.href='${pageContext.request.contextPath}/user/memberJoin'" class="btn btn-primary">회원가입</button>
-	</form>
-</div>
+<main class="form-signin">
+  <form id="loginForm" action="${pageContext.request.contextPath}/user/login" method="post">
+    <input type="hidden" 	name="${_csrf.parameterName}" 	value="${_csrf.token}"/>
+    <h2>${logout}</h2>
+    <div class="form-floating">
+      <label for="floatingInput">Email address</label>
+      <input type="email"  name="username"  class="form-control" id="floatingInput" placeholder="name@example.com">
+    </div>
+    <div class="form-floating">
+      <label for="floatingPassword">Password</label>
+      <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+    </div>
+
+    <c:if test="${param.error eq ''}">
+    <div class="alert alert-danger" role="alert">로그인 실패</div> 
+    </c:if>
+<!-- 
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div> -->
+    <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
+  </form>
+  <button type="button" onclick="location.href='${pageContext.request.contextPath}/user/memberJoin'"class="w-100 btn btn-lg btn-primary" >회원가입</button>
+</main>
+
 </body>
 </html>

@@ -28,6 +28,9 @@ public class UserEntity {
 	@Column(name = "nickname", nullable = true, updatable = true, length = 20) 
 	private String nickname          ;
 	
+	@Column(name = "enable", nullable = true, updatable = true, length = 20) 
+	private Boolean enable          ;
+	
 	@Column(name = "update_user", nullable = true, updatable = true, length  = 150)
 	private String updateUser  ;
 
@@ -109,6 +112,16 @@ public class UserEntity {
 		this.regDate = regDate;
 	}
 	
+	
+	
+	public Boolean getEnable() {
+		return enable;
+	}
+
+	public void setEnable(Boolean enable) {
+		this.enable = enable;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder str = new StringBuilder();
