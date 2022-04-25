@@ -51,9 +51,6 @@ public class BoardController {
 		mav.addObject("page", paging);
 		mav.addObject("totalCnt", resultList.getTotalElements());
 		
-		HashMap map = list.get(0);
-		System.err.println(map.get("board"));
-		
 		
 		return mav;
 	}
