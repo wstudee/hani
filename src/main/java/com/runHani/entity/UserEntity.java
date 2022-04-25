@@ -13,7 +13,7 @@ public class UserEntity {
 	@Column(name = "email", nullable = false, updatable = true, length = 20) 
 	private String email             ;
 	
-	@Column(name = "password", nullable = false, updatable = true, length = 20) 
+	@Column(name = "password", nullable = false, updatable = true, length = 200) 
 	private String password          ;
 	
 	@Column(name = "user_status", nullable = true, updatable = true, length = 20) 

@@ -14,10 +14,9 @@ function emailDuplicateCheck(){
     
     $.ajax({
         cache : false,
-        url : "${pageContext.request.contextPath}/user/emailDuplicateCheck", 
+        url : "${pageContext.request.contextPath}/account/emailDuplicateCheck", 
         type : 'POST', 
         data : formData, 
-        dataType : 'json',
         success : function(data) {
         	if(data.result == "success"){
         		resultText = "이미 등록된 아이디입니다.";
@@ -70,7 +69,8 @@ function memberJoin(){
 </script>
 <body>
 <div class="row justify-content-md-center">
-	<form id="loginForm" name ='loginForm'  method="post" action="/user/memberJoin">
+	<form id="loginForm" name ='loginForm'  method="post" action="/account/register">
+	<input type="hidden" 	name="${_csrf.parameterName}" 	value="${_csrf.token}"/>
 	  <div class="mb-3">
 	    <label for="exampleInputEmail1" class="form-label">Email address</label>
 	    <input type="email"  name = "email" class="form-control" id="email" >
@@ -89,7 +89,8 @@ function memberJoin(){
 	    <input type="hidden"  id = "passwordChcek" value="false">
 	    <div id="passwordlHelp" class="form-text"></div>
 	  </div>
-	  <button type="button" onclick="memberJoin()" class="btn btn-primary">회원가입</button>
+	  <button type="submit"  class="btn btn-primary">회원가입</button>
+	  <!-- <button type="button" onclick="memberJoin()" class="btn btn-primary">회원가입</button> -->
 	</form>
 </div>
 </body>

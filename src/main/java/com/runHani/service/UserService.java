@@ -10,6 +10,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -22,6 +24,7 @@ import com.runHani.entity.FileEntity;
 import com.runHani.entity.NoticeFileEntity;
 import com.runHani.entity.BoardFileEntity;
 import com.runHani.entity.SearchEntity;
+import com.runHani.entity.UserAuthEntity;
 import com.runHani.entity.UserEntity;
 import com.runHani.repository.BoardFileRepository;
 import com.runHani.repository.BoardRepository;
@@ -40,6 +43,11 @@ public class UserService  {
     public void setBoardRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+    
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 	public boolean isUser(UserEntity user) {
 		
 		UserEntity checkUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
@@ -63,8 +71,13 @@ public class UserService  {
 	}
 	public boolean saveUser(UserEntity user) {
 
-		UserEntity saveUser = userRepository.save(user);
+		
+		String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        user.setEnable(true);
 
+        UserEntity saveUser = userRepository.save(user);
+		
 		if(saveUser == null){
 			return false;
 		}
