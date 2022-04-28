@@ -25,6 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+		.csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/", "/notice/**", "/account/**" ,  "/account/login").permitAll()
 			.anyRequest()
@@ -36,7 +37,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.permitAll()
 			.and()
 		.logout()
-			.permitAll();
+			.logoutUrl("/account/logout")
+			.logoutSuccessUrl("/account/login")
+			.permitAll()
+			;			
 				
 
 			}

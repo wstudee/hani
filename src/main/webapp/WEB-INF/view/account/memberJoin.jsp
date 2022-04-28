@@ -80,6 +80,10 @@ function memberJoin(){
 	     
 	  </div>
 	  <div class="mb-3">
+	    <label for="exampleInputPassword1" class="form-label">nickname</label>
+	    <input type="text" name="nickname" class="form-control" id="nickname">
+	  </div>
+	  <div class="mb-3">
 	    <label for="exampleInputPassword1" class="form-label">Password</label>
 	    <input type="password" name="password" class="form-control" id="password">
 	  </div>
@@ -90,7 +94,6 @@ function memberJoin(){
 	    <div id="passwordlHelp" class="form-text"></div>
 	  </div>
 	  <button type="submit"  class="btn btn-primary">회원가입</button>
-	  <!-- <button type="button" onclick="memberJoin()" class="btn btn-primary">회원가입</button> -->
 	</form>
 </div>
 </body>

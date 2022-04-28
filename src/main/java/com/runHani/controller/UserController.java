@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponseWrapper;
+
 import org.apache.tiles.autotag.core.runtime.annotation.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,6 +65,20 @@ public class UserController {
         userService.saveUser(user);
         return "redirect:/";
     }
+    
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String loout(HttpServletRequest request, HttpServletResponseWrapper response) throws Exception {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth != null) {
+    	new SecurityContextLogoutHandler().logout(request, response, auth);
+    }
+    return "redirect:/account/login";
+    }
+
+
+    
+    
+    
 	
 	/*
 	 * @RequestMapping(value = "login", method = RequestMethod.GET) public

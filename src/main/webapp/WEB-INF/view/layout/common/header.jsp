@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"  pageEncoding="EUC-KR"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
     <div class="container-fluid">
 	<div class="row">
@@ -34,7 +34,12 @@
 					</form>
 					<ul class="navbar-nav ml-md-auto">
 						<li class="nav-item active">
-							 <a class="nav-link" href="/user/login">Login <span class="sr-only">(current)</span></a>
+						<sec:authorize access="isAnonymous()">
+							 <a class="nav-link" href="/account/login">Login <span class="sr-only">(current)</span></a>
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<a class="nav-link" href="/account/logout">Log Out <span class="sr-only">(current)</span></a>
+						</sec:authorize>
 						</li>
 						<li class="nav-item dropdown">
 							 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Dropdown link</a>
