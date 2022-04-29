@@ -10,21 +10,6 @@ function register(){
 	document.inputForm.submit();
 }
 
-function isFileImage(){
-	var file = document.getElementById('fileInput');
-	var ext = file.value.match(/\.([^\.]+)$/)[1];
-	switch (ext) {
-	  case 'jpg':
-	  case 'jpeg':
-	  case 'bmp':
-	  case 'png':
-	  case 'tif':
-	    break;
-	  default:
-	    alert('이미지 파일만 업로드가 가능합니다.');
-	  file.value = '';
-	}
-}
 </script>
 <body>
 	<div class="container">
@@ -32,7 +17,7 @@ function isFileImage(){
 		<div class="row">
 			<div  class="col">
 				<form name="inputForm" enctype="multipart/form-data">
-
+				<input type="hidden" 	name="${_csrf.parameterName}" 	value="${_csrf.token}"/>
 				  <div class="form-group">
 				    <label for="exampleFormControlInput1">제목</label>
 				    <input type="text" class="form-control" id="title" name= "title">

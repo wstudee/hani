@@ -43,7 +43,7 @@
 							</div>
 						</div>
 						<div id="boardInfo">
-							<p>${item.board.regUser.email}</p>
+							<p>${item.board.regUser.nickname}</p>
 							<fmt:parseDate value="${item. board.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
 							<p>
 							<fmt:formatDate pattern="yyyy-MM-dd" value="${ parsedDateTime }" />

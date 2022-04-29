@@ -49,7 +49,7 @@ function chageColor(e){
 function isFileImage(e){
 	var file = document.getElementById('fileInput');
 	var ext = file.value.match(/\.([^\.]+)$/)[1];
-	switch (ext) {
+	switch (ext.toLowerCase()) {
 	  case 'jpg':
 	  case 'jpeg':
 	  case 'bmp':
