@@ -21,6 +21,7 @@ import com.runHani.repository.BoardFileRepository;
 import com.runHani.repository.BoardRepository;
 import com.runHani.repository.UserRepository;
 import com.runHani.util.FileUtils;
+import com.runHani.vo.UserSessionVO;
 
 
 @Service
@@ -65,10 +66,9 @@ public class BoardService  {
 		
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User sessionUser = (User) principal;
+		UserSessionVO sessionUser = (UserSessionVO) principal;
 		
-		UserEntity user = userRepository.findByEmail(sessionUser.getUsername());
-		
+		UserEntity user = sessionUser.getUser();
 		notice.setUpdateUser(user);
 		notice.setRegUser(user);
 		

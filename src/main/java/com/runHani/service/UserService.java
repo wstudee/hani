@@ -75,7 +75,11 @@ public class UserService  {
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         user.setEnable(true);
-
+        
+        UserAuthEntity userAuth = new UserAuthEntity();
+        userAuth.setUser(user);
+        userAuth.setAuthority("USER");
+        
         UserEntity saveUser = userRepository.save(user);
 		
 		if(saveUser == null){

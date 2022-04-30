@@ -51,13 +51,13 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public String login(@Parameter String error) {
-        return "account/login";
+    public String login() {
+        return baseJSPpath +"/login";
     }
 
     @GetMapping("/register")
     public String register() {
-        return "account/memberJoin";
+        return baseJSPpath +"/memberJoin";
     }
 
     @PostMapping("/register")
@@ -74,59 +74,13 @@ public class UserController {
     }
     return "redirect:/account/login";
     }
+    
+
+    @GetMapping("/info")
+    public String userInfo() {
+        return baseJSPpath +"/info";
+    }
 
 
-    
-    
-    
-	
-	/*
-	 * @RequestMapping(value = "login", method = RequestMethod.GET) public
-	 * ModelAndView loginView() { ModelAndView mav = new ModelAndView(baseJSPpath +
-	 * "/login");
-	 * 
-	 * return mav; }
-	 * 
-	 * 
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(value = "login", method = RequestMethod.POST) public HashMap
-	 * login(UserEntity user) {
-	 * 
-	 * HashMap map = new HashMap(); if(userService.isUser(user)) { map.put("result",
-	 * "success");
-	 * 
-	 * }else { map.put("result", "fail"); }
-	 * 
-	 * return map; }
-	 * 
-	 * 
-	 * @RequestMapping(value = "register", method = RequestMethod.GET) public
-	 * ModelAndView memberJoinView() { ModelAndView mav = new
-	 * ModelAndView(baseJSPpath + "/memberJoin");
-	 * 
-	 * return mav; }
-	 * 
-	 * @RequestMapping(value = "register", method = RequestMethod.POST) public
-	 * ModelAndView memberJoin(UserEntity user) { ModelAndView mav = new
-	 * ModelAndView();
-	 * 
-	 * userService.saveUser(user); mav.setViewName("/account/login");
-	 * 
-	 * return mav; }
-	 * 
-	 * 
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(value = "emailDuplicateCheck", method = RequestMethod.POST)
-	 * public HashMap emailDuplicateCheck(UserEntity user) {
-	 * 
-	 * HashMap map = new HashMap(); if(userService.emailDuplicateCheck(user)) {
-	 * map.put("result", "success");
-	 * 
-	 * }else { map.put("result", "fail"); }
-	 * 
-	 * return map; }
-	 */
 
 }

@@ -5,6 +5,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+
+
 <c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}"/>
 <script type="text/javascript">
 	function goDetail(sn){
@@ -70,7 +72,7 @@
 		  </ul>
 		</nav>
 		
-		 <div class="row">
+		 <div class="row justify-content-md-end ">
 		 	<button type="button" class="btn btn-primary" onclick="location.href='/board'">글등록</button>
 		 	<button type="button" class="btn btn-primary" onclick="location.href='/board/list'">목록으로</button>	
 	 	</div>

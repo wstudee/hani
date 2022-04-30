@@ -27,10 +27,10 @@ function checkVal(){
 	return result;
 }
 
-function boardSetting(attNo){
+function boardSetting(attNo, color){
 	
-	$('#preview').css('background-image','url(/boardFile/'+attNo+')' )
-	$('#preview div').css('color','${board.color}' )
+	$('#preview').css('background-image','url(/boardFile/'+attNo+')' );
+	$('#preview div').css('color',color );
 	
 }
 

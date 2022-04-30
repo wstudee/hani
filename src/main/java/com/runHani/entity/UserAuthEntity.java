@@ -30,6 +30,6 @@ public class UserAuthEntity {
 	private UserEntity user;
 	
 	@Column(name = "authority", nullable = false, updatable = true)
-	private String regDate   ;
+	private String authority   ;
 	
 }

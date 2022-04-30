@@ -35,10 +35,18 @@
 					<ul class="navbar-nav ml-md-auto">
 						<li class="nav-item active">
 						<sec:authorize access="isAnonymous()">
+						<li class="nav-item active">
 							 <a class="nav-link" href="/account/login">Login <span class="sr-only">(current)</span></a>
+						</li>
 						</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
+						 <sec:authentication property="principal" var="principal" />
+						 	<li class="nav-item">
+							<a class="nav-link" href="/account/info"><span style="font-weight: 900">${principal.nickname}</span> 님 환영합니다.</a>
+							</li> 
+							<li class="nav-item active">
 							<a class="nav-link" href="/account/logout">Log Out <span class="sr-only">(current)</span></a>
+							</li>
 						</sec:authorize>
 						</li>
 						<li class="nav-item dropdown">

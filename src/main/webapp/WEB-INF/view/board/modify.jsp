@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <script type="text/javascript">
 
 $(function(){ 
@@ -73,7 +73,6 @@ function fileDelete(attNo){
 						</div>
 					</div>
 				</div>
-		
 			</div>
 			<div  class="col">
 				<form name="inputForm"  method="post"  enctype="multipart/form-data">
@@ -99,7 +98,13 @@ function fileDelete(attNo){
 				</div>
 				<c:if test="${not empty file.attachedFileNo}">
 				<div id="file${file.attachedFileNo}">
-							<a class = "file" href="/boardFile/${file.attachedFileNo}">${file.fileName}<br></a><button type="button" onclick="fileDelete(${file.attachedFileNo})">X</button>
+							<a class = "file" href="/boardFile/${file.attachedFileNo}">${file.fileName}<br></a>
+							<sec:authorize access="isAuthenticated()">
+			   <sec:authentication property="principal" var="principal" />
+			   <c:if test="${principal.username eq board.regUser.email}" >
+							<button type="button" onclick="fileDelete(${file.attachedFileNo})">X</button>
+				</c:if>
+			</sec:authorize>
 				</div>	
 				</c:if>
 				</form>

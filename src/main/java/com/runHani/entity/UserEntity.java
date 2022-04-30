@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "tb_user_bas")
 public class UserEntity {
 
@@ -40,87 +42,6 @@ public class UserEntity {
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getUserStatus() {
-		return userStatus;
-	}
-
-	public void setUserStatus(String userStatus) {
-		this.userStatus = userStatus;
-	}
-
-	public String getLoginFailCnt() {
-		return loginFailCnt;
-	}
-
-	public void setLoginFailCnt(String loginFailCnt) {
-		this.loginFailCnt = loginFailCnt;
-	}
-
-	public String getProfilePicPath() {
-		return profilePicPath;
-	}
-
-	public void setProfilePicPath(String profilePicPath) {
-		this.profilePicPath = profilePicPath;
-	}
-
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-
-	public String getUpdateUser() {
-		return updateUser;
-	}
-
-	public void setUpdateUser(String updateUser) {
-		this.updateUser = updateUser;
-	}
-
-	public LocalDateTime getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(LocalDateTime updateDate) {
-		this.updateDate = updateDate;
-	}
-
-	public LocalDateTime getRegDate() {
-		return regDate;
-	}
-
-	public void setRegDate(LocalDateTime regDate) {
-		this.regDate = regDate;
-	}
-	
-	
-	
-	public Boolean getEnable() {
-		return enable;
-	}
-
-	public void setEnable(Boolean enable) {
-		this.enable = enable;
-	}
 
 	@Override
 	public String toString() {
