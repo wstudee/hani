@@ -49,38 +49,48 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@GetMapping("/login")
+	public String login() {
+		return baseJSPpath + "/login";
+	}
 
-    @GetMapping("/login")
-    public String login() {
-        return baseJSPpath +"/login";
-    }
+	@GetMapping("/register")
+	public String register() {
+		return baseJSPpath + "/memberJoin";
+	}
 
-    @GetMapping("/register")
-    public String register() {
-        return baseJSPpath +"/memberJoin";
-    }
+	@PostMapping("/register")
+	public String register(UserEntity user) {
+		userService.saveUser(user);
+		return "redirect:/";
+	}
 
-    @PostMapping("/register")
-    public String register(UserEntity user) {
-        userService.saveUser(user);
-        return "redirect:/";
-    }
-    
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String loout(HttpServletRequest request, HttpServletResponseWrapper response) throws Exception {
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    if (auth != null) {
-    	new SecurityContextLogoutHandler().logout(request, response, auth);
-    }
-    return "redirect:/account/login";
-    }
-    
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String loout(HttpServletRequest request, HttpServletResponseWrapper response) throws Exception {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		return "redirect:/account/login";
+	}
 
-    @GetMapping("/info")
-    public String userInfo() {
-        return baseJSPpath +"/info";
-    }
+	@GetMapping("/info")
+	public String userInfo() {
+		return baseJSPpath + "/info";
+	}
 
+	@ResponseBody
+	@RequestMapping(value = "/emailDuplicateCheck", method = RequestMethod.POST)
+	public HashMap emailDuplicateCheck(@RequestBody String email) {
 
+		HashMap map = new HashMap();
+		if (userService.emailDuplicateCheck(email)) {
+			map.put("result", "fail");
+		} else {
+			map.put("result", "success");
+		}
+
+		return map;
+	}
 
 }

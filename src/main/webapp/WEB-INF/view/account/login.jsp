@@ -4,7 +4,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<link rel="stylesheet" type="text/css" href="/resource/css/user.css">
 <script type="text/javascript">
 	
 
@@ -47,12 +46,12 @@ function login(){
     <input type="hidden" 	name="${_csrf.parameterName}" 	value="${_csrf.token}"/>
     
     <div class="form-floating">
-      <label for="floatingInput">Email address</label>
       <input type="email"  name="username"  class="form-control" id="floatingInput" placeholder="name@example.com">
+      <label for="floatingInput">Email address</label>
     </div>
     <div class="form-floating">
-      <label for="floatingPassword">Password</label>
       <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">Password</label>
     </div>
 
     <c:if test="${param.error eq ''}">

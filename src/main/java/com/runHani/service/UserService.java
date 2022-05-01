@@ -58,9 +58,9 @@ public class UserService  {
 		
 		return true;
 	}
-	public boolean emailDuplicateCheck(UserEntity user) {
+	public boolean emailDuplicateCheck(String email) {
 
-		UserEntity checkUser = userRepository.findByEmail(user.getEmail());
+		UserEntity checkUser = userRepository.findByEmail(email);
 		
 		if(checkUser == null){
 			return false;

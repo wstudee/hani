@@ -1,8 +1,3 @@
-/**
- * 
- */
-
-
 function checkVal(){
 	
 	var result =true; 
@@ -30,7 +25,7 @@ function checkVal(){
 function boardSetting(attNo, color){
 	
 	$('#preview').css('background-image','url(/boardFile/'+attNo+')' );
-	$('#preview div').css('color',color );
+	$('#preview div').css('color',color ); 
 	
 }
 
