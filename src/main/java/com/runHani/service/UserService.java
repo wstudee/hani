@@ -26,8 +26,10 @@ import com.runHani.entity.BoardFileEntity;
 import com.runHani.entity.SearchEntity;
 import com.runHani.entity.UserAuthEntity;
 import com.runHani.entity.UserEntity;
+import com.runHani.entity.UserProfileFileEntity;
 import com.runHani.repository.BoardFileRepository;
 import com.runHani.repository.BoardRepository;
+import com.runHani.repository.UserProfileFileRepository;
 import com.runHani.repository.UserRepository;
 import com.runHani.repository.BoardFileRepository;
 import com.runHani.repository.BoardRepository;
@@ -42,6 +44,13 @@ public class UserService  {
     @Autowired
     public void setBoardRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+    
+    private UserProfileFileRepository userFileRepository;
+    
+    @Autowired
+    public void setBoardRepository(UserProfileFileRepository userFileRepository) {
+    	this.userFileRepository = userFileRepository;
     }
     
     
@@ -69,7 +78,7 @@ public class UserService  {
 		
 		return true;
 	}
-	public boolean saveUser(UserEntity user) {
+	public boolean saveUser(UserEntity user, MultipartHttpServletRequest req) {
 
 		
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -80,8 +89,18 @@ public class UserService  {
         userAuth.setUser(user);
         userAuth.setAuthority("USER");
         
+        
+    	List<FileEntity> fileList = FileUtils.parseFileinfo(req);			
+    	
+		if(fileList.size() > 0) {
+			UserProfileFileEntity newFile = new UserProfileFileEntity(fileList.get(0));
+			userFileRepository.save(newFile);
+			user.setProfilePicPath(userFileRepository.save(newFile));
+		}
+        
         UserEntity saveUser = userRepository.save(user);
 		
+        
 		if(saveUser == null){
 			return false;
 		}

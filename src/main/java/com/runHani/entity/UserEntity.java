@@ -24,8 +24,7 @@ public class UserEntity {
 	@Column(name = "login_fail_cnt", nullable = true, updatable = true, length = 20) 
 	private String loginFailCnt    ;
 	
-	@Column(name = "profile_pic_path", nullable = true, updatable = true, length = 20) 
-	private String profilePicPath  ;
+
 	
 	@Column(name = "nickname", nullable = true, updatable = true, length = 20) 
 	private String nickname          ;
@@ -42,7 +41,12 @@ public class UserEntity {
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
 
-
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "attached_file_no") 
+	private UserProfileFileEntity profilePicPath  ;
+	
+	
 	@Override
 	public String toString() {
 		StringBuilder str = new StringBuilder();

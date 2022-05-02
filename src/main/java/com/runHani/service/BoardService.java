@@ -99,10 +99,7 @@ public class BoardService  {
 		if(fileList.size() > 0) {
 			BoardFileEntity newFile = new BoardFileEntity(fileList.get(0));
 			boardFileRepository.save(newFile);
-		//	notice.setBoardFileEntity(newFile);
 			newFile.setBoardEntity(notice);
-		}else {
-		//	notice.setBoardFileEntity(boardFileRepository.findByBoardEntity(boardRepository.findById(notice.getBoardNo()).get()));
 		}
 		postBoard(notice);
 		

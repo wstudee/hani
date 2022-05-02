@@ -102,9 +102,14 @@ function memberJoin(){
 </script>
 <body>
 
-
 <main class="form-signin">
-	<form id="loginForm" name ='loginForm'  method="post" action="/account/register"  class= "form-floating">
+	<form id="loginForm" name ='loginForm'  method="post" action="/account/register"  class= "form-floating" enctype="multipart/form-data">
+
+<div class="row mb-3">
+<div class="col-md-4 themed-grid-col">
+	 <div class="rounded-circle profile"  id="preview"></div>
+</div>
+<div class="col-md-8 themed-grid-col">
 	<input type="hidden" 	name="${_csrf.parameterName}" 	value="${_csrf.token}"/>
 	<input type="hidden"  id = "emailChcek">
 	<input type="submit" id="submitBtn" style="display: none;" > 
@@ -119,7 +124,7 @@ function memberJoin(){
 	  
 	  
 	  <div class="form-floating">
-		<input type="text" name="nickname" class="form-control" id="nickname" required="required"  minlength="4" maxlength="8" >
+		<input type="text" name="nickname" class="form-control" id="nickname" required="required"  minlength="2" maxlength="8" >
 		<label for="nickname" class="form-label">nickname</label>
 	  </div>
 
@@ -134,11 +139,23 @@ function memberJoin(){
 		<input type="hidden"  id = "passwordChcek" value="false">
 		<div id="passwordlHelp" class="form-text"></div>
 	  </div>
+	  
+	<div class="form">
+		<label> 프로필 사진</label>
+	 	<input type="file" class="form-control" placeholder="한줄요약" aria-label="Username" name= "files"  id="fileInput"  onchange="isFileImage(this)"  accept="image/gif, image/jpeg, image/png">
+	</div>
+	  
+	
+	  
   	  <div class="form-floating">
 		<div class="alert alert-danger" role="alert" id="showError" style="display: none;"></div>
 	  </div>
 
+
    	  <button type="button" onclick="memberJoin()" class="btn btn-primary">회원가입</button>
+</div>
+</div>
+   	  
 	</form>
 
 	

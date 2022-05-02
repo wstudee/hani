@@ -60,9 +60,9 @@ public class UserController {
 	}
 
 	@PostMapping("/register")
-	public String register(UserEntity user) {
-		userService.saveUser(user);
-		return "redirect:/";
+	public String register(UserEntity user, MultipartHttpServletRequest req) {
+		userService.saveUser(user,req);
+		return "redirect:/board/list";
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

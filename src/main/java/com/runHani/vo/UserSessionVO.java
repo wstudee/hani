@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.runHani.entity.UserEntity;
+import com.runHani.entity.UserProfileFileEntity;
 
 import lombok.Data;
 
@@ -23,7 +24,7 @@ public class UserSessionVO implements UserDetails
 	
 	private String loginFailCnt    ;
 	
-	private String profilePicPath  ;
+	private UserProfileFileEntity profilePicPath  ;
 	
 	private String nickname          ;
 	
