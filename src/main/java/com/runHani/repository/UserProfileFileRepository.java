@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.runHani.entity.UserProfileFileEntity;
 
 
-public interface UserProfileFileRepository extends JpaRepository<UserProfileFileEntity, Long>  {
+public interface UserProfileFileRepository extends JpaRepository<UserProfileFileEntity, Integer>  {
 
 
 	

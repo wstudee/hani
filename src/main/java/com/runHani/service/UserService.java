@@ -107,5 +107,10 @@ public class UserService  {
 		
 		return true;
 	}
+	public UserProfileFileEntity findByFileId(int fileNo) {
+
+		
+		return userFileRepository.findById(fileNo).get();
+	}
 
 }
