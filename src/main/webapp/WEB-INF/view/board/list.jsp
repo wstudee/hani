@@ -23,18 +23,20 @@
 <body>
 	<div class="container">
 		<h3>LIST</h3>
-		<div class="row">
+		<div class="d-flex justify-content-end">
+			<div>
 			<select id="searchCriteria"> 
 				<option value="total">전체</option>
 				<option value="title">제목</option>
 				<option value="contents">내용</option>
 			</select> 
 			<input type= "text" name = "searchWord" id = "searchWord"  value='${searchWord}'/> <button onclick="search()">검색</button>
+			</div>
 		</div>
 		<div class="row">
 				<c:forEach items="${list}" var="item">
-					<a onclick="goDetail(${item.board.boardNo})" >
-						<div class='textBox' style="background-image : url(/boardFile/${item.file.attachedFileNo});"> 
+				 <div class="col">
+						<div class='textBox' style="background-image : url(/boardFile/${item.file.attachedFileNo});" onclick="goDetail(${item.board.boardNo})"> 
 							<div style="color : ${item.board.color}">
 								<p id="regDate">
 									<fmt:parseDate value="${item.board.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
@@ -45,13 +47,14 @@
 							</div>
 						</div>
 						<div id="boardInfo">
-							<p>${item.board.regUser.nickname}</p>
-							<fmt:parseDate value="${item. board.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+						  <img src="/profileFile/${item.board.regUser.profilePicPath.attachedFileNo }" alt="mdo" width="32" height="32" onerror="this.src='/resource/image/noProfile.png'" class="rounded-circle">
+						  <p>${item.board.regUser.nickname}</p>
+							<%-- <fmt:parseDate value="${item.board.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
 							<p>
 							<fmt:formatDate pattern="yyyy-MM-dd" value="${ parsedDateTime }" />
-							</p>
+							</p> --%>
 						</div>
-					</a>
+					</div>
 				</c:forEach>
 		</div>
 		<nav aria-label="Page navigation example">

@@ -91,14 +91,19 @@ public class UserService  {
         
         
     	List<FileEntity> fileList = FileUtils.parseFileinfo(req);			
-    	
+    	UserProfileFileEntity newFile = null;
 		if(fileList.size() > 0) {
-			UserProfileFileEntity newFile = new UserProfileFileEntity(fileList.get(0));
+			newFile = new UserProfileFileEntity(fileList.get(0));
 			userFileRepository.save(newFile);
 			user.setProfilePicPath(userFileRepository.save(newFile));
 		}
         
-        UserEntity saveUser = userRepository.save(user);
+		
+		UserEntity saveUser = userRepository.save(user);
+		if(newFile!=null) {
+			newFile.setUser(saveUser);
+			userFileRepository.save(newFile);
+		}
 		
         
 		if(saveUser == null){
