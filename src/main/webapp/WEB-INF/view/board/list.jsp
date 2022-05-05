@@ -33,10 +33,11 @@
 			<input type= "text" name = "searchWord" id = "searchWord"  value='${searchWord}'/> <button onclick="search()">°Ë»ö</button>
 			</div>
 		</div>
-		<div class="row">
-				<c:forEach items="${list}" var="item">
-				 <div class="col">
-						<div class='textBox' style="background-image : url(/boardFile/${item.file.attachedFileNo});" onclick="goDetail(${item.board.boardNo})"> 
+		
+				<div class="row row-cols-2" >		
+				<c:forEach items="${list}" var="item" varStatus="status">
+				 <div class="col col-5 textBoxCover">
+						<div class='textBox' style="background-image : url(/boardFile/thumbnail/${item.file.attachedFileNo});" onclick="goDetail(${item.board.boardNo})"> 
 							<div style="color : ${item.board.color}">
 								<p id="regDate">
 									<fmt:parseDate value="${item.board.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
@@ -56,7 +57,7 @@
 						</div>
 					</div>
 				</c:forEach>
-		</div>
+			</div>
 		<nav aria-label="Page navigation example">
 		  <ul class="pagination">
 		    <li class="page-item">

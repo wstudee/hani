@@ -67,7 +67,33 @@ public class FileController {
 		BoardFileEntity file = boardService.findByFileId(fileNo);
 		
 		try {
-			byte[] files = FileUtils.readFileToByteArray(new File(file.getFilePath()));
+			byte[] files = FileUtils.readFileToByteArray(new File(file.getFilePath()+"\\"+file.getFileSaveName()));
+			
+			response.setContentType("application/octet-stream");
+			response.setContentLength(files.length);
+			response.setHeader("Content-Disposition","attachment; filename=\""+URLEncoder.encode(file.getFileName(),"UTF-8")+"\"");
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			
+			response.getOutputStream().write(files);
+			response.getOutputStream().flush();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			response.getOutputStream().close();
+		}
+		
+		
+	}
+	
+	@RequestMapping(value = "/boardFile/thumbnail/{fileNo}", method = RequestMethod.GET)
+	public void downLoadTthumbnailBoardFile(@PathVariable int fileNo, HttpServletResponse response) throws IOException {
+		
+		
+		BoardFileEntity file = boardService.findByFileId(fileNo);
+		
+		try {
+			byte[] files = FileUtils.readFileToByteArray(new File(file.getFilePath()+"\\t_"+file.getFileSaveName()));
 			
 			response.setContentType("application/octet-stream");
 			response.setContentLength(files.length);

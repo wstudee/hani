@@ -14,6 +14,24 @@
 	margin: 20px;
 }
 
+
+@media (min-width: 768px) { 
+.textBox{ 
+	height: 300px;
+	width: 300px;
+	position: relative;
+	text-align: center;
+	background-color: #eeeeee;
+	position: relative;
+	text-align: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin : 5%; }
+.textBoxCover{
+	margin : 1%; }
+}
+
+
 .textBox div {
 	vertical-align: middle;
 	top: 50%;
