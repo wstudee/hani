@@ -45,7 +45,7 @@ function takeBoard(method){
 				</div>
 			</div>
 			</div>
-			<div class="row">
+			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 			<sec:authorize access="isAuthenticated()">
 			   <sec:authentication property="principal" var="principal" />
 			   <c:if test="${principal.username eq board.regUser.email}" >

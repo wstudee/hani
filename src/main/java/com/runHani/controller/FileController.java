@@ -41,7 +41,7 @@ public class FileController {
 		NoticeFileEntity file = noticeFileService.findById(fileNo);
 		
 		try {
-			byte[] files = FileUtils.readFileToByteArray(new File(file.getFilePath()));
+			byte[] files = FileUtils.readFileToByteArray(new File(file.getFilePath()+"\\"+file.getFileSaveName()));
 			
 			response.setContentType("application/octet-stream");
 			response.setContentLength(files.length);
@@ -119,7 +119,7 @@ public class FileController {
 		UserProfileFileEntity file = userService.findByFileId(fileNo);
 		
 		try {
-			byte[] files = FileUtils.readFileToByteArray(new File(file.getFilePath()));
+			byte[] files = FileUtils.readFileToByteArray(new File(file.getFilePath()+"\\"+file.getFileSaveName()));
 			
 			response.setContentType("application/octet-stream");
 			response.setContentLength(files.length);

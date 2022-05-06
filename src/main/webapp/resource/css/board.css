@@ -1,24 +1,11 @@
 @charset "EUC-KR";
 
-.textBox {
-	height: 500px;
-	width: 500px;
-	position: relative;
-	text-align: center;
-	background-color: #eeeeee;
-	margin-bottom: 3%;
-	position: relative;
-	text-align: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	margin: 20px;
-}
 
 
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
 .textBox{ 
-	height: 300px;
-	width: 300px;
+	height: 320px;
+	width: 320px;
 	position: relative;
 	text-align: center;
 	background-color: #eeeeee;
@@ -27,55 +14,123 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	margin : 5%; }
-.textBoxCover{
-	margin : 1%; }
-}
-
-
-.textBox div {
-	vertical-align: middle;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	display: inline-block;
-	position: absolute;
-	font-weight: bold;
-	font-size: 25px;
-}
-#contents{
-	font-size: 20px;
-}
-
-#preview{
-	height: 500px;
-    width: 500px;
-    position: relative;
-    text-align: center;
-    background-color: #eeeeee;
-    margin-bottom: 3%;
-    position: relative;
-    text-align: center;
-    background-repeat : no-repeat;
-    background-size : cover;
-    
-}
-#preview div{
-	vertical-align: middle;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    display: inline-block;
-    position: absolute;
-    font-weight: bold;
-    font-size: 25px;
-}
-#titleCont{
-	font-size: 20px;
-}
-#submitErr{
-	color : rgb(164, 19, 19);
-}
-
-#boardInfo{
+	
+	.textBoxCover{
+		margin : 1%; }
+		
+	
+	.textBox div {
+		vertical-align: middle;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: inline-block;
+		position: absolute;
+		font-weight: bold;
+		font-size: 25px;
+	}
+	#contents{
+		font-size: 20px;
+	}
+	
+	#preview{
+		height: 300px;
+	    width: 300px;
+	    position: relative;
 	    text-align: center;
+	    background-color: #eeeeee;
+	    margin-bottom: 3%;
+	    position: relative;
+	    text-align: center;
+	    background-repeat : no-repeat;
+	    background-size : cover;
+	    
+	}
+	#preview div{
+		vertical-align: middle;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%,-50%);
+	    display: inline-block;
+	    position: absolute;
+	    font-weight: bold;
+	    font-size: 25px;
+	}
+	#titleCont{
+		font-size: 20px;
+	}
+	#submitErr{
+		color : rgb(164, 19, 19);
+	}
+	
+	#boardInfo{
+		    text-align: center;
+	}
+}
+
+
+@media (min-width: 991.98px) { 
+
+	.textBox {
+		height: 500px;
+		width: 500px;
+		position: relative;
+		text-align: center;
+		background-color: #eeeeee;
+		margin-bottom: 3%;
+		position: relative;
+		text-align: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		margin: 20px;
+	}
+
+	
+	.textBox div {
+		vertical-align: middle;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: inline-block;
+		position: absolute;
+		font-weight: bold;
+		font-size: 25px;
+	}
+	#contents{
+		font-size: 20px;
+	}
+	
+	#preview{
+		height: 500px;
+	    width: 500px;
+	    position: relative;
+	    text-align: center;
+	    background-color: #eeeeee;
+	    margin-bottom: 3%;
+	    position: relative;
+	    text-align: center;
+	    background-repeat : no-repeat;
+	    background-size : cover;
+	    
+	}
+	#preview div{
+		vertical-align: middle;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%,-50%);
+	    display: inline-block;
+	    position: absolute;
+	    font-weight: bold;
+	    font-size: 25px;
+	}
+	#titleCont{
+		font-size: 20px;
+	}
+	#submitErr{
+		color : rgb(164, 19, 19);
+	}
+	
+	#boardInfo{
+		    text-align: center;
+	}
 }

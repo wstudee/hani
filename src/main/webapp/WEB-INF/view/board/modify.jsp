@@ -112,7 +112,7 @@ function fileDelete(attNo){
 			</div>
 		</div>
 		
-		<div class="row">
+		<div class="d-grid gap-2 d-md-block justify-content-md-end">
 			<button type="button" class="btn btn-primary" onclick="location.href='/board/list'">목록으로</button>
 			<button type="button" class="btn btn-primary" onclick="modify()">수정</button>
 		</div>

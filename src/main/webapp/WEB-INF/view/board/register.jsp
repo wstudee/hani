@@ -6,9 +6,9 @@
 $( document ).ready(function() {
 	
 	var dt = new Date();
-	var month = '';
-	if(dt.getMonth()+1 < 10){month = "0"+(dt.getMonth()+1);}
-	var str = dt.getFullYear()+'-'+month+'-'+dt.getDate();
+	var month = dt.getMonth()+1 < 10 ? "0"+(dt.getMonth()+1) : (dt.getMonth()+1); 
+	var date  = dt.getDate() < 10 ? "0"+ dt.getDate() : dt.getDate() ; 
+	var str = dt.getFullYear()+'-'+month+'-'+date;
 	$('#date').text(str);
 	
 });
@@ -72,7 +72,7 @@ function register(){
 				<div id='submitErr'></div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 			<button type="button" class="btn btn-primary" onclick="location.href='/board/list'">목록으로</button>
 			<button type="button" class="btn btn-primary" onclick="register()">등록</button>
 		</div>

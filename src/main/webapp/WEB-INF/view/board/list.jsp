@@ -50,10 +50,6 @@
 						<div id="boardInfo">
 						  <img src="/profileFile/${item.board.regUser.profilePicPath.attachedFileNo }" alt="mdo" width="32" height="32" onerror="this.src='/resource/image/noProfile.png'" class="rounded-circle">
 						  <p>${item.board.regUser.nickname}</p>
-							<%-- <fmt:parseDate value="${item.board.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
-							<p>
-							<fmt:formatDate pattern="yyyy-MM-dd" value="${ parsedDateTime }" />
-							</p> --%>
 						</div>
 					</div>
 				</c:forEach>
@@ -76,7 +72,7 @@
 		  </ul>
 		</nav>
 		
-		 <div class="row justify-content-md-end ">
+		 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 		 	<button type="button" class="btn btn-primary" onclick="location.href='/board'">글등록</button>
 		 	<button type="button" class="btn btn-primary" onclick="location.href='/board/list'">목록으로</button>	
 	 	</div>
