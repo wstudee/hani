@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.runHani.entity.BoardEntity;
 import com.runHani.entity.BoardFileEntity;
@@ -34,6 +36,7 @@ import com.runHani.repository.UserRepository;
 import com.runHani.repository.BoardFileRepository;
 import com.runHani.repository.BoardRepository;
 import com.runHani.util.FileUtils;
+import com.runHani.vo.UserSessionVO;
 
 
 @Service
@@ -116,6 +119,38 @@ public class UserService  {
 
 		
 		return userFileRepository.findById(fileNo).get();
+	}
+	public boolean updateUser(UserEntity user, MultipartHttpServletRequest req) {
+		
+		String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        user.setEnable(true);
+        
+    	List<FileEntity> fileList = FileUtils.parseFileinfo(req);			
+    	UserProfileFileEntity newFile = null;
+		if(fileList.size() > 0) {
+			newFile = new UserProfileFileEntity(fileList.get(0));
+			userFileRepository.save(newFile);
+			user.setProfilePicPath(userFileRepository.save(newFile));
+		}else {
+			Object o
+				= SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(o instanceof UserSessionVO) {
+				UserSessionVO sessiinUser = (UserSessionVO)o;
+				user.setProfilePicPath(sessiinUser.getProfilePicPath());
+			}else {
+				return false;
+			}
+		}
+		
+		UserEntity saveUser = userRepository.save(user);
+		if(newFile!=null) {
+			newFile.setUser(saveUser);
+			userFileRepository.save(newFile);
+		}
+		
+		return true;
+        		
 	}
 
 }

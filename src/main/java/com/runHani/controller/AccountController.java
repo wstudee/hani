@@ -39,13 +39,14 @@ import com.runHani.entity.UserEntity;
 import com.runHani.service.BoardService;
 import com.runHani.service.UserService;
 import com.runHani.util.HaniUtil;
+import com.runHani.vo.UserSessionVO;
 
 @Controller
 @RequestMapping("account")
-public class UserController {
+public class AccountController {
 
 	private String baseJSPpath = "account";
-
+	
 	@Autowired
 	private UserService userService;
 
@@ -91,6 +92,45 @@ public class UserController {
 		}
 
 		return map;
+	}
+	
+	
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	public ModelAndView profile() {
+		ModelAndView result = new ModelAndView();
+		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(o instanceof UserSessionVO) {
+			UserSessionVO user = (UserSessionVO)o;
+			result.addObject("user", user);
+			result.setViewName(baseJSPpath + "/profile");
+			
+		}else {
+			result.setViewName("/account/login");
+		}
+		return result;
+	}
+	
+
+	@RequestMapping(value = "/profileInfo", method = RequestMethod.GET)
+	public ModelAndView profileInfo() {
+		ModelAndView result = new ModelAndView();
+		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(o instanceof UserSessionVO) {
+			UserSessionVO user = (UserSessionVO)o;
+			result.addObject("user", user);
+			result.setViewName(baseJSPpath + "/profileModi");
+			
+		}else {
+			result.setViewName("/account/login");
+		}
+		return result;
+	}
+	
+	
+	@PostMapping("/profileInfo")
+	public String updateUser(UserEntity user, MultipartHttpServletRequest req) {
+		userService.updateUser(user,req);
+		return "redirect:/account/profile";
 	}
 
 }

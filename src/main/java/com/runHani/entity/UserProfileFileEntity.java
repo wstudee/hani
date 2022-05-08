@@ -54,8 +54,9 @@ public class UserProfileFileEntity {
 
 	@Override
 	public String toString() {
-		return "BoardFileEntity"+ fileSaveName ;
+		return "UserProfileFileEntity [attachedFileNo=" + attachedFileNo + ", fileName=" + fileName + ", fileSaveName="
+				+ fileSaveName + ", filePath=" + filePath + ", regDate=" + regDate + ", user=" + user + "]";
 	}
-	
+
 	
 }
