@@ -120,34 +120,53 @@ public class UserService  {
 		
 		return userFileRepository.findById(fileNo).get();
 	}
-	public boolean updateUser(UserEntity user, MultipartHttpServletRequest req) {
+	public boolean updateUser(UserEntity newUserInfo, MultipartHttpServletRequest req) {
 		
-		String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        user.setEnable(true);
-        
-    	List<FileEntity> fileList = FileUtils.parseFileinfo(req);			
+		
+		UserEntity user = userRepository.findById(newUserInfo.getEmail()).get();
+
+		
+		//save nickname
+		String nickName = newUserInfo.getNickname();
+		user.setNickname(nickName);
+    	
+		
+		//save parseFileinfo
+		List<FileEntity> fileList = FileUtils.parseFileinfo(req);			
     	UserProfileFileEntity newFile = null;
-		if(fileList.size() > 0) {
+    	UserProfileFileEntity saveFile = null;
+    	if(fileList.size() > 0) {
 			newFile = new UserProfileFileEntity(fileList.get(0));
 			userFileRepository.save(newFile);
-			user.setProfilePicPath(userFileRepository.save(newFile));
+			saveFile = userFileRepository.save(newFile);
 		}else {
-			Object o
-				= SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			if(o instanceof UserSessionVO) {
-				UserSessionVO sessiinUser = (UserSessionVO)o;
-				user.setProfilePicPath(sessiinUser.getProfilePicPath());
-			}else {
-				return false;
-			}
+			saveFile = newUserInfo.getProfilePicPath();
 		}
-		
+    	user.setProfilePicPath(saveFile);
+    	
+    	
+    	
+    	//main updateUser
 		UserEntity saveUser = userRepository.save(user);
+		
+		//file new save
 		if(newFile!=null) {
 			newFile.setUser(saveUser);
 			userFileRepository.save(newFile);
 		}
+
+		
+		//update session
+		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(saveUser!=null) {
+			if(o instanceof UserSessionVO) {
+				UserSessionVO suser = (UserSessionVO)o;
+				suser.setNickname(nickName);
+				suser.setProfilePicPath(saveFile);
+			}
+		}
+
+		
 		
 		return true;
         		

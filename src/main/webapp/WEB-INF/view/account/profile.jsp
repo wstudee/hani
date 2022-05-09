@@ -42,7 +42,8 @@ $(function(){
 	  </div>
 
 
-   	  <button type="button" onclick="location.href='/account/profileInfo'" class="btn btn-primary">수정하기</button>
+   	  <button type="button" onclick="location.href='/account/profileInfo'" class="btn btn-primary">정보수정</button>
+   	  <button type="button" onclick="location.href='/account/profileInfo'" class="btn btn-primary">비밀번호 수정</button>
 </div>
 </div>
    	  

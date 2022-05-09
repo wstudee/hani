@@ -70,6 +70,7 @@ function memberJoin(){
 </div>
 <div class="col-md-8 themed-grid-col">
 	<input type="hidden" 	name="${_csrf.parameterName}" 	value="${_csrf.token}"/>
+	<input type="hidden" 	name="profilePicPath" 	value="${user.profilePicPath.attachedFileNo}"/>
 	<input type="submit" id="submitBtn" style="display: none;" > 
 	
 	
@@ -80,23 +81,23 @@ function memberJoin(){
 	  </div>
 	  
 	  
-	  <div class="form-floating">
+	<div class="form-floating">
 		<input type="text" name="nickname" class="form-control" id="nickname" required="required"  minlength="2" maxlength="8"  value='${user.nickname}' >
 		<label for="nickname" class="form-label">nickname</label>
 	  </div>
 
-	  <div class="form-floating">
+	    <%-- <div class="form-floating">
 		<input type="password" name="password" class="form-control" id="password"  required="required"   >
 		<label for="exampleInputPassword1" class="form-label" >Password</label>
 	  </div>
-
+ 		
   	  <div class="form-floating">
 		<input type="password" name="passwordChcek" class="form-control" id="passwordCheckInput" onkeyup="checkPassword()"  required="required" >
 		<label for="exampleInputPassword1" class="form-label">Password Check</label>
 		<input type="hidden"  id = "passwordChcek" value="false">
 		<div id="passwordlHelp" class="form-text"></div>
 	  </div>
-	  
+	  --%>
 	<div class="form">
 		<label> 프로필 사진</label>
 	 	<input type="file" class="form-control" placeholder="한줄요약" aria-label="Username" name= "files"  id="fileInput"  onchange="isFileImage(this)"  accept="image/gif, image/jpeg, image/png">

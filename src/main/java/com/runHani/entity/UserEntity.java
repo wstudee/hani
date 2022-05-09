@@ -12,7 +12,7 @@ import lombok.Setter;
 public class UserEntity {
 
 	@Id
-	@Column(name = "email", nullable = false, updatable = true, length = 20) 
+	@Column(name = "email", nullable = false, length = 20) 
 	private String email             ;
 	
 	@Column(name = "password", nullable = false, updatable = true, length = 200) 
@@ -23,8 +23,6 @@ public class UserEntity {
 	
 	@Column(name = "login_fail_cnt", nullable = true, updatable = true, length = 20) 
 	private String loginFailCnt    ;
-	
-
 	
 	@Column(name = "nickname", nullable = true, updatable = true, length = 20) 
 	private String nickname          ;
@@ -49,19 +47,18 @@ public class UserEntity {
 	
 	@Override
 	public String toString() {
-		StringBuilder str = new StringBuilder();
-		str.append("email : " + this.email + " / ");
-		str.append("password : " + this.password + " / ");
-		str.append("userStatus : " + this.userStatus + " / ");
-		str.append("loginFailCnt : " + this.loginFailCnt + " /\n ");
-		str.append("profilePicPath : " + this.profilePicPath + " / ");
-		str.append("nickname : " + this.nickname + " / ");
-		str.append("updateUser : " + this.updateUser + " /\n ");
-		str.append("updateDate : " + this.updateDate + " / ");
-		str.append("regDate : " + this.regDate + " / ");
+		/*
+		 * StringBuilder str = new StringBuilder(); str.append("email : " + this.email +
+		 * " / "); str.append("password : " + this.password + " / ");
+		 * str.append("userStatus : " + this.userStatus + " / ");
+		 * str.append("loginFailCnt : " + this.loginFailCnt + " /\n ");
+		 * str.append("profilePicPath : " + this.profilePicPath + " / ");
+		 * str.append("nickname : " + this.nickname + " / "); str.append("updateUser : "
+		 * + this.updateUser + " /\n "); str.append("updateDate : " + this.updateDate +
+		 * " / "); str.append("regDate : " + this.regDate + " / ");
+		 */
 		
-		
-		return str.toString();
+		return "user";
 	}
 	
 	

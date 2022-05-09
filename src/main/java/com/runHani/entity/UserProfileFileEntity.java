@@ -12,7 +12,7 @@ import lombok.Setter;
 public class UserProfileFileEntity {
 
 	@Id
-	@Column(name = "attached_file_no", nullable = false, updatable = true, length = 20)
+	@Column(name = "attached_file_no", nullable = false,  length = 20)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer attachedFileNo    ;
 	
@@ -54,8 +54,7 @@ public class UserProfileFileEntity {
 
 	@Override
 	public String toString() {
-		return "UserProfileFileEntity [attachedFileNo=" + attachedFileNo + ", fileName=" + fileName + ", fileSaveName="
-				+ fileSaveName + ", filePath=" + filePath + ", regDate=" + regDate + ", user=" + user + "]";
+		return "UserProfileFileEntity";
 	}
 
 	

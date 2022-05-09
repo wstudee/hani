@@ -9,7 +9,6 @@ import com.runHani.entity.UserProfileFileEntity;
 
 public interface UserProfileFileRepository extends JpaRepository<UserProfileFileEntity, Integer>  {
 
-	UserProfileFileEntity findByEmail(UserEntity user);
 
 
 	
