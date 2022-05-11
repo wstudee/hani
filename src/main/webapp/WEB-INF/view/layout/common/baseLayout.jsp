@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="/resource/css/base.css">
 <link rel="stylesheet" type="text/css" href="/resource/css/board.css">
 <link rel="stylesheet" type="text/css" href="/resource/css/user.css">
+<link rel="stylesheet" type="text/css" href="/resource/css/group.css">
 
 <!-- 커스텀 js -->
 <script src="/resource/js/board.js"></script>

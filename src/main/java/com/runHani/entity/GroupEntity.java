@@ -2,6 +2,7 @@ package com.runHani.entity;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -28,18 +29,22 @@ public class GroupEntity {
 	@Column(name = "group_name", nullable = false, updatable = true, length =50)
 	private String groupName;
 	
-	@Column(name = "member_count", nullable = false, updatable = true, length =50)
+	@Column(name = "member_count", nullable = true, updatable = true, length =50)
 	private int memberCount ;
 		
-	@Column(name = "group_status", nullable = false, updatable = true, length =50)
+	@Column(name = "group_status", nullable = true, updatable = true, length =50)
 	private String groupStatus;
 	
 	
-	@Column(name = "update_cnt", nullable = false, updatable = true)
+	@Column(name = "update_cnt", nullable = true, updatable = true)
 	private int updateCnt;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="leader", nullable = false, updatable = true)
 	private UserEntity leader;
+	
+	@OneToMany
+	@JoinColumn(name ="sn")
+	private List<UserGroupEntity> memeberList;
 	
 }

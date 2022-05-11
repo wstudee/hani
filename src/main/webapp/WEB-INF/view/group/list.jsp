@@ -37,6 +37,7 @@
 				<div class="row row-cols-2" >		
 				<c:forEach items="${list}" var="item" varStatus="status">
 						${item}
+						
 				</c:forEach>
 			</div>
 		<nav aria-label="Page navigation example">

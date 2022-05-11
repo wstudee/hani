@@ -67,7 +67,16 @@ public class GroupController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public String register(GroupEntity group, MultipartHttpServletRequest req) {
 
+		
+		groupService.registerGroup(group,req);
+		
+
+		return "redirect:/board/list";
+	}
 
 
 }

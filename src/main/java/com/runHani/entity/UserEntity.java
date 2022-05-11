@@ -2,6 +2,9 @@ package com.runHani.entity;
 
 import java.time.LocalDateTime;
 import javax.persistence.*;
+
+import com.runHani.vo.UserSessionVO;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,6 +48,23 @@ public class UserEntity {
 	private UserProfileFileEntity profilePicPath  ;
 	
 	
+	public UserEntity(UserSessionVO sessionUser) {
+		
+		
+		super();
+		this.email = sessionUser.getEmail();
+		this.password = sessionUser.getPassword();
+		this.userStatus = sessionUser.getUserStatus();
+		this.loginFailCnt = sessionUser.getLoginFailCnt();
+		this.nickname = sessionUser.getNickname();
+		this.enable = sessionUser.getEnable();
+		this.profilePicPath = sessionUser.getProfilePicPath();
+	}
+
+	public UserEntity() {
+	}
+
+
 	@Override
 	public String toString() {
 		/*
@@ -60,6 +80,6 @@ public class UserEntity {
 		
 		return "user";
 	}
-	
+
 	
 }

@@ -29,8 +29,14 @@ public class UserGroupEntity {
 	@JoinColumn( referencedColumnName = "sn" , name = "group_sn")
 	private GroupEntity groupSn;
 	 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="email", nullable = false, updatable = true)
 	private UserEntity user;
+
+	@Override
+	public String toString() {
+		return "UserGroupEntity [sn=" + sn + "]";
+	}
+	
 	
 }

@@ -16,10 +16,12 @@ import com.runHani.entity.BoardEntity;
 import com.runHani.entity.BoardFileEntity;
 import com.runHani.entity.FileEntity;
 import com.runHani.entity.GroupEntity;
+import com.runHani.entity.GroupFileEntity;
 import com.runHani.entity.SearchEntity;
 import com.runHani.entity.UserEntity;
 import com.runHani.repository.BoardFileRepository;
 import com.runHani.repository.BoardRepository;
+import com.runHani.repository.GroupFileRepository;
 import com.runHani.repository.GroupRepository;
 import com.runHani.repository.UserRepository;
 import com.runHani.util.FileUtils;
@@ -32,8 +34,14 @@ public class GroupService  {
     private GroupRepository groupRepository;
 
     @Autowired
-    public void setBoardRepository(GroupRepository groupRepository) {
+    public void findGroupList(GroupRepository groupRepository) {
         this.groupRepository = groupRepository;
+    }
+    private GroupFileRepository groupFileRepository;
+    
+    @Autowired
+    public void set(GroupFileRepository groupFileRepository) {
+    	this.groupFileRepository = groupFileRepository;
     }
 
 	public Page<GroupEntity> getListPage(SearchEntity searchEntity) {
@@ -42,7 +50,35 @@ public class GroupService  {
     
     
 	public List<GroupEntity> getList(SearchEntity searchEntity) {
-		return groupRepository.findAll();
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserSessionVO sessionUser = (UserSessionVO) principal;
+		
+		UserEntity user = new UserEntity(sessionUser);
+		
+		List<GroupEntity> list=  groupRepository.selectMyGroup(sessionUser.getEmail());
+		
+		return list;
+	}
+
+	public void registerGroup(GroupEntity group, MultipartHttpServletRequest req) {
+		
+		List<FileEntity> fileList = FileUtils.parseFileinfo(req);			
+		
+		if(fileList.size() > 0) {
+			GroupFileEntity newFile = new GroupFileEntity(fileList.get(0));
+			groupFileRepository.save(newFile);
+			newFile.setGroup(group);
+		}
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserSessionVO sessionUser = (UserSessionVO) principal;
+		
+		UserEntity user = sessionUser.getUser();
+		group.setLeader(user);
+
+		groupRepository.save(group);
+		
 	}
     
    
