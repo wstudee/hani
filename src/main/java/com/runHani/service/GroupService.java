@@ -19,12 +19,15 @@ import com.runHani.entity.GroupEntity;
 import com.runHani.entity.GroupFileEntity;
 import com.runHani.entity.SearchEntity;
 import com.runHani.entity.UserEntity;
+import com.runHani.entity.UserGroupEntity;
 import com.runHani.repository.BoardFileRepository;
 import com.runHani.repository.BoardRepository;
 import com.runHani.repository.GroupFileRepository;
 import com.runHani.repository.GroupRepository;
+import com.runHani.repository.UserGroupRepository;
 import com.runHani.repository.UserRepository;
 import com.runHani.util.FileUtils;
+import com.runHani.util.SessionUtil;
 import com.runHani.vo.UserSessionVO;
 
 
@@ -43,23 +46,33 @@ public class GroupService  {
     public void set(GroupFileRepository groupFileRepository) {
     	this.groupFileRepository = groupFileRepository;
     }
-
-	public Page<GroupEntity> getListPage(SearchEntity searchEntity) {
-		return null;
-	}
+    private UserGroupRepository userGroupRepository;
+    
+    @Autowired
+    public void setUserGroupEntity( UserGroupRepository userGroupRepository) {
+    	this.userGroupRepository = userGroupRepository;
+    }
     
     
-	public List<GroupEntity> getList(SearchEntity searchEntity) {
+	public List<GroupEntity> getList() {
 		
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		UserSessionVO sessionUser = (UserSessionVO) principal;
+		UserEntity user = SessionUtil.getUserEntity();
+		List<GroupEntity> list=  groupRepository.selectMyGroup(user);
 		
-		UserEntity user = new UserEntity(sessionUser);
-		
-		List<GroupEntity> list=  groupRepository.selectMyGroup(sessionUser.getEmail());
+		addFiletoList(list);
 		
 		return list;
 	}
+
+	private void addFiletoList(List<GroupEntity> list) {
+		for (GroupEntity groupEntity : list) {
+			groupEntity.setFile(groupFileRepository.findByGroup(groupEntity));
+			
+		}
+		
+		
+	}
+
 
 	public void registerGroup(GroupEntity group, MultipartHttpServletRequest req) {
 		
@@ -71,13 +84,17 @@ public class GroupService  {
 			newFile.setGroup(group);
 		}
 		
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		UserSessionVO sessionUser = (UserSessionVO) principal;
 		
-		UserEntity user = sessionUser.getUser();
+		UserEntity user = SessionUtil.getUserEntity();
 		group.setLeader(user);
+		GroupEntity newGroup =  groupRepository.save(group);
 
-		groupRepository.save(group);
+		//리더도 회원가q
+		UserGroupEntity newMemger = new UserGroupEntity();
+		newMemger.setGroupSn(newGroup);
+		newMemger.setUser(user);
+		userGroupRepository.save(newMemger);
+		
 		
 	}
     

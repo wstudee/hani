@@ -16,7 +16,7 @@
 	function search(){
 		var searchWord = $('#searchWord').val();
 		var searchCriteria = $('#searchCriteria').val();
-		location.href= '/board/list?searchWord='+searchWord+"&searchCriteria="+searchCriteria;
+		location.href= '/group/list?searchWord='+searchWord+"&searchCriteria="+searchCriteria;
 		
 	}
 </script>
@@ -36,8 +36,14 @@
 		
 				<div class="row row-cols-2" >		
 				<c:forEach items="${list}" var="item" varStatus="status">
-						${item}
-						
+				 <div class="col col-5 textBoxCover">
+				 	${item}
+						<%-- <div class='textBox' style="background-image : url(/boardFile/thumbnail/${item.file.attachedFileNo});" onclick="goDetail(${item.board.boardNo})"> 
+							<div style="color : ${item.board.color}">
+								<p id="title">${item.GroupEntity.groupName}</p>
+							<!-- </div> -->
+						</div> --%>
+					</div>
 				</c:forEach>
 			</div>
 		<nav aria-label="Page navigation example">

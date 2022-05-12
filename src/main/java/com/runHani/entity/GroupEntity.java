@@ -44,7 +44,11 @@ public class GroupEntity {
 	private UserEntity leader;
 	
 	@OneToMany
-	@JoinColumn(name ="sn")
+	@JoinColumn(name ="group_sn")
 	private List<UserGroupEntity> memeberList;
 	
+	
+	@OneToOne
+	@JoinColumn(name = "attached_file_no")
+	private GroupFileEntity file ;    
 }

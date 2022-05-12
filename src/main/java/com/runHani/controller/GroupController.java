@@ -45,17 +45,14 @@ public class GroupController {
 	public ModelAndView list(SearchEntity searchEntity, @PageableDefault( size = 10, sort = "boardNo",direction = Sort.Direction.DESC)  Pageable pageable) {
 		ModelAndView mav = new ModelAndView(baseJSPpath + "/list");
 
-//		Page<GroupEntity> resultList = groupService.getList(searchEntity);  
+//		Page<GroupEntity> resultList = groupService.getList();  
 //		List<GroupEntity> boardList = resultList.getContent();
-		List<GroupEntity> boardList = groupService.getList(searchEntity);  
-
-		
-		
-		mav.addObject("searchEntity",searchEntity);
-		mav.addObject("list", boardList);
+//		HashMap<String, Integer> paging = HaniUtil.calculatePaging(resultList);
 //		mav.addObject("page", paging);
 //		mav.addObject("totalCnt", resultList.getTotalElements());
 		
+		mav.addObject("searchEntity",searchEntity);
+		mav.addObject("list", groupService.getList());
 		
 		return mav;
 	}

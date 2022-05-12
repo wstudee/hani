@@ -12,7 +12,9 @@ import com.runHani.entity.GroupFileEntity;
 
 
 public interface GroupFileRepository extends JpaRepository<GroupFileEntity, Integer>{
-	 
+
+	GroupFileEntity findByGroup(GroupEntity groupEntity);
+
 	
 
 	
