@@ -27,7 +27,7 @@ import com.runHani.entity.BoardFileEntity;
 import com.runHani.entity.BoardEntity;
 import com.runHani.entity.SearchEntity;
 import com.runHani.service.BoardService;
-import com.runHani.util.HaniUtil;
+import com.runHani.util.PageUtil;
 
 @Controller
 @RequestMapping("board")
@@ -45,7 +45,7 @@ public class BoardController {
 
 		Page<BoardEntity> resultList = boardService.getBoardList(searchEntity, pageable);  
 		List<BoardEntity> boardList = resultList.getContent();
-		HashMap<String, Integer> paging = HaniUtil.calculatePaging(resultList);
+		HashMap<String, Integer> paging = PageUtil.calculatePaging(resultList);
 		ArrayList<HashMap<String,Object>> list = boardService.boardEntitySetFile(boardList);
 		mav.addObject("searchEntity",searchEntity);
 		mav.addObject("list", list);

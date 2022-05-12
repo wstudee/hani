@@ -54,23 +54,27 @@ public class GroupService  {
     }
     
     
-	public List<GroupEntity> getList() {
+	public List<GroupEntity> getList(Pageable pageable) {
 		
 		UserEntity user = SessionUtil.getUserEntity();
-		List<GroupEntity> list=  groupRepository.selectMyGroup(user);
+		List<GroupEntity> list=  groupRepository.selectMyGroup(user, pageable);
 		
 		addFiletoList(list);
 		
 		return list;
 	}
+	
+	public int getListCnt() {
+		UserEntity user = SessionUtil.getUserEntity();
+		return groupRepository.selectMyGroupCnt(user);
+	}
+	
 
 	private void addFiletoList(List<GroupEntity> list) {
 		for (GroupEntity groupEntity : list) {
 			groupEntity.setFile(groupFileRepository.findByGroup(groupEntity));
 			
 		}
-		
-		
 	}
 
 
@@ -97,6 +101,9 @@ public class GroupService  {
 		
 		
 	}
+
+
+	
     
    
 

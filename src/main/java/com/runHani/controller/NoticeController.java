@@ -20,7 +20,7 @@ import com.runHani.entity.NoticeEntity;
 import com.runHani.entity.NoticeFileEntity;
 import com.runHani.entity.SearchEntity;
 import com.runHani.service.NoticeService;
-import com.runHani.util.HaniUtil;
+import com.runHani.util.PageUtil;
 
 @Controller
 @RequestMapping("notice")
@@ -38,7 +38,7 @@ public class NoticeController {
 
 		Page<NoticeEntity> resultList = noticeService.getNoticeList(searchEntity, pageable);  
 		List<NoticeEntity> noticeList = resultList.getContent();
-		HashMap<String, Integer> paging = HaniUtil.calculatePaging(resultList);
+		HashMap<String, Integer> paging = PageUtil.calculatePaging(resultList);
 		
 		mav.addObject("searchEntity",searchEntity);
 		mav.addObject("list", noticeList);
