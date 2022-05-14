@@ -23,8 +23,6 @@ import com.runHani.service.UserService;
 @Controller
 public class FileController {
 
-	private String baseJSPpath = "notice";
-
 	@Autowired
 	private NoticeFileService noticeFileService;
 	@Autowired

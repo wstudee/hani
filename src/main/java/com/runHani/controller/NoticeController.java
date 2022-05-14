@@ -26,7 +26,7 @@ import com.runHani.util.PageUtil;
 @RequestMapping("notice")
 public class NoticeController {
 
-	private String baseJSPpath = "notice";
+	private String task = "notice";
 
 	@Autowired
 	private NoticeService noticeService;
@@ -34,7 +34,7 @@ public class NoticeController {
 	
 	@RequestMapping("list")
 	public ModelAndView list(SearchEntity searchEntity, @PageableDefault( size = 10, sort = "noticeNo",direction = Sort.Direction.DESC)  Pageable pageable) {
-		ModelAndView mav = new ModelAndView(baseJSPpath + "/list");
+		ModelAndView mav = new ModelAndView(task + "/list");
 
 		Page<NoticeEntity> resultList = noticeService.getNoticeList(searchEntity, pageable);  
 		List<NoticeEntity> noticeList = resultList.getContent();
@@ -51,7 +51,7 @@ public class NoticeController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView registerPage(ModelAndView mav) {
-		mav.setViewName(baseJSPpath + "/register");
+		mav.setViewName(task + "/register");
 
 		return mav;
 	}
@@ -69,7 +69,7 @@ public class NoticeController {
 	@RequestMapping(value = "/{noticeNo}", method = RequestMethod.GET)
 	public ModelAndView getNotice(@PathVariable int noticeNo) {
 
-		ModelAndView mav = new ModelAndView(baseJSPpath + "/detail");
+		ModelAndView mav = new ModelAndView(task + "/detail");
 		NoticeEntity notice =  noticeService.selectNotice(noticeNo);
 		mav.addObject("notice", notice);
 		return mav;
@@ -78,7 +78,7 @@ public class NoticeController {
 	@RequestMapping(value = "/editor/{noticeNo}", method = RequestMethod.POST)
 	public ModelAndView postNotice(@PathVariable int noticeNo) {
 		
-		ModelAndView mav = new ModelAndView(baseJSPpath + "/modify");
+		ModelAndView mav = new ModelAndView(task + "/modify");
 		mav.addObject("notice", (NoticeEntity) noticeService.selectNotice(noticeNo));
 		return mav;
 	}

@@ -22,7 +22,7 @@ import com.runHani.util.PageUtil;
 @RequestMapping("group")
 public class GroupController {
 
-	private String baseJSPpath = "group";
+	private String task = "group";
 
 	@Autowired
 	private GroupService groupService;
@@ -30,7 +30,7 @@ public class GroupController {
 	
 	@RequestMapping("list")
 	public ModelAndView list(SearchEntity searchEntity, @PageableDefault( size = 10, sort = "sn",direction = Sort.Direction.DESC)  Pageable pageable) {
-		ModelAndView mav = new ModelAndView(baseJSPpath + "/list");
+		ModelAndView mav = new ModelAndView(task + "/list");
 
 		List<GroupEntity>  groupList = groupService.getList(pageable);
 		mav.addObject("searchEntity",searchEntity);
@@ -50,7 +50,7 @@ public class GroupController {
 
 	@RequestMapping("new")
 	public ModelAndView newGroupFormat() {
-		ModelAndView mav = new ModelAndView(baseJSPpath + "/new");
+		ModelAndView mav = new ModelAndView(task + "/new");
 		
 		return mav;
 	}

@@ -27,19 +27,19 @@ import com.runHani.vo.UserSessionVO;
 @RequestMapping("account")
 public class AccountController {
 
-	private String baseJSPpath = "account";
+	private String task = "account";
 	
 	@Autowired
 	private UserService userService;
 
 	@GetMapping("/login")
 	public String login() {
-		return baseJSPpath + "/login";
+		return task + "/login";
 	}
 
 	@GetMapping("/register")
 	public String register() {
-		return baseJSPpath + "/memberJoin";
+		return task + "/memberJoin";
 	}
 
 	@PostMapping("/register")
@@ -59,7 +59,7 @@ public class AccountController {
 
 	@GetMapping("/info")
 	public String userInfo() {
-		return baseJSPpath + "/info";
+		return task + "/info";
 	}
 
 	@ResponseBody
@@ -84,7 +84,7 @@ public class AccountController {
 		if(o instanceof UserSessionVO) {
 			UserSessionVO user = (UserSessionVO)o;
 			result.addObject("user", user);
-			result.setViewName(baseJSPpath + "/profile");
+			result.setViewName(task + "/profile");
 			
 		}else {
 			result.setViewName("/account/login");
@@ -100,7 +100,7 @@ public class AccountController {
 		if(o instanceof UserSessionVO) {
 			UserSessionVO user = (UserSessionVO)o;
 			result.addObject("user", user);
-			result.setViewName(baseJSPpath + "/profileModi");
+			result.setViewName(task + "/profileModi");
 			
 		}else {
 			result.setViewName("/account/login");

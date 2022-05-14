@@ -33,7 +33,7 @@ import com.runHani.util.PageUtil;
 @RequestMapping("board")
 public class BoardController {
 
-	private String baseJSPpath = "board";
+	private String task = "board";
 
 	@Autowired
 	private BoardService boardService;
@@ -41,7 +41,7 @@ public class BoardController {
 	
 	@RequestMapping("list")
 	public ModelAndView list(SearchEntity searchEntity, @PageableDefault( size = 10, sort = "boardNo",direction = Sort.Direction.DESC)  Pageable pageable) {
-		ModelAndView mav = new ModelAndView(baseJSPpath + "/list");
+		ModelAndView mav = new ModelAndView(task + "/list");
 
 		Page<BoardEntity> resultList = boardService.getBoardList(searchEntity, pageable);  
 		List<BoardEntity> boardList = resultList.getContent();
@@ -52,13 +52,12 @@ public class BoardController {
 		mav.addObject("page", paging);
 		mav.addObject("totalCnt", resultList.getTotalElements());
 		
-		
 		return mav;
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView registerPage(ModelAndView mav) {
-		mav.setViewName(baseJSPpath + "/register");
+		mav.setViewName(task + "/register");
 
 		return mav;
 	}
@@ -76,7 +75,7 @@ public class BoardController {
 	@RequestMapping(value = "/{boardNo}", method = RequestMethod.GET)
 	public ModelAndView getBoard(@PathVariable int boardNo) {
 
-		ModelAndView mav = new ModelAndView(baseJSPpath + "/detail");
+		ModelAndView mav = new ModelAndView(task + "/detail");
 		BoardEntity board =  boardService.selectBoard(boardNo);
 		BoardFileEntity boardFile =  boardService.selectBoardFile(boardNo);
 		
@@ -89,7 +88,7 @@ public class BoardController {
 	@RequestMapping(value = "/editor/{boardNo}", method = RequestMethod.POST)
 	public ModelAndView postBoard(@PathVariable int boardNo) {
 		
-		ModelAndView mav = new ModelAndView(baseJSPpath + "/modify");
+		ModelAndView mav = new ModelAndView(task + "/modify");
 		mav.addObject("board", (BoardEntity) boardService.selectBoard(boardNo));
 		BoardFileEntity boardFile =  boardService.selectBoardFile(boardNo);
 		mav.addObject("file", boardFile);
