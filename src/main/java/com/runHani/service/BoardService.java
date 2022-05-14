@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -53,7 +55,7 @@ public class BoardService  {
 	public Page<BoardEntity> selectBoardList(Pageable pageable) {
 		
 		
-		return (Page<BoardEntity>)boardRepository.findAll(pageable);
+		return (Page<BoardEntity>)boardRepository.findByBoardStatus(pageable,"I");
 	}
 	@SuppressWarnings("unchecked")
 	public List<BoardEntity> selectNoticdeList(Pageable pageable) {
@@ -84,11 +86,11 @@ public class BoardService  {
 		
 		return boardRepository.findById(notice_no).get();
 	}
-
+	
+	@Transactional
 	public void deleteBoard(int noticeNo) throws Exception  {
 		
-
-		boardRepository.deleteById(noticeNo);
+		boardRepository.saveBoardStatus(noticeNo, "Y");
 		
 	}
 
@@ -110,7 +112,7 @@ public class BoardService  {
 	}
 
 	public Page<BoardEntity> selectBoardListByTotal(String searchWord, Pageable pageable) {
-		return boardRepository.findByTitleContainingOrContentsContaining(searchWord,searchWord ,pageable);
+		return boardRepository.findByTitleContainingOrContentsContainingAndBoardStatusIs(searchWord, searchWord ,"I" , pageable);
 	}
 
 	public Page<BoardEntity> selectBoardListByContents(String searchWord, Pageable pageable) {

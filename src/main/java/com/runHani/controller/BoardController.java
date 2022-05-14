@@ -112,6 +112,7 @@ public class BoardController {
 			boardService.deleteBoard(boardNo);
 			result.addObject("resultCode","SUCCEESS");
 		} catch (Exception e) {
+			e.printStackTrace();
 			result.addObject("resultCode","FAIL");
 		}
 
@@ -126,12 +127,9 @@ public class BoardController {
 		try {
 			boardService.deleteFileByAttachedFileNo((Integer)param.get("attachedFileNo"));
 		}catch (Exception e) {
-			
 			return "FAIL";
 		}
-		
 			return "SUCCEESS";
-
 	}
 
 

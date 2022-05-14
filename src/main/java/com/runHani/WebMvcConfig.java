@@ -13,9 +13,11 @@ public class WebMvcConfig implements WebMvcConfigurer{
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new MenuIntercepter())
                 .addPathPatterns("/account/login")
-                .addPathPatterns("/**/* ")
+                .addPathPatterns("/**/*")
+                .excludePathPatterns("/resource/css/**/*")
+                .excludePathPatterns("/resource/js/**/*")
                 ; // 해당 경로에 접근하기 전에 인터셉터가 가로챈다.
-//              .excludePathPatterns("/boards"); // 해당 경로는 인터셉터가 가로채지 않는다.
+//              .excludePathPatterns("/resource"); // 해당 경로는 인터셉터가 가로채지 않는다.
     }
 
 }
