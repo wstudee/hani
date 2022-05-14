@@ -33,7 +33,7 @@ function fileDelete(attNo){
 }
 
 
-function isFileImage(){
+function checkImageFile(){
 	var file = document.getElementById('fileInput');
 	var ext = file.value.match(/\.([^\.]+)$/)[1];
 	switch (ext) {
@@ -65,7 +65,7 @@ function isFileImage(){
 				  <input type="hidden" name = '_method' value = "">
 				  <div class="form-group">
 				    <label for="exampleFormControlInput1">Ã·ºÎÆÄÀÏ</label>
-				    <input type="file" class="form-control" name= "files"  id="fileInput"  onchange="isFileImage()" multiple accept="image/gif, image/jpeg, image/png">
+				    <input type="file" class="form-control" name= "files"  id="fileInput"  onchange="checkImageFile()" multiple accept="image/gif, image/jpeg, image/png">
 				  </div>		   
 				<c:if test="${not empty notice.fileList }" >
 					<c:forEach var="file" items="${notice.fileList}" varStatus="status">

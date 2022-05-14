@@ -37,19 +37,19 @@
 				<div class="row row-cols-2" >		
 				<c:forEach items="${list}" var="item" varStatus="status">
 				 <div class="col col-5 textBoxCover">
-						<div class='textBox' style="background-image : url(/boardFile/thumbnail/${item.file.attachedFileNo});" onclick="goDetail(${item.board.boardNo})"> 
-							<div style="color : ${item.board.color}">
+						<div class='textBox' style="background-image : url(/boardFile/thumbnail/${item.boardFileEntity.attachedFileNo});" onclick="goDetail(${item.boardNo})"> 
+							<div style="color : ${item.color}">
 								<p id="regDate">
-									<fmt:parseDate value="${item.board.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+									<fmt:parseDate value="${item.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
 									<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime }" />
 								</p>
-								<p id="title">${item.board.title}</p>
-								<p id="contents">${item.board.contents}</p>
+								<p id="title">${item.title}</p>
+								<p id="contents">${item.contents}</p>
 							</div>
 						</div>
 						<div id="boardInfo">
-						  <img src="/profileFile/${item.board.regUser.profilePicPath.attachedFileNo }" alt="mdo" width="32" height="32" onerror="this.src='/resource/image/noProfile.png'" class="rounded-circle">
-						  <p>${item.board.regUser.nickname}</p>
+						  <img src="/profileFile/${item.regUser.profilePicPath.attachedFileNo }" alt="mdo" width="32" height="32" onerror="this.src='/resource/image/noProfile.png'" class="rounded-circle">
+						  <p>${item.regUser.nickname}</p>
 						</div>
 					</div>
 				</c:forEach>

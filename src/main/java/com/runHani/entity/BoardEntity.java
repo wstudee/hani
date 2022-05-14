@@ -50,9 +50,13 @@ public class BoardEntity {
 	@ManyToOne
 	@JoinColumn(name ="reg_user", nullable = false)
 	private UserEntity regUser;
+
+	@OneToOne( cascade = CascadeType.PERSIST )
+	@JoinColumn(name = "attached_file_no")
+	private BoardFileEntity boardFileEntity ;   
 	
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
 	
-	
+
 }

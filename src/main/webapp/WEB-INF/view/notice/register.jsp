@@ -27,7 +27,7 @@ function register(){
 				  </div>
 				   <div class="form-group">
 				    <label for="exampleFormControlInput1">Ã·ºÎÆÄÀÏ</label>
-				    <input type="file" class="form-control" name= "files"  id="fileInput"  onchange="isFileImage()"  accept="image/gif, image/jpeg, image/png">
+				    <input type="file" class="form-control" name= "files"  id="fileInput"  onchange="checkImageFile()"  accept="image/gif, image/jpeg, image/png">
 				  </div>		   
 				</form>
 			</div>

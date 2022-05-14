@@ -62,7 +62,7 @@ function register(){
 				</div>
 			   <div class="input-group mb-3">
 				  <span class="input-group-text" id="basic-addon1">그룹 대표 사진</span>
-				  <input type="file" class="form-control" placeholder="한줄요약" aria-label="Username" aria-describedby="basic-addon1"   name= "files"  id="fileInput"  onchange="isFileImage(this)"  accept="image/gif, image/jpeg, image/png"> 
+				  <input type="file" class="form-control" placeholder="한줄요약" aria-label="Username" aria-describedby="basic-addon1"   name= "files"  id="fileInput"  onchange="isFileImage(this,'preview')"  accept="image/gif, image/jpeg, image/png"> 
 					<div class="invalid-feedback filesErr"> 파일을 등록해주세요. </div>
 				</div>
 				</form>

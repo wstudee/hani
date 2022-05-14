@@ -15,6 +15,7 @@
 <link rel="stylesheet" type="text/css" href="/resource/css/${task}.css">
 
 <!-- 커스텀 js -->
+<script src="/resource/js/base.js"></script>
 <script src="/resource/js/${task}.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>

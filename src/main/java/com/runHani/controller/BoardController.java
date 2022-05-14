@@ -46,9 +46,8 @@ public class BoardController {
 		Page<BoardEntity> resultList = boardService.getBoardList(searchEntity, pageable);  
 		List<BoardEntity> boardList = resultList.getContent();
 		HashMap<String, Integer> paging = PageUtil.calculatePaging(resultList);
-		ArrayList<HashMap<String,Object>> list = boardService.boardEntitySetFile(boardList);
 		mav.addObject("searchEntity",searchEntity);
-		mav.addObject("list", list);
+		mav.addObject("list", boardList);
 		mav.addObject("page", paging);
 		mav.addObject("totalCnt", resultList.getTotalElements());
 		
@@ -65,10 +64,7 @@ public class BoardController {
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String register(BoardEntity board, MultipartHttpServletRequest req) {
 
-		
 		boardService.postBoard(board,req);
-		
-
 		return "redirect:/board/list";
 	}
 

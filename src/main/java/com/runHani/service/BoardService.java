@@ -52,35 +52,34 @@ public class BoardService  {
     }
     
     
-	public Page<BoardEntity> selectBoardList(Pageable pageable) {
-		
-		
-		return (Page<BoardEntity>)boardRepository.findByBoardStatus(pageable,"I");
-	}
-	@SuppressWarnings("unchecked")
-	public List<BoardEntity> selectNoticdeList(Pageable pageable) {
-		
-		
-		return (List<BoardEntity>)boardRepository.findAll(pageable);
+    public Page<BoardEntity> getBoardList(SearchEntity searchEntity, Pageable pageable) {
+
+		Page<BoardEntity> resultList =  null; 
+		String searchCriteria = searchEntity.getSearchCriteria()==null ? "" : searchEntity.getSearchCriteria();
+		String searchWord = searchEntity.getSearchWord()==null ? "" : searchEntity.getSearchWord();
+		switch(searchCriteria) {
+			case "title" : resultList =  selectBoardListByTitle(searchWord,pageable); break;
+			case "contents" :resultList =  selectBoardListByContents(searchWord,pageable);  break;
+			default : resultList =  selectBoardListByTotal(searchWord,pageable);
+			
+		}
+		return resultList;
 	}
 
-	public int postBoard(BoardEntity notice) {
-		
-		
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		UserSessionVO sessionUser = (UserSessionVO) principal;
-		
-		UserEntity user = sessionUser.getUser();
-		notice.setUpdateUser(user);
-		notice.setRegUser(user);
-		
-		if(boardRepository.save(notice)!=null) {
-			return 1;
-		}else {
-			return -1;
-		}
-		
+	public Page<BoardEntity> selectBoardListByTotal(String searchWord, Pageable pageable) {
+		return boardRepository.findByTitleContainingOrContentsContainingAndBoardStatusIs(searchWord, searchWord ,"I" , pageable);
 	}
+	public Page<BoardEntity> selectBoardListByTitle(String searchWord, Pageable pageable) {
+		return boardRepository.findByTitleContainingAndBoardStatus(searchWord,"I",pageable);
+	}
+
+	public Page<BoardEntity> selectBoardListByContents(String searchWord, Pageable pageable) {
+		return boardRepository.findByContentsContainingAndBoardStatus(searchWord,"I",pageable);
+	}
+
+	
+	
+	
 
 	public BoardEntity selectBoard(int notice_no) {
 		
@@ -98,62 +97,38 @@ public class BoardService  {
 		
 		List<FileEntity> fileList = FileUtils.parseFileinfo(req);			
 		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserSessionVO sessionUser = (UserSessionVO) principal;
+		
+		UserEntity user = sessionUser.getUser();
+		notice.setUpdateUser(user);
+		notice.setRegUser(user);
+		
 		if(fileList.size() > 0) {
 			BoardFileEntity newFile = new BoardFileEntity(fileList.get(0));
-			boardFileRepository.save(newFile);
 			newFile.setBoardEntity(notice);
-		}
-		postBoard(notice);
-		
-	}
-
-	public Page<BoardEntity> selectBoardListByTitle(String searchWord, Pageable pageable) {
-		return boardRepository.findByTitleContaining(searchWord,pageable);
-	}
-
-	public Page<BoardEntity> selectBoardListByTotal(String searchWord, Pageable pageable) {
-		return boardRepository.findByTitleContainingOrContentsContainingAndBoardStatusIs(searchWord, searchWord ,"I" , pageable);
-	}
-
-	public Page<BoardEntity> selectBoardListByContents(String searchWord, Pageable pageable) {
-		return boardRepository.findByContentsContaining(searchWord,pageable);
-	}
-
-	public Page<BoardEntity> getBoardList(SearchEntity searchEntity, Pageable pageable) {
-
-		Page<BoardEntity> resultList =  null; 
-		String searchCriteria = searchEntity.getSearchCriteria()==null ? "" : searchEntity.getSearchCriteria();
-		String searchWord = searchEntity.getSearchWord()==null ? "" : searchEntity.getSearchWord();
-		
-		
-		switch(searchCriteria) {
-			case "title" : resultList =  selectBoardListByTitle(searchWord,pageable); break;
-			case "contents" :resultList =  selectBoardListByContents(searchWord,pageable);  break;
-			default : resultList =  selectBoardListByTotal(searchWord,pageable);
+			notice.setBoardFileEntity(boardFileRepository.save(newFile));
 			
 		}
 		
-		
-		
-		
-		
-		return resultList;
+		boardRepository.save(notice);
 	}
-
-	public ArrayList<HashMap<String,Object>> boardEntitySetFile(List<BoardEntity> content) {
-		ArrayList<HashMap<String,Object>> result = new ArrayList<HashMap<String,Object>>();
 		
+	public int postBoard(BoardEntity notice) {
 		
-		for(BoardEntity board : content) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserSessionVO sessionUser = (UserSessionVO) principal;
 		
-		HashMap map = new HashMap();	
+		UserEntity user = sessionUser.getUser();
+		notice.setUpdateUser(user);
+		notice.setRegUser(user);
 		
-		map.put("board",board);
-		map.put("file",boardFileRepository.findByBoardEntity(board));
-		
-		result.add(map);
+		if(boardRepository.save(notice)!=null) {
+			return 1;
+		}else {
+			return -1;
 		}
-		 return result;
+		
 	}
 
 

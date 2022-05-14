@@ -142,7 +142,7 @@ function memberJoin(){
 	  
 	<div class="form">
 		<label> 프로필 사진</label>
-	 	<input type="file" class="form-control" placeholder="한줄요약" aria-label="Username" name= "files"  id="fileInput"  onchange="isFileImage(this)"  accept="image/gif, image/jpeg, image/png"  required="required">
+	 	<input type="file" class="form-control" placeholder="한줄요약" aria-label="Username" name= "files"  id="fileInput"  onchange="isFileImage(this,'preview')"  accept="image/gif, image/jpeg, image/png"  required="required">
 	</div>
 	  
 	
