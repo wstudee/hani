@@ -12,7 +12,13 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="${pageContext.request.contextPath}/notice/list" class="nav-link px-2 link-secondary">공지사항</a></li>
           <li><a href="${pageContext.request.contextPath}/board/list" class="nav-link px-2 link-dark">인증게시판</a></li>
-          <li><a href="${pageContext.request.contextPath}/group/list" class="nav-link px-2 link-dark">내 그룹</a></li>
+          <li><a  class="nav-link px-2 link-dark href="#" role="button" id="dropdownGroup" data-bs-toggle="dropdown" aria-expanded="false">내 그룹</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownGroup">
+			    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/group/list">내 그룹</a></li>
+			    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/group/allList">그룹 찾기</a></li>
+			</ul>
+          
+          </li>
           <li><a href="#" class="nav-link px-2 link-dark">Products</a></li>
         </ul>
 

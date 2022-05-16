@@ -43,12 +43,12 @@ public class GroupEntity {
 	@JoinColumn(name ="leader", nullable = false, updatable = true)
 	private UserEntity leader;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name ="group_sn")
 	private List<UserGroupEntity> memeberList;
 	
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "attached_file_no")
 	private GroupFileEntity file ;    
 }

@@ -1,34 +1,23 @@
 package com.runHani.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.security.core.userdetails.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.runHani.entity.BoardEntity;
-import com.runHani.entity.BoardFileEntity;
 import com.runHani.entity.FileEntity;
 import com.runHani.entity.GroupEntity;
 import com.runHani.entity.GroupFileEntity;
-import com.runHani.entity.SearchEntity;
 import com.runHani.entity.UserEntity;
 import com.runHani.entity.UserGroupEntity;
-import com.runHani.repository.BoardFileRepository;
-import com.runHani.repository.BoardRepository;
 import com.runHani.repository.GroupFileRepository;
 import com.runHani.repository.GroupRepository;
 import com.runHani.repository.UserGroupRepository;
-import com.runHani.repository.UserRepository;
 import com.runHani.util.FileUtils;
 import com.runHani.util.SessionUtil;
-import com.runHani.vo.UserSessionVO;
 
 
 @Service
@@ -59,10 +48,15 @@ public class GroupService  {
 		UserEntity user = SessionUtil.getUserEntity();
 		List<GroupEntity> list=  groupRepository.selectMyGroup(user, pageable);
 		
-		addFiletoList(list);
-		
 		return list;
 	}
+	
+	public Page<GroupEntity> getAllList(Pageable pageable) {
+
+		
+		return groupRepository.findByGroupStatus(pageable, "O");
+	}
+
 	
 	public int getListCnt() {
 		UserEntity user = SessionUtil.getUserEntity();
@@ -70,27 +64,20 @@ public class GroupService  {
 	}
 	
 
-	private void addFiletoList(List<GroupEntity> list) {
-		for (GroupEntity groupEntity : list) {
-			groupEntity.setFile(groupFileRepository.findByGroup(groupEntity));
-			
-		}
-	}
-
 
 	public void registerGroup(GroupEntity group, MultipartHttpServletRequest req) {
 		
 		List<FileEntity> fileList = FileUtils.parseFileinfo(req);			
 		
+		UserEntity user = SessionUtil.getUserEntity();
+		group.setLeader(user);
+		
 		if(fileList.size() > 0) {
 			GroupFileEntity newFile = new GroupFileEntity(fileList.get(0));
-			groupFileRepository.save(newFile);
+			group.setFile(groupFileRepository.save(newFile));
 			newFile.setGroup(group);
 		}
 		
-		
-		UserEntity user = SessionUtil.getUserEntity();
-		group.setLeader(user);
 		GroupEntity newGroup =  groupRepository.save(group);
 
 		//리더도 회원가q
@@ -103,8 +90,52 @@ public class GroupService  {
 	}
 
 
-	
-    
+	public GroupFileEntity findByAttachedFileNo(int fileNo) {
+		return groupFileRepository.findByAttachedFileNo(fileNo);
+	}
+
+
+	public GroupEntity findById(int groupNo) {
+		return groupRepository.findById(groupNo).get();
+	}
+
+
+	public List<UserGroupEntity> findGroupMemeber(GroupEntity group) {
+		
+		return userGroupRepository.findByGroupSn(group);
+	}
+
+
+	public void registerGroup(int groupNo) {
+		
+		
+		UserEntity user = SessionUtil.getUserEntity();
+		UserGroupEntity newMemger = new UserGroupEntity();
+		newMemger.setGroupSn(groupRepository.findById(groupNo).get());
+		newMemger.setUser(user);
+		userGroupRepository.save(newMemger);
+		
+	}
+
+
+	public boolean isMember(GroupEntity group) {
+
+		String email = SessionUtil.getUserSession().getEmail();
+		List<UserGroupEntity> memebers = group.getMemeberList();
+		
+		for(UserGroupEntity ug : memebers) {
+			
+			if(ug.getUser().getEmail().equals(email)){
+				return true;
+			}
+			
+		}
+		
+		return false;
+	}
+
+
+
    
 
 }

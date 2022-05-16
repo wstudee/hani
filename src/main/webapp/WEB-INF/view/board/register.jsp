@@ -49,6 +49,7 @@ function register(){
 			<div  class="col">
 				<form name="inputForm" enctype="multipart/form-data">
 				<input type="hidden" 	name="${_csrf.parameterName}" 	value="${_csrf.token}"/>
+				<input type="hidden" 	name="groupSn" 	value="${groupSn}"/>
 			    <div class="input-group mb-3">
 				  <span class="input-group-text" id="basic-addon1">坷疵狼 力格</span>
 				  <input type="text" class="form-control" placeholder="力格"  aria-describedby="basic-addon1" id="title" name= "title" maxlength="5" onchange="chageInput()">

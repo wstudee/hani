@@ -13,12 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.runHani.entity.BoardFileEntity;
-import com.runHani.entity.NoticeFileEntity;
-import com.runHani.entity.UserProfileFileEntity;
-import com.runHani.service.BoardService;
-import com.runHani.service.NoticeFileService;
-import com.runHani.service.UserService;
+import com.runHani.entity.*;
+import com.runHani.service.*;
 
 @Controller
 public class FileController {
@@ -29,6 +25,8 @@ public class FileController {
 	private BoardService boardService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private GroupService groupService;
 
 	
 
@@ -89,6 +87,34 @@ public class FileController {
 		
 		
 		BoardFileEntity file = boardService.findByFileId(fileNo);
+		
+		try {
+			byte[] files = FileUtils.readFileToByteArray(new File(file.getFilePath()+"\\t_"+file.getFileSaveName()));
+			
+			response.setContentType("application/octet-stream");
+			response.setContentLength(files.length);
+			response.setHeader("Content-Disposition","attachment; filename=\""+URLEncoder.encode(file.getFileName(),"UTF-8")+"\"");
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			
+			response.getOutputStream().write(files);
+			response.getOutputStream().flush();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			response.getOutputStream().close();
+		}
+		
+		
+	}
+	
+	
+	@RequestMapping(value = "/groupFile/thumbnail/{fileNo}", method = RequestMethod.GET)
+	public void downLoadTthumbnailGroupFile(@PathVariable int fileNo, HttpServletResponse response) throws IOException {
+		
+		
+		GroupFileEntity file = groupService.findByAttachedFileNo(fileNo);
+		
 		
 		try {
 			byte[] files = FileUtils.readFileToByteArray(new File(file.getFilePath()+"\\t_"+file.getFileSaveName()));

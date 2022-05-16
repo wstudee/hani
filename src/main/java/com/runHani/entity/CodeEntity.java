@@ -33,7 +33,7 @@ public class CodeEntity {
 	@Column(name = "update_date", nullable = false, updatable = true)
 	private LocalDateTime updateDate = LocalDateTime.now() ;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="reg_user", nullable = false)
 	private UserEntity regUser;
 

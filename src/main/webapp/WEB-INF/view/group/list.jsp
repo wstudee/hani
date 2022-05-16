@@ -10,7 +10,7 @@
 <c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}"/>
 <script type="text/javascript">
 	function goDetail(sn){
-		location.href= '/board/'+sn;
+		location.href= '/group/'+sn;
 	}
 
 	function search(){
@@ -36,13 +36,16 @@
 		
 				<div class="row row-cols-2" >		
 				<c:forEach items="${list}" var="item" varStatus="status">
-				 <div class="col col-5 textBoxCover">
-				 	${item}
-						<%-- <div class='textBox' style="background-image : url(/boardFile/thumbnail/${item.file.attachedFileNo});" onclick="goDetail(${item.board.boardNo})"> 
-							<div style="color : ${item.board.color}">
-								<p id="title">${item.GroupEntity.groupName}</p>
-							<!-- </div> -->
-						</div> --%>
+				 <div class="col col-5">
+				 		<div class= "row ">
+						<div class='col-5  rounded-circle' style="background-image : url(/groupFile/thumbnail/${item.file.attachedFileNo});" onclick="goDetail(${item.sn})"> 
+						</div>
+						<div  class='col-5'>
+								<p id="title">${item.groupName}</p>
+								<p>аж ${item.updateCnt}х╦</p>
+								 
+						</div>
+						</div>
 					</div>
 				</c:forEach>
 			</div>

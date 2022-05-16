@@ -43,7 +43,7 @@ public class UserEntity {
 	private LocalDateTime regDate     = LocalDateTime.now() ;
 
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "attached_file_no") 
 	private UserProfileFileEntity profilePicPath  ;
 	

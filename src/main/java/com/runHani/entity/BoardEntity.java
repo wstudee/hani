@@ -35,10 +35,8 @@ public class BoardEntity {
 	@Column(name = "contents", updatable = true) 
 	private String contents;
 	
-	
 	@Column(name = "color", updatable = true) 
 	private String color;
-	
 	
 	@Column(name = "update_date", nullable = false, updatable = true)
 	private LocalDateTime updateDate = LocalDateTime.now() ;
@@ -47,13 +45,19 @@ public class BoardEntity {
 	@JoinColumn(name ="update_user", nullable = false)
 	private UserEntity updateUser;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="reg_user", nullable = false)
 	private UserEntity regUser;
 
-	@OneToOne( cascade = CascadeType.PERSIST )
+	@OneToOne( cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
 	@JoinColumn(name = "attached_file_no")
 	private BoardFileEntity boardFileEntity ;   
+
+
+	@OneToOne( cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
+	@JoinColumn(name = "sn")
+	private GroupEntity group;   
+
 	
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
