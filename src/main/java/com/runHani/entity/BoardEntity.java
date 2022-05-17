@@ -55,7 +55,7 @@ public class BoardEntity {
 
 
 	@OneToOne( cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
-	@JoinColumn(name = "sn")
+	@JoinColumn(name = "group_sn")
 	private GroupEntity group;   
 
 	

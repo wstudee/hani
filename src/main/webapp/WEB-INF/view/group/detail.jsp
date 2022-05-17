@@ -9,19 +9,44 @@ $( document ).ready(function() {
 
 
 function register(){
-
-	
 	document.inputForm.action="/board"; 
 	document.inputForm.method="get";
 	document.inputForm.submit();
 }
 function memberJoin(){
-
-	
 	document.inputForm.action="/group/member/${group.sn}"; 
 	document.inputForm.method="post";
 	document.inputForm.submit();
 }
+
+function setMemberWeekRecode(){
+	
+	var memberWeek = document.getElementsByClassName('memeberWeek');
+	for(let i = 0 ; i < memberWeek.length ; i++){
+		var member = memberWeek[i];
+		var email = member.getAttribute('email');
+
+		$.ajax({
+        cache : false,
+        url : "${pageContext.request.contextPath}/group/memeberWeek", 
+        type : 'POST', 
+        data : {
+			groupSn : '${group.sn}',
+			email : email			
+		}, 
+        dataType : 'json',
+        success : function(data) {
+        	
+        }, // success 
+        error : function(xhr, status) {
+            alert(xhr + " : " + status);
+        }
+    });
+	}
+
+}
+
+
 
 
 </script>
@@ -36,9 +61,13 @@ function memberJoin(){
 			<button type="button" class="btn btn-primary" onclick="register()">글쓰기</button>
 			</c:if>
 		</div>
-		${group }
-		${members }
-		${isMember }
+		
+		<c:forEach items="${group.memeberList }" var="memeber">
+		<div class="row"  id='week_${memeber.user.email}' >
+			<div class="col">${memeber.user.nickname}</div>
+		</div>
+		</c:forEach>
+		
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 			<button type="button" class="btn btn-primary" onclick="location.href='/group/list'">목록으로</button>
 			<c:if test="${isMember}">

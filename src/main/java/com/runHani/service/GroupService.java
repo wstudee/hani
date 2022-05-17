@@ -1,5 +1,6 @@
 package com.runHani.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,6 +134,17 @@ public class GroupService  {
 		
 		return false;
 	}
+
+
+	public List<UserGroupEntity> findUserGroupByGroup(GroupEntity group) {
+		
+		List<UserGroupEntity> memebers = group.getMemeberList();
+		
+		
+		
+		return memebers;
+	}
+
 
 
 

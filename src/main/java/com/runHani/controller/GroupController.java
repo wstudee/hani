@@ -10,8 +10,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -84,11 +86,13 @@ public class GroupController {
 		
 		ModelAndView mav = new ModelAndView(task + "/detail");
 		GroupEntity group = groupService.findById(groupNo);
-		
 		boolean isMember  = groupService.isMember(group);
+		List<UserGroupEntity> memebers =  group.getMemeberList();
+		
 		
 		mav.addObject("group", group);
 		mav.addObject("isMember", isMember);
+		mav.addObject("memebers", memebers);
 		
 		return mav;
 	}
@@ -103,5 +107,26 @@ public class GroupController {
 
 	//TODO: 탈퇴기능
 	
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public String register(GroupEntity group, MultipartHttpServletRequest req) {
+
+		
+		groupService.registerGroup(group,req);
+		
+
+		return "redirect:/board/list";
+	}
+
 	
+	
+	@ResponseBody
+	@RequestMapping(value = "/emailDuplicateCheck", method = RequestMethod.POST)
+	public HashMap selectMemeberWeekRecord(@RequestBody String email) {
+
+		HashMap map = new HashMap();
+		
+		//TODO: 구현필요
+		
+		return map;
+	}
 }

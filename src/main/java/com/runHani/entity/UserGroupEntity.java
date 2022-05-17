@@ -29,7 +29,7 @@ public class UserGroupEntity {
 	@JoinColumn( referencedColumnName = "sn" , name = "group_sn")
 	private GroupEntity groupSn;
 	 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name ="email", nullable = false, updatable = true)
 	private UserEntity user;
 
