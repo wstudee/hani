@@ -1,8 +1,11 @@
 package com.runHani.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.catalina.User;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +29,7 @@ import com.runHani.entity.UserGroupEntity;
 import com.runHani.repository.UserRepository;
 import com.runHani.service.GroupService;
 import com.runHani.util.PageUtil;
+import com.runHani.vo.UserWeekVO;
 
 @Controller
 @RequestMapping("group")
@@ -36,97 +40,99 @@ public class GroupController {
 	@Autowired
 	private GroupService groupService;
 
-	
 	@RequestMapping("list")
-	public ModelAndView list(SearchEntity searchEntity, @PageableDefault( size = 10, sort = "sn",direction = Sort.Direction.DESC)  Pageable pageable) {
+	public ModelAndView list(SearchEntity searchEntity,
+			@PageableDefault(size = 10, sort = "sn", direction = Sort.Direction.DESC) Pageable pageable) {
 		ModelAndView mav = new ModelAndView(task + "/list");
 
-		List<GroupEntity>  groupList = groupService.getList(pageable);
-		mav.addObject("searchEntity",searchEntity);
-		mav.addObject("list",groupList);
+		List<GroupEntity> groupList = groupService.getList(pageable);
+		mav.addObject("searchEntity", searchEntity);
+		mav.addObject("list", groupList);
 
-		
-		HashMap<String,Object> pageInfo =  new HashMap<String, Object>();
-		pageInfo.put("pageable",pageable);
-		pageInfo.put("totalCnt",groupService.getListCnt());
-		mav.addObject("page",PageUtil.calculatePagingByMap(pageInfo));
-		
+		HashMap<String, Object> pageInfo = new HashMap<String, Object>();
+		pageInfo.put("pageable", pageable);
+		pageInfo.put("totalCnt", groupService.getListCnt());
+		mav.addObject("page", PageUtil.calculatePagingByMap(pageInfo));
+
 		return mav;
 	}
-	
-	@RequestMapping("allList")
-	public ModelAndView allList(SearchEntity searchEntity, @PageableDefault( size = 10, sort = "sn",direction = Sort.Direction.DESC)  Pageable pageable) {
-		ModelAndView mav = new ModelAndView(task + "/list");
-		
 
-		Page<GroupEntity> resultList = groupService.getAllList(pageable);  
+	@RequestMapping("allList")
+	public ModelAndView allList(SearchEntity searchEntity,
+			@PageableDefault(size = 10, sort = "sn", direction = Sort.Direction.DESC) Pageable pageable) {
+		ModelAndView mav = new ModelAndView(task + "/list");
+
+		Page<GroupEntity> resultList = groupService.getAllList(pageable);
 		List<GroupEntity> boardList = resultList.getContent();
 		HashMap<String, Integer> paging = PageUtil.calculatePaging(resultList);
-		mav.addObject("searchEntity",searchEntity);
+		mav.addObject("searchEntity", searchEntity);
 		mav.addObject("list", boardList);
 		mav.addObject("page", paging);
 		mav.addObject("totalCnt", resultList.getTotalElements());
-		
-		
+
 		return mav;
 	}
-	
-	
-
 
 	@RequestMapping("new")
 	public ModelAndView newGroupFormat() {
 		ModelAndView mav = new ModelAndView(task + "/new");
-		
+
 		return mav;
 	}
 
 	@RequestMapping(value = "/{groupNo}", method = RequestMethod.GET)
 	public ModelAndView detailView(@PathVariable int groupNo) {
-		
+
 		ModelAndView mav = new ModelAndView(task + "/detail");
 		GroupEntity group = groupService.findById(groupNo);
-		boolean isMember  = groupService.isMember(group);
-		List<UserGroupEntity> memebers =  group.getMemeberList();
-		
-		
+		boolean isMember = groupService.isMember(group);
+		List<UserGroupEntity> memebers = group.getMemeberList();
+
 		mav.addObject("group", group);
 		mav.addObject("isMember", isMember);
 		mav.addObject("memebers", memebers);
-		
+
 		return mav;
 	}
 
-	
 	@RequestMapping(value = "/member/{groupNo}", method = RequestMethod.POST)
 	public String joinGroup(@PathVariable int groupNo) {
-		
+
 		groupService.registerGroup(groupNo);
 		return "redirect:/group/list";
 	}
 
-	//TODO: 탈퇴기능
-	
+	// TODO: 탈퇴기능
+
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String register(GroupEntity group, MultipartHttpServletRequest req) {
 
-		
-		groupService.registerGroup(group,req);
-		
+		groupService.registerGroup(group, req);
 
 		return "redirect:/board/list";
 	}
 
-	
-	
+	@RequestMapping(value = "/memeberWeek", method = RequestMethod.POST)
 	@ResponseBody
-	@RequestMapping(value = "/emailDuplicateCheck", method = RequestMethod.POST)
-	public HashMap selectMemeberWeekRecord(@RequestBody String email) {
+	public List<UserWeekVO>  selectMemeberWeekRecord(@RequestBody HashMap param) {
 
-		HashMap map = new HashMap();
+		GroupEntity group = groupService.findById((int) param.get("groupSn"));
+		List<UserGroupEntity> memebers = group.getMemeberList();
+
+		List<UserWeekVO> result = new ArrayList<UserWeekVO>();
 		
-		//TODO: 구현필요
+
+		for (UserGroupEntity user : memebers) {
+			List tmpList =  groupService.selectMemeberWeekRecord(user.getUser(), group);
+			UserWeekVO userW =  new UserWeekVO();
+			userW.setEmail(user.getUser().getEmail());
+			userW.setInfo(tmpList);
+			result.add(userW);
+		}
 		
-		return map;
+		
+		return result;
+
 	}
+
 }

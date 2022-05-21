@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 $( document ).ready(function() {
-	
+	setMemberWeekRecode()
 });
 
 
@@ -21,32 +21,36 @@ function memberJoin(){
 
 function setMemberWeekRecode(){
 	
-	var memberWeek = document.getElementsByClassName('memeberWeek');
+	/* var memberWeek = document.getElementsByClassName('memeberWeek');
 	for(let i = 0 ; i < memberWeek.length ; i++){
 		var member = memberWeek[i];
 		var email = member.getAttribute('email');
-
-		$.ajax({
+	 */
+	var data = {
+		groupSn : 1,
+	}
+	
+	$.ajax({
         cache : false,
+        contentType: 'application/json',
         url : "${pageContext.request.contextPath}/group/memeberWeek", 
         type : 'POST', 
-        data : {
-			groupSn : '${group.sn}',
-			email : email			
-		}, 
-        dataType : 'json',
+        data : JSON.stringify(data), 
         success : function(data) {
-        	
+        	showMemeberWeek(data);
         }, // success 
         error : function(xhr, status) {
-            alert(xhr + " : " + status);
         }
     });
-	}
-
 }
 
-
+function showMemeberWeek(data){
+	
+	for(var i = 0 ;  i  < data.length ; i++){
+		
+	//todo 구현필요		
+	}
+}
 
 
 </script>
@@ -65,6 +69,13 @@ function setMemberWeekRecode(){
 		<c:forEach items="${group.memeberList }" var="memeber">
 		<div class="row"  id='week_${memeber.user.email}' >
 			<div class="col">${memeber.user.nickname}</div>
+			<div class="col" id='monday_${memeber.user.email}'></div>
+			<div class="col" id='tuesday_${memeber.user.email}'></div>
+			<div class="col" id='wednesday_${memeber.user.email}'></div>
+			<div class="col" id='thursday_${memeber.user.email}'></div>
+			<div class="col" id='friday_${memeber.user.email}'></div>
+			<div class="col" id='saturday_${memeber.user.email}'></div>
+			<div class="col" id='sunday_${memeber.user.email}'></div>
 		</div>
 		</c:forEach>
 		
