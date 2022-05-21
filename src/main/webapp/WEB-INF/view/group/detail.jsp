@@ -47,8 +47,22 @@ function setMemberWeekRecode(){
 function showMemeberWeek(data){
 	
 	for(var i = 0 ;  i  < data.length ; i++){
+		memData = data[i];
 		
-	//todo 구현필요		
+		var memInfo = memData.info;
+		var htmlText = "";
+		for(var j =0; j < memInfo.length ; j++){
+			var info = memInfo[j];
+			if(info[1] > 0){
+				htmlText+= '<td boareSn="'+info[0]+'">&#128170;</td>';
+			}else{
+				htmlText+= '<td>&#128683;</td>'
+			}
+		}
+		
+		var memTr = document.getElementById('week_'+memData.email);
+		memTr.innerHTML += htmlText;
+		
 	}
 }
 
@@ -65,19 +79,29 @@ function showMemeberWeek(data){
 			<button type="button" class="btn btn-primary" onclick="register()">글쓰기</button>
 			</c:if>
 		</div>
+		<table class="table table-striped table-hover">
+		  <thead>
+		    <tr>
+		      <th scope="col">닉네임</th>
+		      <th scope="col">월요일</th>
+		      <th scope="col">화요일</th>
+		      <th scope="col">수요일</th>
+		      <th scope="col">목요일</th>
+		      <th scope="col">금요일</th>
+		      <th scope="col">토요일</th>
+		      <th scope="col">일요일</th>
+		    </tr>
+		  </thead>
+		  <tbody>
 		
 		<c:forEach items="${group.memeberList }" var="memeber">
-		<div class="row"  id='week_${memeber.user.email}' >
-			<div class="col">${memeber.user.nickname}</div>
-			<div class="col" id='monday_${memeber.user.email}'></div>
-			<div class="col" id='tuesday_${memeber.user.email}'></div>
-			<div class="col" id='wednesday_${memeber.user.email}'></div>
-			<div class="col" id='thursday_${memeber.user.email}'></div>
-			<div class="col" id='friday_${memeber.user.email}'></div>
-			<div class="col" id='saturday_${memeber.user.email}'></div>
-			<div class="col" id='sunday_${memeber.user.email}'></div>
-		</div>
+		 <tr id='week_${memeber.user.email}' >
+			<th  class="col">${memeber.user.nickname}</th >
+		</tr>
 		</c:forEach>
+		</tbody>
+		</table>
+		 <c:import url="/group/boardList" />
 		
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 			<button type="button" class="btn btn-primary" onclick="location.href='/group/list'">목록으로</button>
