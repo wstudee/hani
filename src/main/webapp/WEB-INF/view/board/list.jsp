@@ -38,7 +38,7 @@
 				<c:forEach items="${list}" var="item" varStatus="status">
 				 <div class="col col-5 textBoxCover">
 						<div class='textBox' style="background-image : url(/boardFile/thumbnail/${item.boardFileEntity.attachedFileNo});" onclick="goDetail(${item.boardNo})"> 
-							<div style="color : ${item.color}">
+							<div style="color : ${item.textcolor}; -webkit-text-stroke : 1px ${item.bordercolor};">
 								<p id="regDate">
 									<fmt:parseDate value="${item.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
 									<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime }" />

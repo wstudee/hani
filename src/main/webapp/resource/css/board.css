@@ -13,6 +13,7 @@
 	text-align: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-position: center;
 	margin : 5%; }
 	
 	.textBoxCover{
@@ -44,6 +45,7 @@
 	    text-align: center;
 	    background-repeat : no-repeat;
 	    background-size : cover;
+	    background-position: center;
 	    
 	}
 	#preview div{
@@ -55,6 +57,8 @@
 	    position: absolute;
 	    font-weight: bold;
 	    font-size: 25px;
+	    background-position: center;
+   		background-size: cover;
 	}
 	#titleCont{
 		font-size: 20px;
@@ -83,6 +87,7 @@
 		background-repeat: no-repeat;
 		background-size: cover;
 		margin: 20px;
+		background-position: center;
 	}
 
 	
@@ -111,7 +116,7 @@
 	    text-align: center;
 	    background-repeat : no-repeat;
 	    background-size : cover;
-	    
+	    background-position: center;
 	}
 	#preview div{
 		vertical-align: middle;

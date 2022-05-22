@@ -35,7 +35,18 @@
 	#contents{
 		font-size: 20px;
 	}
-	
+	.groupImg{
+		height: 200px;
+	    position: relative;
+	    text-align: center;
+	    background-color: #eeeeee;
+	    margin-bottom: 3%;
+	    position: relative;
+	    text-align: center;
+	    background-repeat : no-repeat;
+	    background-size : cover;
+	    background-position: center;
+	}
 	#preview{
 		height: 300px;
 	    width: 300px;
@@ -47,7 +58,9 @@
 	    text-align: center;
 	    background-repeat : no-repeat;
 	    background-size : cover;
-	    
+   	    background-repeat : no-repeat;
+	    background-size : cover;
+	    background-position: center;
 	}
 	#preview div{
 		vertical-align: middle;
@@ -58,6 +71,31 @@
 	    position: absolute;
 	    font-weight: bold;
 	    font-size: 25px;
+	}
+	.miniBox{
+		height: 200px;
+	    width: 200px;
+	    position: relative;
+	    text-align: center;
+	    background-color: #eeeeee;
+	    margin-bottom: 3%;
+	    position: relative;
+	    text-align: center;
+	    background-repeat : no-repeat;
+	    background-size : cover;
+   	    background-repeat : no-repeat;
+	    background-size : cover;
+	    background-position: center;
+	}
+	.miniBox div{
+		vertical-align: middle;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%,-50%);
+	    display: inline-block;
+	    position: absolute;
+	    font-weight: bold;
+	    font-size: 15px;
 	}
 	#titleCont{
 		font-size: 20px;
@@ -114,6 +152,9 @@
 	    text-align: center;
 	    background-repeat : no-repeat;
 	    background-size : cover;
+   	    background-repeat : no-repeat;
+	    background-size : cover;
+	    background-position: center;
 	    
 	}
 	#preview div{
@@ -125,6 +166,32 @@
 	    position: absolute;
 	    font-weight: bold;
 	    font-size: 25px;
+	}
+	.miniBox{
+		height: 200px;
+	    width: 200px;
+	    position: relative;
+	    text-align: center;
+	    background-color: #eeeeee;
+	    margin-bottom: 3%;
+	    position: relative;
+	    text-align: center;
+	    background-repeat : no-repeat;
+	    background-size : cover;
+   	    background-repeat : no-repeat;
+	    background-size : cover;
+	    background-position: center;
+	    
+	}
+	.miniBox div{
+		vertical-align: middle;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%,-50%);
+	    display: inline-block;
+	    position: absolute;
+	    font-weight: bold;
+	    font-size: 15px;
 	}
 	#titleCont{
 		font-size: 20px;

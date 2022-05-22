@@ -14,7 +14,7 @@ function checkVal(){
 	
 	
 	
-	if(document.inputForm.files.value == '' && $('.file').length == 0){
+	if(document.inputForm.files.value == '' && $('.fileName').length == 0){
 		$('.filesErr').show();
 		result= false;
 	} 
@@ -22,11 +22,11 @@ function checkVal(){
 	return result;
 }
 
-function boardSetting(attNo, color){
+function boardSetting(attNo, color, bordercolor){
 	
 	$('#preview').css('background-image','url(/boardFile/'+attNo+')' );
 	$('#preview div').css('color',color ); 
-	
+	$('#preview div').css('-webkit-text-stroke','1px '+bordercolor);
 }
 
 function chageInput(){
@@ -38,6 +38,9 @@ function chageInput(){
 
 function chageColor(e){
 	$('#preview div').css('color',e.value)
-	
+}
+
+function chageBorderColor(e){
+	$('#preview div').css('-webkit-text-stroke','1px '+e.value);
 }
 

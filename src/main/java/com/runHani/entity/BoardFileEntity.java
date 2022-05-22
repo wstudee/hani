@@ -28,7 +28,7 @@ public class BoardFileEntity {
 	@Column(name = "reg_date", nullable = false, updatable = true)
 	private LocalDateTime regDate     = LocalDateTime.now() ;
 	
-	@OneToOne( cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.PERSIST ,fetch = FetchType.LAZY)
 	@JoinColumn(name = "board_no")
 	private BoardEntity boardEntity ;            ;
 	

@@ -123,7 +123,7 @@ public class BoardController {
 	public String deleteFile( @RequestBody HashMap param) {
 		
 		try {
-			boardService.deleteFileByAttachedFileNo((Integer)param.get("attachedFileNo"));
+			boardService.deleteFileByAttachedFileNo((Integer)param.get("attachedFileNo"),(Integer)param.get("boardSN"));
 		}catch (Exception e) {
 			return "FAIL";
 		}

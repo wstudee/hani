@@ -8,7 +8,7 @@
 
 <script type="text/javascript">
 $(function(){ 
-	boardSetting('${file.attachedFileNo}', '${board.color}');
+	boardSetting('${file.attachedFileNo}', '${board.textcolor}', '${board.bordercolor}');
 });
 
 

@@ -53,13 +53,27 @@ function showMemeberWeek(data){
 		var htmlText = "";
 		for(var j =0; j < memInfo.length ; j++){
 			var info = memInfo[j];
+			var count = 0;
 			if(info[1] > 0){
+				count++;
 				htmlText+= '<td onClick="location.href=\'/board\/'+info[1]+'\'">&#128170;</td></a>';
 			}else{
 				htmlText+= '<td>&#128683;</td>'
 			}
 		}
+		var per = Math.floor(count/${group.updateCnt}*100);
 		
+		var emo = '';
+		if(per>=100){
+			emo = '&#128536;';
+		}else if(per>=66){
+			emo = '&#128521;';
+		}else if(per>=33){
+			emo = '&#128528;';
+		}else{
+			emo = '&#128552;';
+		}
+		htmlText+= '<td>'+per+'% 달성 '+emo+'</td>'
 		var memTr = document.getElementById('week_'+memData.email);
 		memTr.innerHTML += htmlText;
 		
@@ -79,7 +93,7 @@ function showMemeberWeek(data){
 			<button type="button" class="btn btn-primary" onclick="register()">글쓰기</button>
 			</c:if>
 		</div>
-<div class="bg-light p-5 rounded">
+	<div class="bg-light p-5 rounded">
     <h1>이번주 기록</h1>
 		<table class="table table-striped table-hover">
 		  <thead>
@@ -92,6 +106,7 @@ function showMemeberWeek(data){
 		      <th scope="col">금요일</th>
 		      <th scope="col">토요일</th>
 		      <th scope="col">일요일</th>
+		      <th scope="col">이번주</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -112,7 +127,7 @@ function showMemeberWeek(data){
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 			<button type="button" class="btn btn-primary" onclick="location.href='/group/list'">목록으로</button>
 			<c:if test="${isMember}">
-			<button type="button" class="btn btn-primary" onclick="register()">탈퇴하기</button>
+			<button type="button" class="btn btn-danger" onclick="register()">탈퇴하기</button>
 			</c:if>
 			<c:if test="${!isMember}">
 			<button type="button" class="btn btn-primary" onclick="memberJoin()">가입하기</button>

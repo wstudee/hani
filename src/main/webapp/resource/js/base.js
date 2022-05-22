@@ -1,5 +1,5 @@
 
-function isFileImage(e,divId){
+function isFileImage(e,divId, afterFun){
 	var file = document.getElementById('fileInput');
 	var ext = file.value.match(/\.([^\.]+)$/)[1];
 	switch (ext.toLowerCase()) {
@@ -13,6 +13,10 @@ function isFileImage(e,divId){
 	  default:
 	    alert('이미지 파일만 업로드가 가능합니다.');
 	  file.value = '';
+	}
+	
+	if(afterFun!= undefined){
+		afterFun();
 	}
 }
 

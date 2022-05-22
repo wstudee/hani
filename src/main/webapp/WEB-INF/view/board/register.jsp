@@ -62,7 +62,11 @@ function register(){
 				</div>
 				<div class="input-group mb-3">
 					 <span class="input-group-text" id="basic-addon1">글자&nbsp&nbsp&nbsp&nbsp색상</span>
-					<input type="color" name="color" class="form-control form-control-color" id="exampleColorInput" value="#000000" title="Choose your color" onchange="chageColor(this)">
+					<input type="color" name="textcolor" class="form-control form-control-color" id="exampleColorInput" value="#000000" title="Choose your color" onchange="chageColor(this)">
+				</div>
+				<div class="input-group mb-3">
+					 <span class="input-group-text" id="basic-addon1">테두리&nbsp&nbsp&nbsp색상</span>
+					<input type="color" name="bordercolor" class="form-control form-control-color" id="exampleColorInput" value="#000000" title="Choose your color" onchange="chageBorderColor(this)">
 				</div>
 			    <div class="input-group mb-3">
 				  <span class="input-group-text" id="basic-addon1">오늘의 사진</span>

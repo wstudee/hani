@@ -26,148 +26,164 @@ import com.runHani.repository.UserRepository;
 import com.runHani.util.FileUtils;
 import com.runHani.vo.UserSessionVO;
 
-
 @Service
-public class BoardService  {
-	
-    private BoardRepository boardRepository;
+public class BoardService {
 
-    @Autowired
-    public void setBoardRepository(BoardRepository boardRepository) {
-        this.boardRepository = boardRepository;
-    }
-    
-    private  BoardFileRepository boardFileRepository;
-    
-    @Autowired
-    public void setBoardFileRepository( BoardFileRepository boardFileRepository) {
-        this.boardFileRepository = boardFileRepository;
-    }
-    
-	
-    private  UserRepository userRepository;
-    
-    @Autowired
-    public void setUserRepository( UserRepository userRepository) {
-    	this.userRepository = userRepository;
-    }
-    
-    
-    public Page<BoardEntity> getBoardList(SearchEntity searchEntity, Pageable pageable) {
+	private BoardRepository boardRepository;
 
-		Page<BoardEntity> resultList =  null; 
-		String searchCriteria = searchEntity.getSearchCriteria()==null ? "" : searchEntity.getSearchCriteria();
-		String searchWord = searchEntity.getSearchWord()==null ? "" : searchEntity.getSearchWord();
-		switch(searchCriteria) {
-			case "title" : resultList =  selectBoardListByTitle(searchWord,pageable); break;
-			case "contents" :resultList =  selectBoardListByContents(searchWord,pageable);  break;
-			default : resultList =  selectBoardListByTotal(searchWord,pageable);
-			
+	@Autowired
+	public void setBoardRepository(BoardRepository boardRepository) {
+		this.boardRepository = boardRepository;
+	}
+
+	private BoardFileRepository boardFileRepository;
+
+	@Autowired
+	public void setBoardFileRepository(BoardFileRepository boardFileRepository) {
+		this.boardFileRepository = boardFileRepository;
+	}
+
+	private UserRepository userRepository;
+
+	@Autowired
+	public void setUserRepository(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+
+	public Page<BoardEntity> getBoardList(SearchEntity searchEntity, Pageable pageable) {
+
+		Page<BoardEntity> resultList = null;
+		String searchCriteria = searchEntity.getSearchCriteria() == null ? "" : searchEntity.getSearchCriteria();
+		String searchWord = searchEntity.getSearchWord() == null ? "" : searchEntity.getSearchWord();
+		switch (searchCriteria) {
+		case "title":
+			resultList = selectBoardListByTitle(searchWord, pageable);
+			break;
+		case "contents":
+			resultList = selectBoardListByContents(searchWord, pageable);
+			break;
+		default:
+			resultList = selectBoardListByTotal(searchWord, pageable);
+
 		}
 		return resultList;
 	}
 
 	public Page<BoardEntity> selectBoardListByTotal(String searchWord, Pageable pageable) {
-		return boardRepository.findByTitleContainingOrContentsContainingAndBoardStatusIs(searchWord, searchWord ,"I" , pageable);
+		return boardRepository.findByTitleContainingOrContentsContainingAndBoardStatusIs(searchWord, searchWord, "I",
+				pageable);
 	}
+
 	public Page<BoardEntity> selectBoardListByTitle(String searchWord, Pageable pageable) {
-		return boardRepository.findByTitleContainingAndBoardStatus(searchWord,"I",pageable);
+		return boardRepository.findByTitleContainingAndBoardStatus(searchWord, "I", pageable);
 	}
 
 	public Page<BoardEntity> selectBoardListByContents(String searchWord, Pageable pageable) {
-		return boardRepository.findByContentsContainingAndBoardStatus(searchWord,"I",pageable);
+		return boardRepository.findByContentsContainingAndBoardStatus(searchWord, "I", pageable);
 	}
-
-	
-	
-	
 
 	public BoardEntity selectBoard(int notice_no) {
-		
+
 		return boardRepository.findById(notice_no).get();
 	}
-	
+
 	@Transactional
-	public void deleteBoard(int noticeNo) throws Exception  {
-		
+	public void deleteBoard(int noticeNo) throws Exception {
+
 		boardRepository.saveBoardStatus(noticeNo, "Y");
-		
+
 	}
 
 	public void postBoard(BoardEntity notice, MultipartHttpServletRequest req) {
-		
-		List<FileEntity> fileList = FileUtils.parseFileinfo(req);			
-		
+
+		List<FileEntity> fileList = FileUtils.parseFileinfo(req);
+
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserSessionVO sessionUser = (UserSessionVO) principal;
-		
+
 		UserEntity user = sessionUser.getUser();
 		notice.setUpdateUser(user);
 		notice.setRegUser(user);
-		
-		if(fileList.size() > 0) {
+
+		if (fileList.size() > 0) {
 			BoardFileEntity newFile = new BoardFileEntity(fileList.get(0));
+			
 			newFile.setBoardEntity(notice);
 			notice.setBoardFileEntity(boardFileRepository.save(newFile));
-			
 		}
-		
+
 		boardRepository.save(notice);
 	}
-		
+
 	public int postBoard(BoardEntity notice) {
-		
+
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserSessionVO sessionUser = (UserSessionVO) principal;
-		
+
 		UserEntity user = sessionUser.getUser();
 		notice.setUpdateUser(user);
 		notice.setRegUser(user);
-		
-		if(boardRepository.save(notice)!=null) {
+
+		if (boardRepository.save(notice) != null) {
 			return 1;
-		}else {
+		} else {
 			return -1;
 		}
-		
+
 	}
 
+	@Transactional
+	public void updateBoard(BoardEntity board, MultipartHttpServletRequest req) {
 
-	public void updateBoard(BoardEntity notice, MultipartHttpServletRequest req) {
+		List<FileEntity> fileList = FileUtils.parseFileinfo(req);
+
+
+		BoardEntity newBoard =  boardRepository.findById(board.getBoardNo()).get();
+		newBoard.setTitle(board.getTitle());
+		newBoard.setContents(board.getContents());
+		newBoard.setTextcolor(board.getTextcolor());
+		newBoard.setBordercolor(board.getBordercolor());
 		
-		postBoard(notice,req);
+		if (fileList.size() > 0) {
+			boardFileRepository.delete(newBoard.getBoardFileEntity());
+			BoardFileEntity newFile = new BoardFileEntity(fileList.get(0));
+			newFile.setBoardEntity(newBoard);
+			newBoard.setBoardFileEntity(boardFileRepository.save(newFile));
+
+		}
+
+		boardRepository.save(newBoard);
 	}
 
+	public void deleteFile(Integer boardSn) {
 
-	public void deleteFile(Integer notice) {
-		
-		boardFileRepository.deleteByBoardEntity(boardRepository.findById(notice).get());
+		BoardEntity board = boardRepository.findById(boardSn).get();
+		boardFileRepository.deleteByBoardEntity(board);
 	}
 
+	public void deleteFileByAttachedFileNo(Integer attNo, Integer boardSn) {
 
-	public void deleteFileByAttachedFileNo(Integer attNo) {
+		BoardEntity board = boardRepository.findById(boardSn).get();
+		board.setBoardFileEntity(null);
+		boardRepository.save(board);
 		boardFileRepository.deleteByAttachedFileNo(attNo);
-		
-	}
 
+	}
 
 	public BoardFileEntity findByFileId(int fileNo) {
 		// TODO Auto-generated method stub
 		return boardFileRepository.findById(fileNo).get();
 	}
 
-
 	public BoardFileEntity selectBoardFile(int boardNo) {
-		
-		return  boardFileRepository.findByBoardEntity(boardRepository.findById(boardNo).get());
-		
+
+		return boardFileRepository.findByBoardEntity(boardRepository.findById(boardNo).get());
+
 	}
 
-
 	public Page<BoardEntity> getBoardListByGroup(GroupEntity group, Pageable pageable) {
-		
-		
-		return  boardRepository.findByGroup(group,pageable);
+
+		return boardRepository.findByGroup(group, pageable);
 	}
 
 }

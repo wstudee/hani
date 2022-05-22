@@ -34,17 +34,14 @@
 			</div>
 		</div>
 		
-				<div class="row row-cols-2" >		
+				<div class="row row-cols-4" >		
 				<c:forEach items="${list}" var="item" varStatus="status">
-				 <div class="col col-5">
-				 		<div class= "row ">
-						<div class='col-5  rounded-circle' style="background-image : url(/groupFile/thumbnail/${item.file.attachedFileNo});" onclick="goDetail(${item.sn})"> 
+				 <div class="col">
+						<div class='groupImg' style="background-image : url(/groupFile/thumbnail/${item.file.attachedFileNo});" onclick="goDetail(${item.sn})"> 
 						</div>
 						<div  class='col-5'>
 								<p id="title">${item.groupName}</p>
 								<p>аж ${item.updateCnt}х╦</p>
-								 
-						</div>
 						</div>
 					</div>
 				</c:forEach>
