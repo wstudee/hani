@@ -31,9 +31,11 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer>{
 
 	List<BoardEntity> findByRegUserAndGroup(String string, int i);
 
-	@Query(value = "select to_char(b.d,'yyyy-mm-dd') as date , count(a) as cnt from (select * from tb_board_bas where reg_user =:userEntity	and group_sn = :group and reg_date > to_date(:lastSunday,'yyyy-mm-dd') ) a "
-			+ "right join test1 b on to_char(a.reg_date, 'yyyymmdd') =  to_char(b.d, 'yyyymmdd') group by to_char(b.d,'yyyy-mm-dd') order by date ", nativeQuery = true)
+	@Query(value = "select to_char(b.d,'yyyy-mm-dd') as date , coalesce (a.board_no,-1) as cnt from (select * from tb_board_bas where reg_user =:userEntity	and group_sn = :group and reg_date > to_date(:lastSunday,'yyyy-mm-dd') ) a "
+			+ "right join test1 b on to_char(a.reg_date, 'yyyymmdd') =  to_char(b.d, 'yyyymmdd') group by to_char(b.d,'yyyy-mm-dd'),a.board_no order by date ", nativeQuery = true)
 	List<List> findByRegUserAndGroupAndAfterRegDate(UserEntity userEntity, GroupEntity group, String lastSunday);
+
+	Page<BoardEntity> findByGroup(GroupEntity group, Pageable pageable);
 	
 
 

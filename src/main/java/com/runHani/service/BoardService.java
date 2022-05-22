@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.runHani.entity.BoardEntity;
 import com.runHani.entity.BoardFileEntity;
 import com.runHani.entity.FileEntity;
+import com.runHani.entity.GroupEntity;
 import com.runHani.entity.SearchEntity;
 import com.runHani.entity.UserEntity;
 import com.runHani.repository.BoardFileRepository;
@@ -160,6 +161,13 @@ public class BoardService  {
 		
 		return  boardFileRepository.findByBoardEntity(boardRepository.findById(boardNo).get());
 		
+	}
+
+
+	public Page<BoardEntity> getBoardListByGroup(GroupEntity group, Pageable pageable) {
+		
+		
+		return  boardRepository.findByGroup(group,pageable);
 	}
 
 }

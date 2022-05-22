@@ -71,5 +71,3 @@ function login(){
   <button type="button" onclick="location.href='${pageContext.request.contextPath}/account/register'"class="w-100 btn btn-lg btn-primary" >회원가입</button>
 </main>
 
-</body>
-</html>

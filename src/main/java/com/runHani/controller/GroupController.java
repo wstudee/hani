@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +28,7 @@ import com.runHani.entity.SearchEntity;
 import com.runHani.entity.UserEntity;
 import com.runHani.entity.UserGroupEntity;
 import com.runHani.repository.UserRepository;
+import com.runHani.service.BoardService;
 import com.runHani.service.GroupService;
 import com.runHani.util.PageUtil;
 import com.runHani.vo.UserWeekVO;
@@ -39,7 +41,9 @@ public class GroupController {
 
 	@Autowired
 	private GroupService groupService;
-
+	@Autowired
+	private BoardService boardService;
+	
 	@RequestMapping("list")
 	public ModelAndView list(SearchEntity searchEntity,
 			@PageableDefault(size = 10, sort = "sn", direction = Sort.Direction.DESC) Pageable pageable) {
@@ -88,6 +92,8 @@ public class GroupController {
 		boolean isMember = groupService.isMember(group);
 		List<UserGroupEntity> memebers = group.getMemeberList();
 
+		
+		
 		mav.addObject("group", group);
 		mav.addObject("isMember", isMember);
 		mav.addObject("memebers", memebers);
@@ -95,6 +101,22 @@ public class GroupController {
 		return mav;
 	}
 
+	@RequestMapping(value ="baordList", method = {RequestMethod.GET,RequestMethod.POST} )
+	public ModelAndView listBoard(@RequestParam int grouSn, @PageableDefault( size = 10, sort = "boardNo",direction = Sort.Direction.DESC)  Pageable pageable) {
+		ModelAndView mav = new ModelAndView(task + "/jspf/boardList");
+		
+		GroupEntity group = groupService.findById(grouSn);
+		Page<BoardEntity> resultList = boardService.getBoardListByGroup(group, pageable);  
+		List<BoardEntity> boardList = resultList.getContent();
+		HashMap<String, Integer> paging = PageUtil.calculatePaging(resultList);
+		mav.addObject("list", boardList);
+		mav.addObject("page", paging);
+		mav.addObject("totalCnt", resultList.getTotalElements());
+		
+		return mav;
+	}
+	
+	
 	@RequestMapping(value = "/member/{groupNo}", method = RequestMethod.POST)
 	public String joinGroup(@PathVariable int groupNo) {
 

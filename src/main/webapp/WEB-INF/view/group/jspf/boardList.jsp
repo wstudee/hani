@@ -20,24 +20,23 @@
 		
 	}
 </script>
-<body>
 	<div class="container">
-		<h3>LIST</h3>
 		<div class="d-flex justify-content-end">
-			<div>
+			<%-- <div>
 			<select id="searchCriteria"> 
 				<option value="total">전체</option>
 				<option value="title">제목</option>
 				<option value="contents">내용</option>
 			</select> 
 			<input type= "text" name = "searchWord" id = "searchWord"  value='${searchWord}'/> <button onclick="search()">검색</button>
-			</div>
+			</div> --%>
 		</div>
-		
-				<div class="row row-cols-2" >		
+		<div class="bg-light p-5 rounded" style="margin-top: 5%">
+		<h1>List</h1>
+				<div class="row row-cols-5" >		
 				<c:forEach items="${list}" var="item" varStatus="status">
-				 <div class="col col-5 textBoxCover">
-						<div class='textBox' style="background-image : url(/boardFile/thumbnail/${item.boardFileEntity.attachedFileNo});" onclick="goDetail(${item.boardNo})"> 
+				 <div class="col  textBoxCover">
+						<div class='miniBox' style="background-image : url(/boardFile/thumbnail/${item.boardFileEntity.attachedFileNo});" onclick="goDetail(${item.boardNo})"> 
 							<div style="color : ${item.color}">
 								<p id="regDate">
 									<fmt:parseDate value="${item.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
@@ -71,12 +70,8 @@
 		    </li>
 		  </ul>
 		</nav>
-		
+		</div>
 		 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-		 	<!-- <button type="button" class="btn btn-primary" onclick="location.href='/board'">글등록</button> --> <!-- 추후 그룹선택 팝업 후 글등록 모드로 변경가능 -->
-		 	<button type="button" class="btn btn-primary" onclick="location.href='/board/list'">목록으로</button>	
 	 	</div>
 		 	
 	</div>
-</body>
-</html>

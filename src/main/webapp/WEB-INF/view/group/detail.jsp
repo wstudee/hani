@@ -27,7 +27,7 @@ function setMemberWeekRecode(){
 		var email = member.getAttribute('email');
 	 */
 	var data = {
-		groupSn : 1,
+		groupSn : ${group.sn},
 	}
 	
 	$.ajax({
@@ -54,7 +54,7 @@ function showMemeberWeek(data){
 		for(var j =0; j < memInfo.length ; j++){
 			var info = memInfo[j];
 			if(info[1] > 0){
-				htmlText+= '<td boareSn="'+info[0]+'">&#128170;</td>';
+				htmlText+= '<td onClick="location.href=\'/board\/'+info[1]+'\'">&#128170;</td></a>';
 			}else{
 				htmlText+= '<td>&#128683;</td>'
 			}
@@ -79,6 +79,8 @@ function showMemeberWeek(data){
 			<button type="button" class="btn btn-primary" onclick="register()">글쓰기</button>
 			</c:if>
 		</div>
+<div class="bg-light p-5 rounded">
+    <h1>이번주 기록</h1>
 		<table class="table table-striped table-hover">
 		  <thead>
 		    <tr>
@@ -101,7 +103,11 @@ function showMemeberWeek(data){
 		</c:forEach>
 		</tbody>
 		</table>
-		 <c:import url="/group/boardList" />
+  </div>
+
+		<c:import url="/group/baordList"> 
+		  <c:param name="grouSn" value='${group.sn}' /> 
+		</c:import>
 		
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 			<button type="button" class="btn btn-primary" onclick="location.href='/group/list'">목록으로</button>
