@@ -13,12 +13,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.PageableHandlerMethodArgumentResolverCustomizer;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @SpringBootApplication(exclude = { MultipartAutoConfiguration.class })
 @EnableAutoConfiguration
 @ServletComponentScan
+@EnableScheduling
 public class RunHaniApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RunHaniApplication.class, args);
