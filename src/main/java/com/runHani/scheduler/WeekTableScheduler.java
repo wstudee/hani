@@ -23,7 +23,7 @@ public class WeekTableScheduler {
 		this.repo = repo;
 	}
 	
-	@Scheduled(cron = "45 * * * * ?")
+	@Scheduled(cron = "0 0 1 * * ?")
 	   public void cronJobSch() {
 	      
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

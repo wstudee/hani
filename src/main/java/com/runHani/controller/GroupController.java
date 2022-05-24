@@ -1,5 +1,6 @@
 package com.runHani.controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -136,7 +137,7 @@ public class GroupController {
 
 	@RequestMapping(value = "/memeberWeek", method = RequestMethod.POST)
 	@ResponseBody
-	public List<UserWeekVO>  selectMemeberWeekRecord(@RequestBody HashMap param) {
+	public List<UserWeekVO>  selectMemeberWeekRecord(@RequestBody HashMap param) throws ParseException {
 
 		GroupEntity group = groupService.findById((int) param.get("groupSn"));
 		List<UserGroupEntity> memebers = group.getMemeberList();
@@ -145,7 +146,7 @@ public class GroupController {
 		
 
 		for (UserGroupEntity user : memebers) {
-			List tmpList =  groupService.selectMemeberWeekRecord(user.getUser(), group);
+			HashMap<String,String> tmpList =  groupService.selectMemeberWeekRecord(user.getUser(), group, param);
 			UserWeekVO userW =  new UserWeekVO();
 			userW.setEmail(user.getUser().getEmail());
 			userW.setInfo(tmpList);

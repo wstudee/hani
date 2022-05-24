@@ -1,13 +1,17 @@
 package com.runHani.service;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -150,19 +154,38 @@ public class GroupService {
 		return memebers;
 	}
 
-	public List<List> selectMemeberWeekRecord(UserEntity userEntity, GroupEntity group) {
+	public HashMap<String,String> selectMemeberWeekRecord(UserEntity userEntity, GroupEntity group, HashMap param) throws ParseException {
 
+		String startDate = (String) param.get("startDate");
+		String lastDay = (String) param.get("lastDay");
+		
+		List<List> resultSql = boardRepository.findByRegUserAndGroupAndAfterRegDate(userEntity, group, startDate ,lastDay);
+	   
+		HashMap<String,String> map = new HashMap<String,String>();
+		
+		for(List list :  resultSql) {
+			String date = (String) list.get(0);
+			String sn = list.get(1).toString();
+			map.put(date, sn);
+		}
+		
+		HashMap<String,String> returnMap = new HashMap<String,String>();
+		SimpleDateFormat smf = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(new java.util.Date());
-		cal.add(Calendar.DAY_OF_WEEK, -1);
-		cal.setFirstDayOfWeek(Calendar.SUNDAY);
-		cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String lastSunday =  sdf.format(cal.getTime());
-	   List<List> resultSql = boardRepository.findByRegUserAndGroupAndAfterRegDate(userEntity, group,lastSunday);
+		cal.setTime(smf.parse(startDate));
+		
+		for (int i = 0; i < 7; i++) {
+			String dateStr = smf.format(cal.getTime());
+			if(map.get(dateStr) == null) {
+				returnMap.put(dateStr, "-1");
+			}else {
+				returnMap.put(dateStr , map.get(dateStr));
+			}
+			cal.add(Calendar.DATE, 1);
+		}
+		
 	   
-	   
-		return resultSql;
+		return returnMap;
 	}
 
 }

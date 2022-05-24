@@ -4,7 +4,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 $( document ).ready(function() {
-	setMemberWeekRecode()
+	setThisWeek(new Date());
+	setMemberWeekRecode();
+	
 });
 
 
@@ -19,16 +21,79 @@ function memberJoin(){
 	document.inputForm.submit();
 }
 
-function setMemberWeekRecode(){
+
+function setThisWeek(d){
+
+	var thisMonday = getMonday(d);
+	var thisWeek = 	dateStringFormat(thisMonday);
+	document.getElementById("startDay").value = thisWeek;
 	
-	/* var memberWeek = document.getElementsByClassName('memeberWeek');
-	for(let i = 0 ; i < memberWeek.length ; i++){
-		var member = memberWeek[i];
-		var email = member.getAttribute('email');
-	 */
+	var thisSunday = new Date(thisMonday.setDate(thisMonday.getDate()+6));
+	var thisSundayText = dateStringFormat(thisSunday);
+	document.getElementById("lastDay").value = thisSundayText;
+	
+	var weekText = thisWeek+'~'+thisSundayText
+	document.getElementById("weekDay").innerText = weekText;
+	makeWeekArray()
+}
+
+var weekDays = [];
+function makeWeekArray(){
+	weekDays = [];
+	var startStr = document.getElementById("startDay").value;
+	weekDays.push(startStr);
+	var startDay = new Date(startStr);
+	for (let index = 0; index < 6; index++) {
+		var nextDay = new Date(startDay.setDate(startDay.getDate()+1))
+		var dayStr = dateStringFormat(nextDay);
+		weekDays.push(dayStr);
+	}
+
+
+
+}
+
+function preWeek(){
+	var startStr = document.getElementById("startDay").value;
+	var startDay = new Date(startStr);
+	var preMonday = new Date(startDay.setDate(startDay.getDate()-7));
+	setThisWeek(preMonday);
+	setMemberWeekRecode()
+}
+function nextWeek(){
+	var startStr = document.getElementById("startDay").value;
+	var startDay = new Date(startStr);
+	var preMonday = new Date(startDay.setDate(startDay.getDate()+7));
+	setThisWeek(preMonday);
+	setMemberWeekRecode()
+}
+
+
+
+function getMonday(d) {
+  d = new Date(d);
+  var day = d.getDay(),
+      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  return new Date(d.setDate(diff));
+}
+
+function dateStringFormat(d){
+	var year = d.getFullYear();
+	var month = d.getMonth()+1 > 10 ? d.getMonth()+1 :"0"+(d.getMonth()+1);
+	var date = d.getDate() > 10 ? d.getDate() : "0"+ d.getDate();
+	
+	return year+"-"+month+"-"+date;
+}
+
+function setMemberWeekRecode(){
+	var startDate  = document.getElementById("startDay").value;
+	var lastDay  = document.getElementById("lastDay").value
 	var data = {
 		groupSn : ${group.sn},
+		startDate : startDate,
+		lastDay : lastDay,
 	}
+	
 	
 	$.ajax({
         cache : false,
@@ -48,13 +113,15 @@ function showMemeberWeek(data){
 	
 	for(var i = 0 ;  i  < data.length ; i++){
 		memData = data[i];
+		var memTr = document.getElementById('week_'+memData.email);
 		
 		var memInfo = memData.info;
-		var htmlText = "";
-		for(var j =0; j < memInfo.length ; j++){
-			var info = memInfo[j];
-			var count = 0;
-			if(info[1] > 0){
+		var htmlText = "<td>"+memTr.getAttribute("nickName")+"</td>";
+		var count = 0;
+		
+		for(var j =0; j < weekDays.length ; j++){
+			var info = memInfo[weekDays[j]]
+			if(info > 0){
 				count++;
 				htmlText+= '<td onClick="location.href=\'/board\/'+info[1]+'\'">&#128170;</td></a>';
 			}else{
@@ -74,19 +141,23 @@ function showMemeberWeek(data){
 			emo = '&#128552;';
 		}
 		htmlText+= '<td>'+per+'% 달성 '+emo+'</td>'
-		var memTr = document.getElementById('week_'+memData.email);
-		memTr.innerHTML += htmlText;
+		memTr.innerHTML = '';
+		memTr.innerHTML = htmlText;
 		
 	}
 }
+
+
 
 
 </script>
 <body>
 <form name = 'inputForm'>
 	<input type="hidden" name = 'sn' value = '${group.sn}'>
-</form>
-	<div class="container">
+		<input type="hidden" name = 'startDay'  id = 'startDay' value = ''>
+		<input type="hidden" name = 'lastDay'  id = 'lastDay' value = ''>
+	</form>
+		<div class="container">
 		<h3>${group.groupName }</h3>
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 			<c:if test="${isMember}">
@@ -94,7 +165,15 @@ function showMemeberWeek(data){
 			</c:if>
 		</div>
 	<div class="bg-light p-5 rounded">
-    <h1>이번주 기록</h1>
+	<div class = 'row justify-content-md-center'>
+	<a class="col col-sm-1 page-link" href="#" aria-label="Previous" onclick="preWeek()">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    <span class="col-md-auto" id='weekDay'>2022.05.23~</span>
+      <a class="col col-sm-1 page-link" href="#" aria-label="Next" onclick="nextWeek()">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+	</div>
 		<table class="table table-striped table-hover">
 		  <thead>
 		    <tr>
@@ -112,8 +191,8 @@ function showMemeberWeek(data){
 		  <tbody>
 		
 		<c:forEach items="${group.memeberList }" var="memeber">
-		 <tr id='week_${memeber.user.email}' >
-			<th  class="col">${memeber.user.nickname}</th >
+		 <tr id='week_${memeber.user.email}' nickName="${memeber.user.nickname}" >
+			
 		</tr>
 		</c:forEach>
 		</tbody>

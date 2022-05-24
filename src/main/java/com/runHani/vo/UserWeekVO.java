@@ -1,6 +1,7 @@
 package com.runHani.vo;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -19,7 +20,7 @@ public class UserWeekVO
 	private String email;
 	private String date;
 	private String cnt;
-	private List info;
+	private HashMap<String,String> info;
 	
 	
 
