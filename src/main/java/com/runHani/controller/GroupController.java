@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -156,6 +157,14 @@ public class GroupController {
 		
 		return result;
 
+	}
+	
+	@DeleteMapping(value = "memeber/{groupNo}")
+	public String leaveGroup(@PathVariable int groupNo)  {
+
+	//	groupService.leaveGroup(userGroup);
+
+		return "redirect:/group/list";
 	}
 
 }

@@ -21,6 +21,12 @@ function memberJoin(){
 	document.inputForm.submit();
 }
 
+function leavingGroup(){
+	document.inputForm.action="/group/member/${group.sn}"; 
+	document.inputForm.method="post";
+	document.inputForm._method.value="delete";
+	document.inputForm.submit();
+}
 
 function setThisWeek(d){
 
@@ -64,6 +70,10 @@ function nextWeek(){
 	var startStr = document.getElementById("startDay").value;
 	var startDay = new Date(startStr);
 	var preMonday = new Date(startDay.setDate(startDay.getDate()+7));
+	
+	if(preMonday > getMonday(new Date())){
+		return;
+	}
 	setThisWeek(preMonday);
 	setMemberWeekRecode()
 }
@@ -123,7 +133,7 @@ function showMemeberWeek(data){
 			var info = memInfo[weekDays[j]]
 			if(info > 0){
 				count++;
-				htmlText+= '<td onClick="location.href=\'/board\/'+info[1]+'\'">&#128170;</td></a>';
+				htmlText+= '<td onClick="location.href=\'/board\/'+info+'\'">&#128170;</td></a>';
 			}else{
 				htmlText+= '<td>&#128683;</td>'
 			}
@@ -152,8 +162,9 @@ function showMemeberWeek(data){
 
 </script>
 <body>
-<form name = 'inputForm'>
-	<input type="hidden" name = 'sn' value = '${group.sn}'>
+	<form name = 'inputForm'>
+		<input type="hidden" name = "_method" value = ""/>
+		<input type="hidden" name = 'sn' value = '${group.sn}'>
 		<input type="hidden" name = 'startDay'  id = 'startDay' value = ''>
 		<input type="hidden" name = 'lastDay'  id = 'lastDay' value = ''>
 	</form>
@@ -206,7 +217,7 @@ function showMemeberWeek(data){
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 			<button type="button" class="btn btn-primary" onclick="location.href='/group/list'">¸ñ·ÏÀ¸·Î</button>
 			<c:if test="${isMember}">
-			<button type="button" class="btn btn-danger" onclick="register()">Å»ÅðÇÏ±â</button>
+			<button type="button" class="btn btn-danger" onclick="leavingGroup()">Å»ÅðÇÏ±â</button>
 			</c:if>
 			<c:if test="${!isMember}">
 			<button type="button" class="btn btn-primary" onclick="memberJoin()">°¡ÀÔÇÏ±â</button>

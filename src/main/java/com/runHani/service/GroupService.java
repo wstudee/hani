@@ -188,4 +188,10 @@ public class GroupService {
 		return returnMap;
 	}
 
+	public void leaveGroup(UserGroupEntity userGroup) {
+
+		
+		
+	}
+
 }
