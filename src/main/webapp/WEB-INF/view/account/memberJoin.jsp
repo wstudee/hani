@@ -3,9 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
-<script src="/resource/js/account.js"></script>
-
 <script type="text/javascript">
 
 
@@ -20,7 +17,6 @@ function onload() {
   document.querySelectorAll('input').forEach(input => {
 	
 	input.addEventListener('invalid', () => {
-	  
 	  showError(input)
 	})
 

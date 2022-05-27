@@ -37,3 +37,18 @@
 	width: 200px !important;
 	
 }
+
+#preview{
+	height: 300px;
+    width: 300px;
+    position: relative;
+    text-align: center;
+    background-color: #eeeeee;
+    margin-bottom: 3%;
+    position: relative;
+    text-align: center;
+    background-repeat : no-repeat;
+    background-size : cover;
+    background-position: center;
+    
+}
