@@ -17,9 +17,7 @@
 			    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/group/list">내 그룹</a></li>
 			    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/group/allList">그룹 찾기</a></li>
 			</ul>
-          
           </li>
-          <li><a href="#" class="nav-link px-2 link-dark">Products</a></li>
         </ul>
 
 		<div class="col-md-3 text-end">
