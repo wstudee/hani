@@ -13,10 +13,10 @@ import com.runHani.entity.UserEntity;
 
 public interface GroupRepository extends JpaRepository<GroupEntity, Integer>{
 	 
-	  @Query("select g from GroupEntity g inner join g.memeberList m where m.user =  :user")// join g.memeberList where g.id =
+	  @Query("select g from GroupEntity g inner join g.memberList m where m.user =  :user")
 	  List<GroupEntity> selectMyGroup(UserEntity user , Pageable pageable );
 
-	  @Query("select count(g.sn) from GroupEntity g inner join g.memeberList m where m.user =  :user")// join g.memeberList where g.id =
+	  @Query("select count(g.sn) from GroupEntity g inner join g.memberList m where m.user =  :user")
 	  int selectMyGroupCnt(UserEntity user);
 
 	Page<GroupEntity> findByGroupStatus(Pageable pageable, String string);

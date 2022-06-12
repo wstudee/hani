@@ -116,7 +116,7 @@ public class GroupService {
 		return groupRepository.findById(groupNo).get();
 	}
 
-	public List<UserGroupEntity> findGroupMemeber(GroupEntity group) {
+	public List<UserGroupEntity> findGroupMember(GroupEntity group) {
 
 		return userGroupRepository.findByGroupSn(group);
 	}
@@ -134,9 +134,9 @@ public class GroupService {
 	public boolean isMember(GroupEntity group) {
 
 		String email = SessionUtil.getUserSession().getEmail();
-		List<UserGroupEntity> memebers = group.getMemeberList();
+		List<UserGroupEntity> members = group.getMemberList();
 
-		for (UserGroupEntity ug : memebers) {
+		for (UserGroupEntity ug : members) {
 
 			if (ug.getUser().getEmail().equals(email)) {
 				return true;
@@ -149,12 +149,12 @@ public class GroupService {
 
 	public List<UserGroupEntity> findUserGroupByGroup(GroupEntity group) {
 
-		List<UserGroupEntity> memebers = group.getMemeberList();
+		List<UserGroupEntity> members = group.getMemberList();
 
-		return memebers;
+		return members;
 	}
 
-	public HashMap<String,String> selectMemeberWeekRecord(UserEntity userEntity, GroupEntity group, HashMap param) throws ParseException {
+	public HashMap<String,String> selectMemberWeekRecord(UserEntity userEntity, GroupEntity group, HashMap param) throws ParseException {
 
 		String startDate = (String) param.get("startDate");
 		String lastDay = (String) param.get("lastDay");

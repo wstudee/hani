@@ -45,7 +45,7 @@ public class GroupEntity {
 	
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name ="group_sn")
-	private List<UserGroupEntity> memeberList;
+	private List<UserGroupEntity> memberList;
 	
 	
 	@OneToOne(fetch = FetchType.LAZY)

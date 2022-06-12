@@ -92,13 +92,13 @@ public class GroupController {
 		ModelAndView mav = new ModelAndView(task + "/detail");
 		GroupEntity group = groupService.findById(groupNo);
 		boolean isMember = groupService.isMember(group);
-		List<UserGroupEntity> memebers = group.getMemeberList();
+		List<UserGroupEntity> members = group.getMemberList();
 
 		
 		
 		mav.addObject("group", group);
 		mav.addObject("isMember", isMember);
-		mav.addObject("memebers", memebers);
+		mav.addObject("members", members);
 
 		return mav;
 	}
@@ -136,18 +136,18 @@ public class GroupController {
 		return "redirect:/board/list";
 	}
 
-	@RequestMapping(value = "/memeberWeek", method = RequestMethod.POST)
+	@RequestMapping(value = "/memberWeek", method = RequestMethod.POST)
 	@ResponseBody
-	public List<UserWeekVO>  selectMemeberWeekRecord(@RequestBody HashMap param) throws ParseException {
+	public List<UserWeekVO>  selectMemberWeekRecord(@RequestBody HashMap param) throws ParseException {
 
 		GroupEntity group = groupService.findById((int) param.get("groupSn"));
-		List<UserGroupEntity> memebers = group.getMemeberList();
+		List<UserGroupEntity> members = group.getMemberList();
 
 		List<UserWeekVO> result = new ArrayList<UserWeekVO>();
 		
 
-		for (UserGroupEntity user : memebers) {
-			HashMap<String,String> tmpList =  groupService.selectMemeberWeekRecord(user.getUser(), group, param);
+		for (UserGroupEntity user : members) {
+			HashMap<String,String> tmpList =  groupService.selectMemberWeekRecord(user.getUser(), group, param);
 			UserWeekVO userW =  new UserWeekVO();
 			userW.setEmail(user.getUser().getEmail());
 			userW.setInfo(tmpList);
@@ -159,7 +159,7 @@ public class GroupController {
 
 	}
 	
-	@DeleteMapping(value = "memeber/{groupNo}")
+	@DeleteMapping(value = "/member/{groupNo}")
 	public String leaveGroup(@PathVariable int groupNo)  {
 
 	//	groupService.leaveGroup(userGroup);

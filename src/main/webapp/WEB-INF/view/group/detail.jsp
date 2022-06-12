@@ -108,18 +108,18 @@ function setMemberWeekRecode(){
 	$.ajax({
         cache : false,
         contentType: 'application/json',
-        url : "${pageContext.request.contextPath}/group/memeberWeek", 
+        url : "${pageContext.request.contextPath}/group/memberWeek", 
         type : 'POST', 
         data : JSON.stringify(data), 
         success : function(data) {
-        	showMemeberWeek(data);
+        	showMemberWeek(data);
         }, // success 
         error : function(xhr, status) {
         }
     });
 }
 
-function showMemeberWeek(data){
+function showMemberWeek(data){
 	
 	for(var i = 0 ;  i  < data.length ; i++){
 		memData = data[i];
@@ -201,8 +201,8 @@ function showMemeberWeek(data){
 		  </thead>
 		  <tbody>
 		
-		<c:forEach items="${group.memeberList }" var="memeber">
-		 <tr id='week_${memeber.user.email}' nickName="${memeber.user.nickname}" >
+		<c:forEach items="${group.memberList }" var="member">
+		 <tr id='week_${member.user.email}' nickName="${member.user.nickname}" >
 			
 		</tr>
 		</c:forEach>
