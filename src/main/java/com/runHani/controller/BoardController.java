@@ -49,6 +49,7 @@ public class BoardController {
 		HashMap<String, Integer> paging = PageUtil.calculatePaging(resultList);
 		mav.addObject("searchEntity",searchEntity);
 		mav.addObject("list", boardList);
+		boardList.forEach(System.out::println);
 		mav.addObject("page", paging);
 		mav.addObject("totalCnt", resultList.getTotalElements());
 		

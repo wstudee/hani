@@ -48,7 +48,7 @@ public class BoardEntity {
 	@JoinColumn(name ="update_user", nullable = false)
 	private UserEntity updateUser;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name ="reg_user", nullable = false)
 	private UserEntity regUser;
 

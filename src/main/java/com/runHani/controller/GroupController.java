@@ -160,10 +160,9 @@ public class GroupController {
 	}
 	
 	@DeleteMapping(value = "/member/{groupNo}")
-	public String leaveGroup(@PathVariable int groupNo)  {
+	public String leaveGroup(@PathVariable("groupNo") GroupEntity groupNo)  {
 
-	//	groupService.leaveGroup(userGroup);
-
+		groupService.leaveGroup(groupNo);
 		return "redirect:/group/list";
 	}
 

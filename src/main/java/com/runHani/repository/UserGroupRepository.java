@@ -12,6 +12,8 @@ import com.runHani.entity.UserGroupEntity;
 public interface UserGroupRepository extends JpaRepository<UserGroupEntity, Integer>{
 
 	List<UserGroupEntity> findByGroupSn(GroupEntity group);
+
+	UserGroupEntity findByGroupSnAndUser(GroupEntity groupNo, UserEntity user);
 	 
 	
 	  

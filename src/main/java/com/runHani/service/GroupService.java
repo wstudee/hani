@@ -1,20 +1,10 @@
 package com.runHani.service;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,8 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.runHani.entity.BoardEntity;
 import com.runHani.entity.FileEntity;
 import com.runHani.entity.GroupEntity;
 import com.runHani.entity.GroupFileEntity;
@@ -188,10 +176,12 @@ public class GroupService {
 		return returnMap;
 	}
 
-	public void leaveGroup(UserGroupEntity userGroup) {
+	public void leaveGroup(GroupEntity groupNo) {
 
+		UserEntity user = SessionUtil.getUserEntity();
 		
-		
+		UserGroupEntity userGroupEntity = userGroupRepository.findByGroupSnAndUser(groupNo, user);
+		userGroupRepository.delete(userGroupEntity);
 	}
 
 }
